@@ -2,26 +2,43 @@ import { Box } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import debounce from "lodash/debounce";
+import React, { useCallback, useEffect, useState } from "react";
 
 function Search() {
   const [options, setOptions] = useState([]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const getOptionsDelayed = async () => {
+  const getOptionsDelayed = useCallback(
+    // delay api call for 500 ms
+    debounce((text, callback) => {
       try {
-        const res = await axios.get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API}&query=${input}&include_adult=false`
-        );
-        console.log(res.data.results);
-        setOptions(res.data.results);
+        axios
+          .get(
+            `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API}&query=${text}&include_adult=false`
+          )
+          .then((res) => res.data.results)
+          .then(callback);
       } catch (error) {
         console.log(error);
       }
-    };
-    if (input) getOptionsDelayed();
-  }, [input]);
+    }, 500),
+    []
+  );
+
+  useEffect(() => {
+    if (input) {
+      setLoading(true);
+      getOptionsDelayed(input, (newOptions) => {
+        setOptions(newOptions);
+        setLoading(false);
+      });
+    } else {
+      // reset options when user deletes whole input
+      setOptions([]);
+    }
+  }, [input, getOptionsDelayed]);
 
   return (
     <Autocomplete
@@ -31,7 +48,7 @@ function Search() {
       getOptionLabel={(option) => option.title}
       filterOptions={(x) => x}
       noOptionsText="No movies found"
-      // loading={false}
+      loading={loading}
       onInputChange={(e, newInput) => setInput(newInput)}
       renderOption={(props, option) => (
         <Box
