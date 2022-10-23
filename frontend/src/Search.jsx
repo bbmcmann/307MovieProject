@@ -5,6 +5,20 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useState } from "react";
 
+function SearchOption(props) {
+  return (
+    <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
+      <img
+        loading="lazy"
+        width="20"
+        src={`https://image.tmdb.org/t/p/original/${props.option.poster_path}`}
+        alt=""
+      />
+      {props.option.title}
+    </Box>
+  );
+}
+
 function Search() {
   const [options, setOptions] = useState([]);
   const [input, setInput] = useState("");
@@ -34,14 +48,17 @@ function Search() {
         setOptions(newOptions);
         setLoading(false);
       });
-    } else {
-      // reset options when user deletes whole input
-      setOptions([]);
     }
   }, [input, getOptionsDelayed]);
 
+  const handleSelect = (event, value) => {
+    // function to handle when user selects an option
+    console.log(value);
+  };
+
   return (
     <Autocomplete
+      freeSolo
       id="movieSearch"
       sx={{ width: 300 }}
       options={options}
@@ -51,25 +68,13 @@ function Search() {
       loading={loading}
       onInputChange={(e, newInput) => setInput(newInput)}
       renderOption={(props, option) => (
-        <Box
-          component="li"
-          sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-          {...props}
-          key={option.id}
-        >
-          <img
-            loading="lazy"
-            width="20"
-            src={`https://image.tmdb.org/t/p/original/${option.poster_path}`}
-            alt=""
-          />
-          {option.title}
-        </Box>
+        <SearchOption {...props} option={option} key={option.id} />
       )}
-      renderInput={(params) => <TextField {...params} label="Movie" />}
+      renderInput={(params) => <TextField {...params} label="Search" />}
       onClose={() => {
         setOptions([]);
       }}
+      onChange={handleSelect}
     />
   );
 }
