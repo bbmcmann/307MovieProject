@@ -10,7 +10,7 @@ function SearchOption(props) {
     <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
       <img
         loading="lazy"
-        width="20"
+        width="50"
         src={`https://image.tmdb.org/t/p/original/${props.option.poster_path}`}
         alt=""
       />
