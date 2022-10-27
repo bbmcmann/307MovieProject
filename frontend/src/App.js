@@ -1,10 +1,12 @@
 
 import './App.css';
+import ReviewList from './components/ReviewList';
+
 
 function App() {
   return (
     <div className="App">
-      <p>banana</p>
+      <ReviewList />
     </div>
   );
 }
