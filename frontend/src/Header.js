@@ -1,11 +1,18 @@
 import React from 'react';
+import Search from './Search';
+import styled from 'styled-components';
+
+const Searchdiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  padding: 10px;
+`
 
 function GetHeader(){
     return (
       <header className="App-header">
-        <form className="App-form">
-          <input type="search" name="q" placeholder="Find Movie" />
-        </form>
+        <Searchdiv> <Search /> </Searchdiv>
         <h1 className="App-h1">
           The Bananalyst
         </h1> 
@@ -49,11 +56,11 @@ function GetPun() {
 
     return (
         <div className="App-body">
-            <h2 className="App-h2">Pun-ana of the Day :</h2>
-            <GetQuestion />
+            <h2 className="App-h2">&#127820; Pun-ana of the Day : &#127820;</h2>
+            &#x1F34C;<GetQuestion />
             <br></br>
             <br></br>
-            <GetAnswer />
+            &#x1F34C;<GetAnswer />
         </div>
     );
 }
