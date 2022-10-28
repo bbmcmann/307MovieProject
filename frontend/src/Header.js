@@ -31,8 +31,8 @@ function GetHeader(){
 }
 
 function GetPun() {
-    let pun_q = ["How is a banana peel on the floor similar to music?", "Why don't bananas snore?", "Why do banana have to wear sunscreen?", "What do you call a banana who gets all the girls?", "I was walking down the street when I stood on a banana?"];
-    let pun_a = ["Because if you don't C Sharp you'll B Flat", "Because they don't want to wake up the rest of the bunch", "Because they peel", "A banana smoothie", "Luckily, I was wearing my SlipKnot t-shirt"];
+    let pun_q = ["How is a banana peel on the floor similar to music?", "Why don't bananas snore?", "Why do banana have to wear sunscreen?", "What do you call a banana who gets all the girls?", "I was walking down the street when I stood on a banana?", "What's the difference between time and bananas?"];
+    let pun_a = ["Because if you don't C Sharp you'll B Flat", "Because they don't want to wake up the rest of the bunch", "Because they peel", "A banana smoothie", "Luckily, I was wearing my SlipKnot t-shirt", "Time flies like an arrow, fruit flies like a banana"];
     let randomNum = Math.floor(Math.random() * pun_q.length);
 
     function GetQuestion() {
