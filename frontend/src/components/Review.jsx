@@ -7,8 +7,21 @@ const StyledCard = styled(Card)`
   margin-bottom: 10px;
   box-shadow: 5px 5px 5px gray;
   text-align: left;
+`
+
+const TopBlock = styled.div`
   padding-left: 20px;
   padding-right: 50px;
+  padding-top: 3px;
+  padding-bottom: 2px;
+  background: #D9D9D9;
+  line-height: normal;
+  //margin-top: 5px;
+`
+
+const TextBlock = styled.div`
+  padding-left: 30px;
+  padding-right: 30px;
 `
 
 const VoteDiv = styled.div`
@@ -24,16 +37,21 @@ function Review({
   review_header,
   upvotes,
   downvotes, 
+  date_posted,
   score}) {
     
 
   return (
     <div>
       <StyledCard sx={{minWidth: 50}}>
-        <h1>{review_header}</h1>
-        <p>Reviewed by: {userName}</p>
-        <p>Score: {score}</p>
-        <p>{review_txt}</p>
+        <TopBlock>
+          <h1>{review_header}</h1>
+          <p>Reviewed by: {userName} on {date_posted}</p>
+          <p>Score: {score}</p>
+        </TopBlock>
+        <TextBlock>
+          <p>{review_txt}</p>
+        </TextBlock>
         <VoteDiv>
           <p>Upvotes: {upvotes}</p>
           <p>Downvotes: {downvotes}</p>
