@@ -112,10 +112,7 @@
 }
 
 .dropdown:hover .dropbtn {
-<<<<<<< HEAD
   background-color: #E55B7E;
-=======
   background-color: #e55b7e;
->>>>>>> 185859f3dd0bbc24d8f4d043fb18c06f3b2d3aab
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
