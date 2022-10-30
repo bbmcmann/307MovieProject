@@ -51,7 +51,10 @@ function ReviewList() {
       <StyledCon>
         {testData ? testData.map((review) => {
             return (
-              <Review {...review}/>
+              <div key={review.userName}>
+                <Review {...review}/>
+              </div>
+              
             )
         }) : <p>No Reviews Yet</p>}
       </StyledCon>

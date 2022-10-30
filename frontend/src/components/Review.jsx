@@ -1,12 +1,13 @@
 import Card from '@mui/material/Card';
-import { Rating } from '@mui/material';
+import { Rating, IconButton  } from '@mui/material';
 import styled from 'styled-components';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { useState } from 'react';
 
 const StyledCard = styled(Card)`
   border: 1px solid #D9D9D9;
-  width: 700px;
+  width: 800px;
   margin-bottom: 10px;
   box-shadow: 5px 5px 5px gray;
   text-align: left;
@@ -63,7 +64,6 @@ const RevWrap = styled.div`
   padding-left: 16px;
 `
 
-
 function Review({
   userName,
   review_txt,
@@ -72,6 +72,36 @@ function Review({
   downvotes, 
   date_posted,
   score}) {
+
+  const handleVote = (thisVote) => {
+    if(!voted){
+      setVoted(true);
+      setVote(thisVote);
+      if(thisVote === 'up'){
+        setCurUpVote(curUpVote + 1);
+      }
+      else{
+        setCurDownVote(curDownVote + 1);
+      }
+    }
+    else if(vote !== thisVote){
+      setVote(thisVote);
+      if(thisVote === 'up'){
+        setCurUpVote(curUpVote + 1);
+        setCurDownVote(curDownVote - 1);
+      }
+      else{
+        setCurDownVote(curDownVote + 1);
+        setCurUpVote(curUpVote - 1);
+      }
+    }
+  } 
+
+  const [curUpVote, setCurUpVote] = useState(upvotes);
+  const [curDownVote, setCurDownVote] = useState(downvotes);
+  const [voted, setVoted] = useState(false);   // might have to save this in db actually to log if they have voted on a review before
+  const [vote, setVote] = useState('');
+
   return (
     <div>
       <StyledCard sx={{minWidth: 50}}>
@@ -88,19 +118,22 @@ function Review({
               />
             </RevWrap>
           </ScoreBlock>
-          
         </TopBlock>
         <TextBlock>
           <p>{review_txt}</p>
         </TextBlock>
         <VoteBar>
           <VoteDiv>
-            <p>Upvotes: {upvotes}</p>
-            <UpVote />
+            <p>Upvotes: {curUpVote}</p>
+            <IconButton onClick={() => handleVote('up')}>
+              <UpVote /> 
+            </IconButton>
           </VoteDiv>
           <VoteDiv>
-            <p>Downvotes: {downvotes}</p>
-            <DownVote />
+            <p>Downvotes: {curDownVote}</p>
+            <IconButton onClick={() => handleVote('down')}>
+              <DownVote />
+            </IconButton>
           </VoteDiv>
         </VoteBar>
       </StyledCard>
