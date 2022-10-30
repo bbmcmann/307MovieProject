@@ -91,7 +91,7 @@
   background-color: #E55B7E;
   font-size: 20px;
   min-width: 80px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -113,4 +113,5 @@
 
 .dropdown:hover .dropbtn {
   background-color: #E55B7E;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
