@@ -7,7 +7,7 @@ const StyledCon = styled(Container)`
   flex-direction: row;
   justify-content: center;
   //padding: 10px;
-  border: 1px solid black;
+  //border: 1px solid black;
 `
 
 function ReviewList() {
