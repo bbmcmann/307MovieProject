@@ -1,15 +1,12 @@
-import React from 'react';
-import Header from './Header'
-import Pun from './Pun';
-
+import React from "react";
+import Pun from "./Pun";
 
 function Home() {
-    return (
-        <div className="Home Page">
-            <Header />
-            <Pun />
-        </div>
-    );
+  return (
+    <div className="Home Page">
+      <Pun />
+    </div>
+  );
 }
 
 export default Home;

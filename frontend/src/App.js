@@ -1,20 +1,15 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import ReviewList from "./components/ReviewList";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <p>header</p>
-              <Outlet />
-            </div>
-          }
-        >
-          <Route index element={<p>home page</p>} />
+        <Route path="/" element={<Header />}>
+          <Route index element={<Home />} />
 
           {/* Movie paths */}
           <Route path="movie">
@@ -27,7 +22,7 @@ function App() {
 
           {/* Review paths */}
           <Route path="review">
-            <Route index element={<p>generic review page</p>} />
+            <Route index element={<ReviewList />} />
             <Route path=":reviewId" element={<p>reviewId page</p>} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
