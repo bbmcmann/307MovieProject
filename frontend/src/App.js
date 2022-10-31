@@ -3,7 +3,6 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import ReviewList from "./components/ReviewList";
-// import './Movie.css'
 import Movie from './Movie';
 
 function App() {
@@ -18,7 +17,7 @@ function App() {
             <Route index element={<p>generic movie page</p>} />
             <Route path="popular" element={<p>popular movie page</p>} />
             <Route path="recommend" element={<p>recommend movie page</p>} />
-            <Route path=":movieId" element={<p>movieId page</p>} />
+            <Route path=":movieId" element={<Movie />} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
 
