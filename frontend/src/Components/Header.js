@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import Search from "../Search";
+import Search from "./Search";
 
 const Searchdiv = styled.div`
   display: flex;
