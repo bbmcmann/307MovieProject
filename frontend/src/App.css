@@ -14,14 +14,41 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #f6da73;
+  min-height: 225px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* font-size: calc(20px); */
+  color: black;
+}
+
+.App-form {
+  text-align: right;
+  padding: 10px;
+  padding-right: 20px;
+  display: block;
+}
+
+.App-h1 {
+  font-size: calc(75px);
+  text-align: left;
+  margin-left: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.App-nav {
+  font-size: calc(10x);
+  text-align: right;
+  padding-right: 20px;
+}
+
+.App-body {
+  text-align: left;
+  padding-left: 200px;
 }
 
 .App-link {
@@ -35,4 +62,57 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* for the drop down in the nav bar */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown .drophome {
+  font-size: 32px;
+  padding: 16px;
+}
+
+.dropbtn {
+  background-color: #f6da73;
+  color: black;
+  padding: 16px;
+  padding-left: 20px;
+  font-size: 32px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropcont {
+  display: none;
+  position: absolute;
+  background-color: #e55b7e;
+  font-size: 20px;
+  min-width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropcont a {
+  text-decoration: none;
+  text-align: left;
+  display: block;
+}
+
+.dropcont a:hover {
+  background-color: black;
+}
+
+.dropdown:hover .dropcont {
+  text-align: left;
+  padding-left: 10px;
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #E55B7E;
+  background-color: #e55b7e;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
