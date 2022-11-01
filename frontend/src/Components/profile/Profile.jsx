@@ -1,10 +1,13 @@
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/Profile.css";
 import ProfileLiked from "./ProfileLiked";
 
 function Profile({ id }) {
   const [user, setUser] = useState({});
+
+  const navigate = useNavigate();
 
   const usr = {
     username: "theJohnSmith",
@@ -36,8 +39,12 @@ function Profile({ id }) {
     setUser(usr);
   }, [id]);
 
+  const navigateEdit = () => {
+    navigate("/profile/edit");
+  };
+
   return (
-    <div className="profile">
+    <Paper className="profile" elevation={2}>
       <h1 className="profile-header">&#127820;User Profile&#127820;</h1>
       <hr />
       <div className="container">
@@ -50,13 +57,16 @@ function Profile({ id }) {
           </span>
           <p>&#127820;Favorite Pun-ana</p>
           <p>{user.pun}</p>
-          {user ? <Button variant="contained">Edit</Button> : null}
+          {/* Need to add logic to check if profile being viewed is their own profile */}
+          {user ? (
+            <Button variant="contained" onClick={navigateEdit}>
+              Edit
+            </Button>
+          ) : null}
         </div>
-        <div className="liked">
-          <ProfileLiked movies={user.movies} />
-        </div>
+        <ProfileLiked movies={user.movies} />
       </div>
-    </div>
+    </Paper>
   );
 }
 

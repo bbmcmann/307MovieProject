@@ -2,9 +2,6 @@
   max-width: 1000px;
   min-height: 55vh;
   margin: auto;
-  border-radius: 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .profile-header {
@@ -25,23 +22,36 @@ span {
   text-align: left;
 }
 
-.liked {
-  flex: 2;
-}
-
 .profile hr {
   border-top: 3px solid #3e5336;
   width: 90%;
 }
 
 .liked-section {
+  flex: 2;
   margin-right: 50px;
   background-color: #3e5336;
   border-radius: 5px;
   color: white;
-  height: 100%;
+}
+
+.liked-section h3 {
+  padding-top: 5px;
+}
+
+.movies {
+  padding: 0 5% 5% 5%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: space-between;
 }
 
 .poster {
-  max-width: 50px;
+  max-width: 70px;
+  margin: 5px;
+}
+
+.poster:hover {
+  border: 3px solid #e55b7e;
 }

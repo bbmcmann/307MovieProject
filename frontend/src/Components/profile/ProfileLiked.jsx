@@ -4,6 +4,7 @@ import "../../styles/Profile.css";
 
 function ProfileLiked({ movies }) {
   const navigate = useNavigate();
+
   const handleClick = (id) => {
     navigate(`/movie/${id}`);
   };
