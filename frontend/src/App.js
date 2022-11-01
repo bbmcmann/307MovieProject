@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
+import Profile from "./components/profile/Profile";
 import ReviewList from "./components/ReviewList";
-import Movie from './Movie';
+import Movie from "./Movie";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
 
           {/* Profile paths */}
           <Route path="profile">
-            <Route index element={<p>my profile page</p>} />
+            <Route index element={<Profile />} />
             <Route path=":id" element={<p>profile w id page</p>} />
             <Route path="edit" element={<p>edit profile page</p>} />
             <Route path="*" element={<h1>404 page not found</h1>} />
