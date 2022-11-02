@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Profile from "./components/profile/Profile";
+import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
 import Movie from "./Movie";
 
@@ -31,9 +32,9 @@ function App() {
 
           {/* Profile paths */}
           <Route path="profile">
-            <Route index element={<Profile />} />
-            <Route path=":id" element={<p>profile w id page</p>} />
-            <Route path="edit" element={<p>edit profile page</p>} />
+            <Route index element={<Profile id={1} />} />
+            <Route path=":id" element={<Profile id={2} />} />
+            <Route path="edit" element={<ProfileEdit />} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
 
