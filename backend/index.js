@@ -12,9 +12,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/users", async (req, res) => {
-    const username = req.query.username;
+    let id;
     try {
-        const result = await db.getUsers(username);
+        const result = await db.getUsers(id);
         res.send({"users_list": result});
     } catch (error) {
         console.log(error);
@@ -32,7 +32,18 @@ app.post("/users", async (req, res) => {
     }
 });
 
-app.delete("/users/:id", async(req, res) => {
+app.get("/users/:id", async (req, res) => {
+    const id = req.params["id"];
+    try {
+        const result = await db.getUsers(id);
+        res.send({"users_list": result});
+    } catch (error) {
+        console.log(error);
+        res.status(505).send("An error occurred on the system");
+    }
+});
+
+app.delete("/users/:id", async (req, res) => {
     const id = req.params["id"];
     const result = await db.deleteUserById(id);
     if (!result) {

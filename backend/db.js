@@ -4,14 +4,14 @@ dotenv.config();
 
 let dbConnection;
 
-async function getDbConnection() {
+function getDbConnection() {
     if (!dbConnection) {
-        dbConnection = await mongoose.createConnection(process.env.MONGODB_URI, {
+        dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-    }
+    } 
     return dbConnection;
 }
 
-module.exports = getDbConnection;
+module.exports = dbConnection;

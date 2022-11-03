@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema( {
-    //Id: mongoose.isObjectIdOrHexString,
     username: {
         type: String,
         required: true

@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const UserSchema = require("../models/users.js");
 const dotenv = require("dotenv");
 dotenv.config();
-// const db = require("../db.js");
+const db = require("../db.js");
+const { get } = require("../models/users.js");
 
 let dbConnection;
 
@@ -16,15 +17,26 @@ function getDbConnection() {
     return dbConnection;
 } 
 
-async function getUsers(username) {
+async function getUsers(id) {
     const  userModel = getDbConnection().model("User", UserSchema);
     let result;
-    if (username) {
-        result = await userModel.findUserByUserName(username);
-    } else if (username === undefined){
+    if (id) {
+        result = await findUserById(id);
+    } else if (id === undefined) {
         result = await userModel.find();
     }
     return result;
+}
+
+async function findUserById(id) {
+    const userModel = getDbConnection().model("User", UserSchema);
+    try {
+        return await userModel.findById(id);
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+    
 }
 
 async function addUser(user) {
