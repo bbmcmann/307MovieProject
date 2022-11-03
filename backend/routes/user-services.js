@@ -3,7 +3,6 @@ const UserSchema = require("../models/users.js");
 const dotenv = require("dotenv");
 dotenv.config();
 const db = require("../db.js");
-const { get } = require("../models/users.js");
 
 let dbConnection;
 
