@@ -3,10 +3,6 @@ import styled from 'styled-components';
 import Container from '@mui/material/Container';
 import { Box } from "@mui/material";
 
-const PageBackground = styled.body`
-background: #e55b7e;
-`
-
 const StyledBlock = styled(Container)`
 padding: 100px;
 justify-content: center;
@@ -76,7 +72,7 @@ function SignIn() {
     }
 
     return (
-        <PageBackground>
+
             <StyledBlock>
                 <StyledHead>The Bananalyst</StyledHead>
                 <StyledText>Login </StyledText>
@@ -104,7 +100,7 @@ function SignIn() {
                 <StyledButton>Login</StyledButton>
                 <p>Don't have an account? Sign up here</p>
             </StyledBlock>
-        </PageBackground>
+
     )
 }
 
