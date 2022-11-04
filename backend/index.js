@@ -8,7 +8,15 @@ app.use(express.json());
 
 const movieEndpoints = require("./routes/movieRoutes.js");
 
-app.use("/movies", movieEndpoints);
+app.use(logger);
+
+app.use("/api/movie", movieEndpoints);
+
+function logger(req, res, next) {
+  console.log(`${req.method} ${req.path}`);
+  next();
+  console.log(`Completed with status code: ${res.statusCode}`);
+}
 
 app.get("/", (req, res) => {
   res.send("Hello World");
