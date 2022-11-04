@@ -60,7 +60,7 @@ function Search() {
     <Autocomplete
       freeSolo
       id="movieSearch"
-      sx={{ width: 300 }}
+      sx={{ width: 300, background: '#FFFFFF', borderRadius: 1, overflow: 'hidden'}}
       options={options}
       getOptionLabel={(option) => option.title}
       filterOptions={(x) => x}

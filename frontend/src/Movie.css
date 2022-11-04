@@ -1,0 +1,112 @@
+.Movie {
+  text-align: left;
+}
+
+/* .Movie-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Movie-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.Movie-header {
+  background-color: #F6DA73;
+  min-height: 225px;
+  display: flex;
+  flex-direction: column;
+  * align-items: center; *
+  justify-content: center;
+  * font-size: calc(20px); *
+  color: black;
+}
+
+.Movie-form {
+  text-align: right;
+  padding: 10px;
+  padding-right: 20px;
+}
+
+.Movie-h1 {
+  font-size: calc(75px);
+  text-align: center;
+  margin-left: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+} */
+
+/* .Movie-nav {
+  font-size: calc(10x);
+  text-align: right;
+  padding-right: 20px;
+}
+*/
+
+.Movie-body {
+  text-align: left;
+  padding-top: 200px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.Movie-link {
+  color: #61dafb;
+} 
+
+.Movie-review{
+  display: inline-flexbox;
+  text-align: left;
+  padding: 50px;
+}
+
+.Movie-poster {
+  display: inline-flex;
+  text-align: left;
+  padding-top: 15;
+  padding-bottom: 15;
+  padding-left: 2;
+  padding-right: 2;
+}
+
+.Movie-score{
+  display: inline-flex;
+  text-align: center;
+  justify-self: flex-end;
+  align-self: flex-end;
+}
+
+.Movie-score-text{
+  text-align: center;
+  padding-left: 15px;
+  padding-top: 30%;
+}
+
+.dot {
+  height: 250px;
+  width: 250px;
+  background-color: #3E5336;
+  border-radius: 50%;
+  display: inline-flex;
+  offset-inline-start: 40px;
+}
+
+.Movie-poster-review-panel{
+  display: flex;
+  justify-content: space-between;
+}
+
+.side-recommended{
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
