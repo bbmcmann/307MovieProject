@@ -5,9 +5,11 @@ import styled from 'styled-components'
 const StyledCon = styled(Container)`
   display: flex;
   flex-direction: row;
+  // margin: auto;
   justify-content: center;
   //padding: 10px;
   //border: 1px solid black;
+
 `
 
 function ReviewList() {

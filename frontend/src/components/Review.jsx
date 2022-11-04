@@ -7,10 +7,12 @@ import { useState } from 'react';
 
 const StyledCard = styled(Card)`
   border: 1px solid #D9D9D9;
-  width: 800px;
+  // width: 800px;
   margin-bottom: 10px;
+  padding-top: 50px
   box-shadow: 5px 5px 5px gray;
   text-align: left;
+  // margin: auto
 `
 
 const TopBlock = styled.div`
