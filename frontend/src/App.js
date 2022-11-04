@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
-import Home from "./components/Home";
-import ReviewList from "./components/ReviewList";
+import Header from "./Components/Header";
+import Home from "./Components/Home";
+import ReviewList from "./Components/ReviewList";
 import Movie from './Movie';
+import SignIn from "./Components/SignIn";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
         </Route>
 
         {/* Auth paths */}
-        <Route path="login" element={<p>login page</p>} />
+        <Route path="login" element={<SignIn />} />
         <Route path="signup" element={<p>signup page</p>} />
 
         <Route path="*" element={<h1>404 page not found</h1>} />
