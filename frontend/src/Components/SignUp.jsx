@@ -1,4 +1,5 @@
 import Container from '@mui/material/Container';
+import { useState } from 'react';
 import styled from 'styled-components'  
 
 const StyledCon = styled(Container)`
@@ -52,28 +53,50 @@ const StyledSubmit = styled.input`
 `
 
 function SignUp() {
+
+    const [fName, setFName] = useState('');
+    const [lName, setLName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+
     return (
         <StyledCon maxWidth="md">
             <StyledForm>
                 <StyledDiv>
                     <StyledLabel>
                         First Name:
-                        <StyledInput type="text" name="name" />
+                        <StyledInput 
+                            type="text" 
+                            name="name" 
+                            onChange={(e) => {setFName(e.target.value)}}
+                        />
                     </StyledLabel>
                     
                     <StyledLabel>
                         Last Name:
-                        <StyledInput type="text" name="name" />
+                        <StyledInput 
+                            type="text" 
+                            name="name"
+                            onChange={(e) => {setLName(e.target.value)}} 
+                        />
                     </StyledLabel>
                 </StyledDiv>
                 
                 <StyledLabel>
                     User Name:
-                    <StyledInput type="text" name="name" />
+                    <StyledInput 
+                        type="text" 
+                        name="name" 
+                        onChange={(e) => {setUserName(e.target.value)}}
+                    />
                 </StyledLabel>
                 <StyledLabel>
                     Email:
-                    <StyledInput type="text" name="name" />
+                    <StyledInput 
+                        type="text" 
+                        name="name"
+                        onChange={(e) => {setEmail(e.target.value)}} 
+                    />
                 </StyledLabel>
                 <StyledDiv>
                     <StyledLabel>
