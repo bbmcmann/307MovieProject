@@ -4,8 +4,30 @@ axios = require("axios");
 dotenv = require("dotenv");
 dotenv.config();
 
-function getMovieById(id) {
-  console.log(id);
+async function getMovieById(id) {
+  try {
+    const apiRes = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.MOVIE_API}&language=en-US`
+    );
+    const result = {
+      title: apiRes.data.title,
+      description: apiRes.data.overview,
+      poster_path: apiRes.data.poster_path,
+      genres: apiRes.data.genres,
+    };
+    try {
+      const mongoRes = await Movie.findOne({ id: id }); // need to add populate
+      return {
+        ...mongoRes._doc,
+        ...result,
+      };
+    } catch (error) {
+      // movie doesn't exist in mongo database
+      return result;
+    }
+  } catch (error) {
+    throw new Error("Could not find movie");
+  }
 }
 
 function updateMovieById(id) {}
@@ -23,7 +45,7 @@ async function searchMovie(query) {
 
 function createMovie(id, score, reviewId) {
   let newMovie = new Movie({
-    _id: mongoose.Types.ObjectId(id),
+    id: id,
     score: score,
     reviews: [mongoose.Types.ObjectId(reviewId)],
   });

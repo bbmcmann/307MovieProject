@@ -23,12 +23,13 @@ router.get("/search", async (req, res) => {
 router
   .route("/:id")
   .get(async (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     try {
-      const result = getMovieById(id);
+      const result = await getMovieById(id);
       res.status(200).send(result);
     } catch (error) {
-      res.status(500).send(error);
+      console.log(error);
+      res.status(400).send(error);
     }
   })
   .put(async (req, res) => {
