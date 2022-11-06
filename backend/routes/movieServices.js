@@ -1,4 +1,5 @@
 const Movie = require("../models/movieSchema.js");
+const mongoose = require("mongoose");
 axios = require("axios");
 dotenv = require("dotenv");
 dotenv.config();
@@ -20,8 +21,24 @@ async function searchMovie(query) {
   }
 }
 
+function createMovie(id, score, reviewId) {
+  let newMovie = new Movie({
+    _id: mongoose.Types.ObjectId(id),
+    score: score,
+    reviews: [mongoose.Types.ObjectId(reviewId)],
+  });
+
+  try {
+    newMovie.save();
+    return newMovie;
+  } catch (error) {
+    throw new Error("Something went wrong with creating a Movie");
+  }
+}
+
 module.exports = {
   getMovieById,
   updateMovieById,
   searchMovie,
+  createMovie,
 };

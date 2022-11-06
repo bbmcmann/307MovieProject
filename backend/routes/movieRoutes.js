@@ -5,6 +5,7 @@ const {
   getMovieById,
   updateMovieById,
   searchMovie,
+  createMovie,
 } = require("./movieServices.js");
 
 // search for movies with a similar name from the query string
@@ -41,18 +42,15 @@ router
   });
 
 // Create a new movie to DB
-// Params: score (Integer)
+// Params: movie api id, review object
 router.post("/", async (req, res) => {
-  const { score } = req.body;
-
-  let newMovie = new Movie({
-    score: score,
-  });
+  const { id, review } = req.body;
 
   try {
-    newMovie.save();
-    res.status(201).send(newMovie);
+    const result = createMovie(id, review.score, review.id);
+    res.status(201).send(result);
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 });
