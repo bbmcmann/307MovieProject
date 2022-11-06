@@ -3,7 +3,8 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import ReviewList from "./components/ReviewList";
-import Movie from './Movie';
+import Movie from './Movie'
+import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
 
         {/* Auth paths */}
         <Route path="login" element={<p>login page</p>} />
-        <Route path="signup" element={<p>signup page</p>} />
+        <Route path="signup" element={<SignUp />} />
 
         <Route path="*" element={<h1>404 page not found</h1>} />
       </Routes>
