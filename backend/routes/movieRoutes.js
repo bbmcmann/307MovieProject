@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Movie = require("../models/movieSchema.js");
 const {
   getMovieById,
-  updateMovieById,
   searchMovie,
   createMovie,
 } = require("./movieServices.js");
@@ -19,36 +17,24 @@ router.get("/search", async (req, res) => {
   }
 });
 
-// get/put a movie by id
-router
-  .route("/:id")
-  .get(async (req, res) => {
+// get a movie by id
+router.get("/:id", async (req, res) => {
+  try {
     const id = parseInt(req.params.id);
-    try {
-      const result = await getMovieById(id);
-      res.status(200).send(result);
-    } catch (error) {
-      console.log(error);
-      res.status(400).send(error);
-    }
-  })
-  .put(async (req, res) => {
-    const id = req.params.id;
-    try {
-      const result = updateMovieById(id);
-      res.status(200).end();
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  });
+    const result = await getMovieById(id);
+    res.status(200).send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+});
 
 // Create a new movie to DB
-// Params: movie api id, review object
+// Params: movie api id (integer), review object
 router.post("/", async (req, res) => {
   const { id, review } = req.body;
-
   try {
-    const result = createMovie(id, review.score, review.id);
+    const result = createMovie(id, review.id, review.score);
     res.status(201).send(result);
   } catch (error) {
     console.log(error);
