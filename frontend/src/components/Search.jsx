@@ -24,22 +24,21 @@ function Search() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const getOptionsDelayed = useCallback(
-    // delay api call for 500 ms
-    debounce((text, callback) => {
-      try {
-        axios
-          .get(
-            `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API}&query=${text}&include_adult=false`
-          )
-          .then((res) => res.data.results)
-          .then(callback);
-      } catch (error) {
-        console.log(error);
-      }
-    }, 500),
-    []
-  );
+  // delay api call for 500 ms
+  const fetchOptions = debounce((text, callback) => {
+    try {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API}&query=${text}&include_adult=false`
+        )
+        .then((res) => res.data.results)
+        .then(callback);
+    } catch (error) {
+      console.log(error);
+    }
+  }, 500);
+
+  const getOptionsDelayed = useCallback(() => fetchOptions, [fetchOptions]);
 
   useEffect(() => {
     if (input) {
