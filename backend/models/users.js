@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const db = require("../db.js")
 
 const UserSchema = new mongoose.Schema( {
     username: {
@@ -23,5 +24,7 @@ const UserSchema = new mongoose.Schema( {
     }
     // favorite_pun
 }, {collection : 'users_list'});
+
+// const Users = db.getDbConnection().model("Users", UserSchema)
 
 module.exports = UserSchema;

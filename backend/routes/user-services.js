@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const UserSchema = require("../models/users.js");
+const Users = require("../models/users.js");
 const dotenv = require("dotenv");
 dotenv.config();
-const db = require("../db.js");
 
 let dbConnection;
 
