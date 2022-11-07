@@ -9,12 +9,13 @@ on:
   pull_request:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: backend
+
 jobs:
   backend:
     runs-on: ${{ matrix.os }} #ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
 
     strategy:
       matrix:
