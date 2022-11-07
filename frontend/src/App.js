@@ -3,7 +3,7 @@ import "./App.css";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 import ReviewList from "./Components/ReviewList";
-import Movie from './Movie';
+import Movie from "./Movie";
 import SignIn from "./Components/SignIn";
 
 function App() {
