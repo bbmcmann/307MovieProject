@@ -12,9 +12,9 @@ on:
 jobs:
   backend:
     runs-on: ${{ matrix.os }} #ubuntu-latest
-
-    run:
-      working-directory: ./backend
+    defaults:
+      run:
+        working-directory: backend
 
     strategy:
       matrix:
@@ -35,9 +35,9 @@ jobs:
 
   frontend:
     runs-on: ${{ matrix.os }} #ubuntu-latest
-
-    run:
-      working-directory: ./frontend
+    defaults:
+      run:
+        working-directory: frontend
 
     strategy:
       matrix:
