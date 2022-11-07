@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema( {
     // favorite_pun
 }, {collection : 'users_list'});
 
-// const Users = db.getDbConnection().model("Users", UserSchema)
+const Users = db.getDbConnection().model("Users", UserSchema)
 
-module.exports = UserSchema;
+module.exports = Users;
+// module.exports = UserSchema;

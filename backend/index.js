@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const db = require("./routes/user-services.js");
 const app = express();
 const port = 5000;
 
 app.use(cors());
 app.use(express.json());
 
+const userEndpoints = require("./routes/user-services.js");
 const movieEndpoints = require("./routes/movieRoutes.js");
 
 app.use("/movies", movieEndpoints);
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 app.get("/users", async (req, res) => {
     let id;
     try {
-        const result = await db.getUsers(id);
+        const result = await userEndpoints.getUsers(id);
         res.send({"users_list": result});
     } catch (error) {
         console.log(error);
@@ -28,7 +28,7 @@ app.get("/users", async (req, res) => {
 
 app.post("/users", async (req, res) => {
     const userToAdd = req.body;
-    const result = await db.addUser(userToAdd);
+    const result = await userEndpoints.addUser(userToAdd);
     if (result) {
         res.status(201).send(result);
     } else {
@@ -39,7 +39,7 @@ app.post("/users", async (req, res) => {
 app.get("/users/:id", async (req, res) => {
     const id = req.params["id"];
     try {
-        const result = await db.getUsers(id);
+        const result = await userEndpoints.getUsers(id);
         res.send({"users_list": result});
     } catch (error) {
         console.log(error);
@@ -49,7 +49,7 @@ app.get("/users/:id", async (req, res) => {
 
 app.delete("/users/:id", async (req, res) => {
     const id = req.params["id"];
-    const result = await db.deleteUserById(id);
+    const result = await userEndpoints.deleteUserById(id);
     if (!result) {
         res.status(404).send("Resource not found");
     } else {

@@ -1,35 +1,21 @@
 const mongoose = require("mongoose");
+const express = require("express");
 const Users = require("../models/users.js");
-const dotenv = require("dotenv");
-dotenv.config();
-
-let dbConnection;
-
-function getDbConnection() {
-    if (!dbConnection) {
-        dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-    }
-    return dbConnection;
-} 
+const router = express.Router();
 
 async function getUsers(id) {
-    const  userModel = getDbConnection().model("User", UserSchema);
     let result;
     if (id) {
         result = await findUserById(id);
     } else if (id === undefined) {
-        result = await userModel.find();
+        result = await Users.find();
     }
     return result;
 }
 
 async function findUserById(id) {
-    const userModel = getDbConnection().model("User", UserSchema);
     try {
-        return await userModel.findById(id);
+        return await Users.findById(id);
     } catch (error) {
         console.log(error);
         return undefined;
@@ -38,9 +24,8 @@ async function findUserById(id) {
 }
 
 async function addUser(user) {
-    const userModel = getDbConnection().model("User", UserSchema);
     try {
-        const userToAdd = new userModel(user);
+        const userToAdd = new Users(user);
         const savedUser = await userToAdd.save();
         return savedUser;
     } catch (error) {
@@ -50,9 +35,8 @@ async function addUser(user) {
 }
 
 async function deleteUserById(id) {
-    const userModel = getDbConnection().model("User", UserSchema);
     try {
-        const remUser = await userModel.findByIdAndDelete(id);
+        const remUser = await Users.findByIdAndDelete(id);
         return remUser;
     } catch (error) {
         console.log(error);
