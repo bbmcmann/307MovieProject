@@ -18,7 +18,6 @@ function Header() {
       return(
         <Link to='./Movies/3' />
       );
-
   }
 
   return (
