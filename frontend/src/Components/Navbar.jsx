@@ -10,7 +10,7 @@ const Searchdiv = styled.div`
   padding: 10px;
 `;
 
-function Header() {
+function Navbar() {
   return (
     <>
       <header className="App-header">
@@ -42,4 +42,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Navbar;
