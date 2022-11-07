@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
+import Movie from "./components/Movie";
 import Navbar from "./components/Navbar";
 import ReviewList from "./components/ReviewList";
-import Movie from "./Movie";
 
 function App() {
   return (
