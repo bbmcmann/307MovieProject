@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Search from "./Search";
 
@@ -11,6 +11,16 @@ const Searchdiv = styled.div`
 `;
 
 function Header() {
+  function linkTo(event){
+    //TODO: Add navigation
+    const name = event.target;
+    if(name === 'movies-btn')
+      return(
+        <Link to='./Movies/3' />
+      );
+
+  }
+
   return (
     <>
       <header className="App-header">
@@ -22,7 +32,14 @@ function Header() {
         <nav className="App-nav">
           <h2>
             <div className="dropdown">
-              <button className="dropbtn">Movies</button>
+              {/* //Changed here: */}
+              <button
+                name="movies-btn"
+                className="dropbtn"
+                onClick={linkTo}
+              >
+                Movies
+              </button>
               <div className="dropcont">
                 <p>Popular Movies</p>
                 <p>Suggested Movies</p>
