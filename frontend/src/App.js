@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./components/Home";
+import Landing from "./components/Landing";
 import Movie from "./components/Movie";
 import Navbar from "./components/Navbar";
 import ReviewList from "./components/ReviewList";
@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Navbar />}>
-          <Route index element={<Home />} />
+          <Route index element={<Landing />} />
 
           {/* Movie paths */}
           <Route path="movie">
