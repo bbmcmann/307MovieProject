@@ -28,4 +28,3 @@ const UserSchema = new mongoose.Schema( {
 const Users = db.getDbConnection().model("Users", UserSchema)
 
 module.exports = Users;
-// module.exports = UserSchema;

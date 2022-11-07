@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// need to figure out a way to let us export this function and use it
 let dbConnection;
 
 function getDbConnection() {

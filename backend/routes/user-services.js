@@ -1,7 +1,4 @@
-const mongoose = require("mongoose");
-const express = require("express");
-const Users = require("../models/users.js");
-const router = express.Router();
+const Users = require("../models/users");
 
 async function getUsers(id) {
     let result;
