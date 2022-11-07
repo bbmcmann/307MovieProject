@@ -12,51 +12,51 @@ const movieEndpoints = require("./routes/movieRoutes.js");
 app.use("/movies", movieEndpoints);
 
 app.get("/", (req, res) => {
-    res.send('Hello World');
+  res.send("Hello World");
 });
 
 app.get("/users", async (req, res) => {
-    let id;
-    try {
-        const result = await userEndpoints.getUsers(id);
-        res.send({"users_list": result});
-    } catch (error) {
-        console.log(error);
-        res.status(505).send("An error occurred in the server");
-    }
+  let id;
+  try {
+    const result = await userEndpoints.getUsers(id);
+    res.send({ users_list: result });
+  } catch (error) {
+    console.log(error);
+    res.status(505).send("An error occurred in the server");
+  }
 });
 
 app.post("/users", async (req, res) => {
-    const userToAdd = req.body;
-    const result = await userEndpoints.addUser(userToAdd);
-    if (result) {
-        res.status(201).send(result);
-    } else {
-        res.status(500).end();
-    }
+  const userToAdd = req.body;
+  const result = await userEndpoints.addUser(userToAdd);
+  if (result) {
+    res.status(201).send(result);
+  } else {
+    res.status(500).end();
+  }
 });
 
 app.get("/users/:id", async (req, res) => {
-    const id = req.params["id"];
-    try {
-        const result = await userEndpoints.getUsers(id);
-        res.send({"users_list": result});
-    } catch (error) {
-        console.log(error);
-        res.status(505).send("An error occurred on the system");
-    }
+  const id = req.params["id"];
+  try {
+    const result = await userEndpoints.getUsers(id);
+    res.send({ users_list: result });
+  } catch (error) {
+    console.log(error);
+    res.status(505).send("An error occurred on the system");
+  }
 });
 
 app.delete("/users/:id", async (req, res) => {
-    const id = req.params["id"];
-    const result = await userEndpoints.deleteUserById(id);
-    if (!result) {
-        res.status(404).send("Resource not found");
-    } else {
-        res.status(204).end();
-    }
+  const id = req.params["id"];
+  const result = await userEndpoints.deleteUserById(id);
+  if (!result) {
+    res.status(404).send("Resource not found");
+  } else {
+    res.status(204).end();
+  }
 });
 
 app.listen(port, () => {
-     console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:${port}`);
 });
