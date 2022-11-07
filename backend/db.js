@@ -32,5 +32,5 @@ function setConnection(newConn) {
   return dbConnection;
 }
 
-module.exports = getDbConnection;
-module.exports = setConnection;
+module.exports.getDbConnection = getDbConnection;
+module.exports.setConnection = setConnection;
