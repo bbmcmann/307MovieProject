@@ -12,11 +12,10 @@ position: absolute;
 width: 500px;
 height: 550px;
 left: 175px;
-top: 125px;
+top: 100px;
 `
 
 const StyledHead = styled.div`
-font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
 font-size: 48px;
@@ -25,12 +24,24 @@ text-align: center;
 `
 
 const StyledText = styled.div`
-font-family: inter;
 fint-style: normal;
 font-size: 30px;
 padding-top: 25px;
-padding-bottom: 50px;
+padding-bottom: 30px;
 `
+const StyledInput = styled.input`
+border: 1px solid 3E5336;
+    border-radius: 10px;
+    height: 33px;
+    padding-left: 10px;
+    font-size: 20px;
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+`
+
 // add effects to button
 const StyledButton = styled.button`
 type: submit;
@@ -76,23 +87,18 @@ function SignIn() {
             <StyledBlock>
                 <StyledHead>The Bananalyst</StyledHead>
                 <StyledText>Login </StyledText>
-                <Box 
-                    component= "input" 
+                <StyledInput 
                     type="text"
                     name="username"
                     id="username"
-                    sx={{width: 200, height: 25, borderRadius: 1, marginBottom: 5, overflow: "hidden"}}
                     placeholder="Username"
                     onChange={handleChange}
                 />
                 <br></br>
-                <Box
-                    component= "input"
+                <StyledInput 
                     type="text"
                     name="password"
                     id="password"
-                    sx={{width: 200, height: 25, borderRadius: 1, marginBottom: 5, overflow: "hidden"}}
-                    value={person.password}
                     placeholder="Password"
                     onChange={handleChange}
                 />
