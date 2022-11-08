@@ -154,3 +154,17 @@ describe("update Movie by Id Tests", () => {
     ).rejects.toThrow("Could not update movie");
   });
 });
+
+describe("search Movies Tests", () => {
+  test("success", async () => {
+    const result = await searchMovie("avenge");
+
+    expect(result[0]).toBeTruthy();
+  });
+
+  test("no results", async () => {
+    const result = await searchMovie("akasjfkashknmvakjsn");
+
+    expect(result.length).toBe(0);
+  });
+});
