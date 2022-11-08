@@ -63,14 +63,14 @@ async function updateMovieById(id, reviewId, reviewScore) {
 }
 
 // create a new movie document in mongoDB
-function createMovie(id, reviewId, score) {
+async function createMovie(id, reviewId, score) {
   try {
     let newMovie = new Movie({
       _id: id,
       score: score,
       reviews: [mongoose.Types.ObjectId(reviewId)],
     });
-    newMovie.save();
+    await newMovie.save();
     return newMovie;
   } catch (error) {
     throw new Error("Something went wrong with creating a Movie");

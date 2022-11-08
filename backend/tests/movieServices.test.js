@@ -7,6 +7,7 @@ const {
   createMovie,
   getPopularMovies,
   getSuggestedMovies,
+  movieInDb,
 } = require("../routes/movieServices.js");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const { setConnection } = require("../db.js");
@@ -166,5 +167,42 @@ describe("search Movies Tests", () => {
     const result = await searchMovie("akasjfkashknmvakjsn");
 
     expect(result.length).toBe(0);
+  });
+});
+
+describe("create Movies Tests", () => {
+  test("success", async () => {
+    const result = await createMovie(1003596, "6363ebf2fddfec1bee01715c", 10);
+    const expected = {
+      _id: 1003596,
+      score: 10,
+      reviews: ["6363ebf2fddfec1bee01715c"],
+    };
+    expect(result._id).toBe(expected._id);
+    expect(result.score).toBe(expected.score);
+    expect(JSON.stringify(result.reviews[0])).toEqual(
+      JSON.stringify(expected.reviews[0])
+    );
+  });
+
+  test("throw error", async () => {
+    await expect(
+      createMovie(1003596, "6363ebf2fddfec1bee01715c")
+    ).rejects.toThrow("Something went wrong with creating a Movie");
+  });
+});
+
+describe("Movie in DB Tests", () => {
+  test("in db", async () => {
+    const result = await movieInDb(299534);
+
+    expect(result._id).toBe(299534);
+    expect(result.score).toBe(9);
+  });
+
+  test("not in db", async () => {
+    const result = await movieInDb(0);
+
+    expect(result).toBeNull();
   });
 });
