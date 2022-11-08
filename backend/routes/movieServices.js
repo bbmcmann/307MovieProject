@@ -45,14 +45,14 @@ async function getMovieById(id) {
 // update movie doc in mongo. Assumes movie exists in db
 async function updateMovieById(id, reviewId, reviewScore) {
   try {
-    const movie = await Movie.findOne({ _id: id });
+    const movie = await Movie.findById(id);
     const newScore =
       (movie.score * movie.reviews.length + reviewScore) /
       (movie.reviews.length + 1);
     const result = await Movie.updateOne(
       { _id: id },
       {
-        $set: { score: newScore },
+        $set: { score: newScore.toFixed(2) },
         $push: { reviews: reviewId },
       }
     );

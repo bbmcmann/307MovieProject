@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Movie = require("../models/movieSchema.js");
 const {
   getMovieById,
+  updateMovieById,
   searchMovie,
   createMovie,
   getPopularMovies,
@@ -118,5 +119,38 @@ describe("get Movie by Id Tests", () => {
 
   test("throw error", async () => {
     await expect(getMovieById(0)).rejects.toThrow("Could not find movie");
+  });
+});
+
+describe("update Movie by Id Tests", () => {
+  test("success add one", async () => {
+    await updateMovieById(24428, "6363ebf2fddfec1bee01715c", 10);
+    const expected = {
+      _id: 24428,
+      score: 8.67,
+    };
+    const result = await Movie.findById(24428);
+    expect(result._id).toBe(expected._id);
+    expect(result.score).toBeCloseTo(expected.score);
+    expect(result.reviews.length).toBe(3);
+  });
+
+  test("success add two", async () => {
+    await updateMovieById(24428, "6363ebf2fddfec1bee01715c", 10);
+    await updateMovieById(24428, "6363ebf2fddfec1bee01715c", 10);
+    const expected = {
+      _id: 24428,
+      score: 9.0,
+    };
+    const result = await Movie.findById(24428);
+    expect(result._id).toBe(expected._id);
+    expect(result.score).toBeCloseTo(expected.score);
+    expect(result.reviews.length).toBe(4);
+  });
+
+  test("throw error", async () => {
+    await expect(
+      updateMovieById(0, "6363ebf2fddfec1bee01715c", 10)
+    ).rejects.toThrow("Could not update movie");
   });
 });
