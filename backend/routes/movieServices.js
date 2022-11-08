@@ -30,7 +30,7 @@ async function getMovieById(id) {
       genres: apiRes.data.genres,
     };
     const mongoRes = await movieInDb(id);
-    if (!mongoRes) return result;
+    if (!mongoRes) return { _id: apiRes.data.id, ...result };
     else {
       return {
         ...mongoRes._doc,

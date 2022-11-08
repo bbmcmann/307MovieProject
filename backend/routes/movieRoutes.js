@@ -24,8 +24,7 @@ router.get("/:id", async (req, res) => {
     const result = await getMovieById(id);
     res.status(200).send(result);
   } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
+    res.status(404).end();
   }
 });
 

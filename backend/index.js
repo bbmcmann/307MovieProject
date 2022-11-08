@@ -15,7 +15,7 @@ app.use("/api/movie", movieEndpoints);
 function logger(req, res, next) {
   console.log(`${req.method} ${req.path}`);
   next();
-  console.log(`Completed with status code: ${res.statusCode}`);
+  console.log(`Completed response`);
 }
 
 app.get("/", (req, res) => {
