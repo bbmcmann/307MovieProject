@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Container from "@mui/material/Container";
-import { Box } from "@mui/material";
 
 const StyledBlock = styled(Container)`
   padding: 100px;
@@ -43,7 +42,8 @@ const StyledInput = styled.input`
 const StyledButton = styled.button`
   type: submit;
   display: inline-block;
-  border: none;
+  border: 1px solid 3e5336;
+  border-radius: 10px;
   font-size: 25px;
   padding: 0.5rem 0;
   width: 11rem;
