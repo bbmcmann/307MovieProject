@@ -1,16 +1,16 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Landing from "./components/Landing";
+import Header from "./components/Header";
+import Home from "./components/Home";
 import Movie from "./components/Movie";
-import Navbar from "./components/Navbar";
 import ReviewList from "./components/ReviewList";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route index element={<Landing />} />
+        <Route path="/" element={<Header />}>
+          <Route index element={<Home />} />
 
           {/* Movie paths */}
           <Route path="movie">
