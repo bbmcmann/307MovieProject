@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "main": "backend.js",
   "scripts": {
-    "test": "jest",
-    "dev": "nodemon index.js",
+    "test": "prettier --check . && jest",
+    "dev": "nodemon indx.js",
     "start": "node index.js"
   },
   "devDependencies": {
     "jest": "^29.2.2",
     "mongodb-memory-server": "^8.9.5",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1"
   },
   "dependencies": {
     "axios": "^1.1.3",

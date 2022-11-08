@@ -24,20 +24,19 @@ function Search() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const getOptionsDelayed = useCallback(
-    // delay api call for 500 ms
-    debounce((text, callback) => {
-      try {
-        axios
-          .get(`http://localhost:5000/api/movie/search?query=${text}`)
-          .then((res) => res.data)
-          .then(callback);
-      } catch (error) {
-        console.log(error);
-      }
-    }, 500),
-    []
-  );
+  // delay api call for 500 ms
+  const fetchOptions = debounce((text, callback) => {
+    try {
+      axios
+        .get(`http://localhost:5000/api/movie/search?query=${text}`)
+        .then((res) => res.data)
+        .then(callback);
+    } catch (error) {
+      console.log(error);
+    }
+  }, 500);
+
+  const getOptionsDelayed = useCallback(() => fetchOptions, [fetchOptions]);
 
   useEffect(() => {
     if (input) {
