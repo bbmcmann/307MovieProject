@@ -32,8 +32,6 @@ function ReviewForm() {
   function handleChange(event) {
     const { name, value } = event.target;
     if (name === "review-rating")
-      //TODO: Figure out why it takes 2 updates to actually
-      //update the rating vales
       setRating({
         title: rating["title"],
         review: rating["review"],
@@ -55,10 +53,8 @@ function ReviewForm() {
 
   console.log(rating);
 
-  function submitForm() {
-    //TODO: Edit to submit to an actual Database
-    //For now will append to an array
-  }
+  // function submitForm() {
+  // }
 
   return (
     <>
@@ -89,17 +85,18 @@ function ReviewForm() {
           name="review-text"
           label="Review (Required)"
           multiline
+          fullWidth
           rows={4}
-          defaultValue="Default Value"
+          onChangeCapture={handleChange}
         />
-          <TextField
+          {/* <TextField
             id="outlined-basic"
             label="Review (Required)"
             variant="outlined"
             name="review-text"
             fullWidth
             onChangeCapture={handleChange}
-          />
+          /> */}
         </div>
       </StyledForm>
     </>
