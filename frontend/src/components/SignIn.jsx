@@ -78,7 +78,8 @@ function SignIn() {
     // props.handleSubmit(person);
     setPerson({ username: "", password: "" });
     <input type="button" value="Submit" onClick={submitForm} />;
-  } */
+  } 
+  */
 
   return (
     <StyledBlock maxWidth="md">
