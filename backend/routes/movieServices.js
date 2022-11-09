@@ -86,10 +86,39 @@ async function movieInDb(id) {
   }
 }
 
+async function getPopularMovies() {
+  try {
+    const result = await axios.get(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.MOVIE_API}&language=en-US&page=1&region=US`
+    );
+    return result.data.results.slice(0, 10);
+  } catch (error) {
+    throw new Error("Something went wrong with popular movies");
+  }
+}
+
+async function getSuggestedMovies(userId) {
+  //! Wait on user schema to implement
+  try {
+    if (userId) {
+      const movieId = 0;
+      // get a top movie from the user's reviews and get recommendations for that
+      `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.MOVIE_API}&language=en-US&page=1`;
+    } else {
+      // if no userId, just send popular movies instead
+      return getPopularMovies();
+    }
+  } catch (error) {
+    throw new Error("Something went wrong with suggested movies");
+  }
+}
+
 module.exports = {
   getMovieById,
   updateMovieById,
   searchMovie,
   createMovie,
+  getPopularMovies,
+  getSuggestedMovies,
   movieInDb,
 };

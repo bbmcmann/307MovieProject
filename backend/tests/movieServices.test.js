@@ -206,3 +206,37 @@ describe("Movie in DB Tests", () => {
     expect(result).toBeNull();
   });
 });
+
+describe("Popular Movie Tests", () => {
+  test("success", async () => {
+    const result = await getPopularMovies();
+
+    expect(result).toBeTruthy();
+  });
+
+  test("success check len", async () => {
+    const result = await getPopularMovies();
+
+    expect(result.length).toBe(10);
+  });
+});
+
+describe("Suggested Movie Tests", () => {
+  test("without userId", async () => {
+    const result = await getSuggestedMovies();
+
+    expect(result).toBeTruthy();
+  });
+
+  // test("with userId with positives reviews", async () => {
+  //   const result = await getSuggestedMovies("");
+
+  //   expect(result).toBeTruthy();
+  // });
+
+  // test("with userId with no positive reviews", async () => {
+  //   const result = await getSuggestedMovies("");
+
+  //   expect(result).toBeTruthy();
+  // });
+});

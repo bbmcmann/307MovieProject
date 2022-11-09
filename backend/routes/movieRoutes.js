@@ -19,6 +19,26 @@ router.get("/search", async (req, res) => {
   }
 });
 
+// get the current popular movies. limit to ten movies
+router.get("/popular", async (req, res) => {
+  try {
+    const result = await getPopularMovies();
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.get("/suggested", async (req, res) => {
+  const userId = req.query.user;
+  try {
+    const result = await getSuggestedMovies(userId);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 // get a movie by id
 router.get("/:id", async (req, res) => {
   try {
@@ -39,26 +59,6 @@ router.post("/", async (req, res) => {
     res.status(201).send(result);
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
-  }
-});
-
-// get the current popular movies. limit to five movies
-router.get("/popular", async (req, res) => {
-  try {
-    const result = await getPopularMovies();
-    res.status(200).send(result);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
-
-router.get("/suggested", async (req, res) => {
-  const userId = req.query.user;
-  try {
-    const result = await getSuggestedMovies(userId);
-    res.status(200).send(result);
-  } catch (error) {
     res.status(400).send(error);
   }
 });
