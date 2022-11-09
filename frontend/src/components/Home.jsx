@@ -1,7 +1,7 @@
 import React from "react";
 import Pun from "./Pun";
 
-function Home() {
+function Landing() {
   return (
     <div className="Home Page">
       <Pun />
@@ -9,4 +9,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Landing;

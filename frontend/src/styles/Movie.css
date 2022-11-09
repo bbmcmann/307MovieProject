@@ -54,9 +54,9 @@
 
 .Movie-link {
   color: #61dafb;
-} 
+}
 
-.Movie-review{
+.Movie-review {
   display: inline-flexbox;
   text-align: left;
   padding: 50px;
@@ -71,14 +71,14 @@
   padding-right: 2;
 }
 
-.Movie-score{
+.Movie-score {
   display: inline-flex;
   text-align: center;
   justify-self: flex-end;
   align-self: flex-end;
 }
 
-.Movie-score-text{
+.Movie-score-text {
   text-align: center;
   padding-left: 15px;
   padding-top: 30%;
@@ -87,18 +87,18 @@
 .dot {
   height: 250px;
   width: 250px;
-  background-color: #3E5336;
+  background-color: #3e5336;
   border-radius: 50%;
   display: inline-flex;
   offset-inline-start: 40px;
 }
 
-.Movie-poster-review-panel{
+.Movie-poster-review-panel {
   display: flex;
   justify-content: space-between;
 }
 
-.side-recommended{
+.side-recommended {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 160px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -109,4 +109,3 @@
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
 }
-
