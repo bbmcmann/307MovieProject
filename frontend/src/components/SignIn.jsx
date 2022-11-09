@@ -73,11 +73,12 @@ function SignIn() {
   }
 
   // need for when we link to backend / authorize
+  /* 
   function submitForm() {
     // props.handleSubmit(person);
     setPerson({ username: "", password: "" });
     <input type="button" value="Submit" onClick={submitForm} />;
-  }
+  } */
 
   return (
     <StyledBlock maxWidth="md">
