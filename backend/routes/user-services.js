@@ -30,6 +30,16 @@ async function addUser(user) {
   }
 }
 
+async function updateUserById(id, username, first, last) {
+  try {
+    const updateUser = await Users.updateOne({"_id": id}, {$set: {"username": username, "first_name": first, "last_name": last}});
+    return updateUser;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 async function deleteUserById(id) {
   try {
     const remUser = await Users.findByIdAndDelete(id);
@@ -42,4 +52,5 @@ async function deleteUserById(id) {
 
 exports.getUsers = getUsers;
 exports.addUser = addUser;
+exports.updateUserById = updateUserById;
 exports.deleteUserById = deleteUserById;
