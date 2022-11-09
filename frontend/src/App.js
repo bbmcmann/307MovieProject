@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Movie from "./components/Movie";
 import ReviewList from "./components/ReviewList";
+import SignIn from "./components/SignIn";
 
 function App() {
   return (
