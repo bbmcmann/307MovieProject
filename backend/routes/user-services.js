@@ -32,7 +32,10 @@ async function addUser(user) {
 
 async function updateUserById(id, username, first, last) {
   try {
-    const updateUser = await Users.updateOne({"_id": id}, {$set: {"username": username, "first_name": first, "last_name": last}});
+    const updateUser = await Users.updateOne(
+      { _id: id },
+      { $set: { username: username, first_name: first, last_name: last } }
+    );
     return updateUser;
   } catch (error) {
     console.log(error);

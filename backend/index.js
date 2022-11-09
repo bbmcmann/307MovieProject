@@ -53,13 +53,17 @@ app.patch("/users/:id", async (req, res) => {
   const first = req.body.first_name;
   const last = req.body.last_name;
   try {
-    const result = await userEndpoints.updateUserById(id, username, first, last);
-    res.status(200).send({users_list: result});
+    const result = await userEndpoints.updateUserById(
+      id,
+      username,
+      first,
+      last
+    );
+    res.status(200).send({ users_list: result });
   } catch (error) {
     console.log(error);
     res.status(505).send("An error occurred on the system");
   }
-
 });
 
 app.delete("/users/:id", async (req, res) => {
