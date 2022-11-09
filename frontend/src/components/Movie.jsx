@@ -1,7 +1,7 @@
 //import styles from './Movie.module.css'
-import "./Movie.css";
-import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import "../styles/Movie.css";
 
 function Movie() {
   return (
@@ -14,7 +14,7 @@ function Movie() {
             <span className="Movie-poster-review-panel">
               <Paper elevation={3} className="Movie-poster">
                 <img
-                  src={require("./static/cartoon-banana.png")}
+                  src={require("../static/cartoon-banana.png")}
                   alt="Banana Poster"
                   height={300}
                   width={200}

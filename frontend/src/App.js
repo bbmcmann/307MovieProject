@@ -1,10 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Header from "./Components/Header";
-import Home from "./Components/Home";
-import ReviewList from "./Components/ReviewList";
-import Movie from "./Movie";
-import SignIn from "./Components/SignIn";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Movie from "./components/Movie";
+import ReviewList from "./components/ReviewList";
 
 function App() {
   return (
