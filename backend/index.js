@@ -19,7 +19,7 @@ app.get("/users", async (req, res) => {
   let id;
   try {
     const result = await userEndpoints.getUsers(id);
-    res.send({ users_list: result });
+    res.status(200).send({ users_list: result });
   } catch (error) {
     console.log(error);
     res.status(505).send("An error occurred in the server");
@@ -40,7 +40,7 @@ app.get("/users/:id", async (req, res) => {
   const id = req.params["id"];
   try {
     const result = await userEndpoints.getUsers(id);
-    res.send({ users_list: result });
+    res.status(200).send({ users_list: result });
   } catch (error) {
     console.log(error);
     res.status(505).send("An error occurred on the system");
