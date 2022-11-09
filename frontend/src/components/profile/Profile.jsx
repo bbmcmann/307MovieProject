@@ -9,32 +9,31 @@ function Profile({ id }) {
 
   const navigate = useNavigate();
 
-  const usr = {
-    username: "theJohnSmith",
-    first_name: "John",
-    last_name: "Smith",
-    pun: "How is a Banana Peel on the floor like music? Bc if you don’t C sharp you’ll B flat",
-    movies: [
-      {
-        id: 1,
-        poster_path: "/zq8Cl3PNIDGU3iWNRoc5nEZ6pCe.jpg",
-      },
-      {
-        id: 2,
-        poster_path: "/zq8Cl3PNIDGU3iWNRoc5nEZ6pCe.jpg",
-      },
-      {
-        id: 3,
-        poster_path: "/zq8Cl3PNIDGU3iWNRoc5nEZ6pCe.jpg",
-      },
-      {
-        id: 4,
-        poster_path: "/zq8Cl3PNIDGU3iWNRoc5nEZ6pCe.jpg",
-      },
-    ],
-  };
-
   useEffect(() => {
+    const usr = {
+      username: "theJohnSmith",
+      first_name: "John",
+      last_name: "Smith",
+      pun: "How is a Banana Peel on the floor like music? Bc if you don’t C sharp you’ll B flat",
+      movies: [
+        {
+          id: 1,
+          poster_path: "/zq8Cl3PNIDGU3iWNRoc5nEZ6pCe.jpg",
+        },
+        {
+          id: 2,
+          poster_path: "/zq8Cl3PNIDGU3iWNRoc5nEZ6pCe.jpg",
+        },
+        {
+          id: 3,
+          poster_path: "/zq8Cl3PNIDGU3iWNRoc5nEZ6pCe.jpg",
+        },
+        {
+          id: 4,
+          poster_path: "/zq8Cl3PNIDGU3iWNRoc5nEZ6pCe.jpg",
+        },
+      ],
+    };
     // fetch user info based on id
     setUser(usr);
   }, [id]);

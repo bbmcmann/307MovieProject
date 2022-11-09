@@ -1,11 +1,14 @@
 import { Button, Paper, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProfileEdit() {
   const username = useRef();
   const fname = useRef();
   const lname = useRef();
   const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
 
   const curUser = {};
 
@@ -23,6 +26,7 @@ function ProfileEdit() {
     console.log(username.current.value);
     console.log(fname.current.value);
     console.log(lname.current.value);
+    navigate("/profile");
   };
 
   return curUser ? (
