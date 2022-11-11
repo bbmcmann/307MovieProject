@@ -31,4 +31,5 @@ const UserSchema = new mongoose.Schema(
 
 const Users = db.getDbConnection().model("Users", UserSchema);
 
-module.exports = Users;
+exports.Users = Users;
+exports.UserSchema = UserSchema;

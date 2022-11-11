@@ -1,4 +1,6 @@
-const Users = require("../models/users");
+const UserSchema = require("../models/users");
+
+const Users = UserSchema.Users;
 
 async function getUsers(id) {
   let result;
