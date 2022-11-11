@@ -55,7 +55,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { id, review } = req.body;
   try {
-    const result = createMovie(id, review.id, review.score);
+    const result = await createMovie(id, review.id, review.score);
     res.status(201).send(result);
   } catch (error) {
     console.log(error);
