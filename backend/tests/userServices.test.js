@@ -99,8 +99,11 @@ test("Fetching by valid id and finding", async () => {
   const foundUser = await userServices.getUsers(addedUser.id);
   expect(foundUser).toBeDefined();
   expect(foundUser.id).toBe(addedUser.id);
-  expect(foundUser.name).toBe(addedUser.name);
-  expect(foundUser.job).toBe(addedUser.job);
+  expect(foundUser.username).toBe(addedUser.username);
+  expect(foundUser.first_name).toBe(addedUser.first_name);
+  expect(foundUser.last_name).toBe(addedUser.last_name);
+  expect(foundUser.email).toBe(addedUser.email);
+  expect(foundUser.password).toBe(addedUser.password);
 });
 
 test("Deleting a user by Id -- successful path", async () => {
@@ -113,7 +116,7 @@ test("Deleting a user by Id -- successful path", async () => {
   };
   const result = new userModel(dummyUser);
   const addedUser = await result.save();
-  const deleteResult = await userModel.findOneAndDelete({ _id: addedUser.id });
+  const deleteResult = await userServices.deleteUserById(addedUser.id);
   expect(deleteResult).toBeTruthy();
 });
 
@@ -133,8 +136,11 @@ test("Adding user -- successful path", async () => {
   };
   const result = await userServices.addUser(dummyUser);
   expect(result).toBeTruthy();
-  expect(result.name).toBe(dummyUser.name);
-  expect(result.job).toBe(dummyUser.job);
+  expect(result.username).toBe(dummyUser.username);
+  expect(result.first_name).toBe(dummyUser.first_name);
+  expect(result.last_name).toBe(dummyUser.last_name);
+  expect(result.email).toBe(dummyUser.email);
+  expect(result.password).toBe(dummyUser.password);
   expect(result).toHaveProperty("_id");
 });
 
@@ -225,5 +231,145 @@ test("Adding user -- failure path with no password", async () => {
     email: "hpotter@hogwarts.edu",
   };
   const result = await userServices.addUser(dummyUser);
+  expect(result).toBeFalsy();
+});
+
+test("Updating user -- successful path with username, first and last name", async () => {
+  const dummyUser = {
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+  };
+  const updatedUser = {
+    username: "iputmynameinthegoblet",
+    first_name: "Hurry",
+    last_name: "potter",
+  };
+  const addedUser = await userServices.addUser(dummyUser);
+  const result = await userServices.updateUserById(
+    addedUser.id,
+    updatedUser.username,
+    updatedUser.first_name,
+    updatedUser.last_name
+  );
+  expect(result).toBeTruthy();
+  expect(result.username).toBe(updatedUser.username);
+  expect(result.first_name).toBe(updatedUser.first_name);
+  expect(result.last_name).toBe(updatedUser.last_name);
+  expect(result).toHaveProperty("_id");
+});
+
+test("Updating user -- successful path with username", async () => {
+  const dummyUser = {
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+  };
+  const updatedUser = {
+    username: "iputmynameinthegoblet",
+  };
+  const addedUser = await userServices.addUser(dummyUser);
+  const result = await userServices.updateUserById(
+    addedUser.id,
+    updatedUser.username,
+    dummyUser.first_name,
+    dummyUser.last_name
+  );
+  expect(result).toBeTruthy();
+  expect(result.username).toBe(updatedUser.username);
+  expect(result.first_name).toBe(dummyUser.first_name);
+  expect(result.last_name).toBe(dummyUser.last_name);
+  expect(result).toHaveProperty("_id");
+});
+
+test("Updating user -- successful path with first", async () => {
+  const dummyUser = {
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+  };
+  const updatedUser = {
+    first_name: "hurry",
+  };
+  const addedUser = await userServices.addUser(dummyUser);
+  const result = await userServices.updateUserById(
+    addedUser.id,
+    dummyUser.username,
+    updatedUser.first_name,
+    dummyUser.last_name
+  );
+  expect(result).toBeTruthy();
+  expect(result.username).toBe(dummyUser.username);
+  expect(result.first_name).toBe(updatedUser.first_name);
+  expect(result.last_name).toBe(dummyUser.last_name);
+  expect(result).toHaveProperty("_id");
+});
+
+test("Updating user -- successful path with last", async () => {
+  const dummyUser = {
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+  };
+  const updatedUser = {
+    last_name: "potman",
+  };
+  const addedUser = await userServices.addUser(dummyUser);
+  const result = await userServices.updateUserById(
+    addedUser.id,
+    dummyUser.username,
+    dummyUser.first_name,
+    updatedUser.last_name
+  );
+  expect(result).toBeTruthy();
+  expect(result.username).toBe(dummyUser.username);
+  expect(result.first_name).toBe(dummyUser.first_name);
+  expect(result.last_name).toBe(updatedUser.last_name);
+  expect(result).toHaveProperty("_id");
+});
+
+test("Updating user -- failure with invalid id", async () => {
+  const dummyUser = {
+    _id: "123",
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+  };
+  const updatedUser = {
+    username: "iputmynameinthegoblet",
+    first_name: "Hurry",
+    last_name: "potter",
+  };
+  const addedUser = await userServices.addUser(dummyUser);
+  const result = await userServices.updateUserById(
+    addedUser.id,
+    dummyUser.username,
+    dummyUser.first_name,
+    updatedUser.last_name
+  );
+  expect(result).toBeFalsy();
+});
+
+test("Updating user -- failure with no information given", async () => {
+  const dummyUser = {
+    _id: "123",
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+  };
+  const addedUser = await userServices.addUser(dummyUser);
+  const result = await userServices.updateUserById(addedUser.id);
   expect(result).toBeFalsy();
 });

@@ -23,6 +23,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    // reviews
     // favorite_pun
   },
   { collection: "users_list" }
