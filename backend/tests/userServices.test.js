@@ -69,6 +69,14 @@ afterEach(async () => {
 
 test("Fetching all users", async () => {
   let id;
+  const dummyUser = {
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+  };
+  const result = await userServices.addUser(dummyUser);
   const users = await userServices.getUsers(id);
   expect(users).toBeDefined();
   expect(users.length).toBeGreaterThan(0);
