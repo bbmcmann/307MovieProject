@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Movie from "./components/Movie";
 import ReviewList from "./components/ReviewList";
+import SignIn from "./components/SignIn";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
         </Route>
 
         {/* Auth paths */}
-        <Route path="login" element={<p>login page</p>} />
+        <Route path="login" element={<SignIn />} />
         <Route path="signup" element={<p>signup page</p>} />
 
         <Route path="*" element={<h1>404 page not found</h1>} />
