@@ -6,7 +6,7 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
-const userEndpoints = require("./routes/user-services.js");
+const userEndpoints = require("./routes/userRoutes.js");
 const movieEndpoints = require("./routes/movieRoutes.js");
 
 app.use("/movies", movieEndpoints);
