@@ -19,7 +19,7 @@ beforeAll(async () => {
 
   conn = mongoose.createConnection(uri, mongooseOpts);
 
-  userModel = UserSchema;
+  userModel = conn.model("User", UserSchema.UserSchema);
 
   db.setConnection(conn);
 });
@@ -94,7 +94,7 @@ test("Fetching by valid id and finding", async () => {
     email: "hpotter@hogwarts.edu",
     password: "iloveginny",
   };
-  const result = new userModel(dummyUser);
+  const result = await userServices.addUser(dummyUser);
   const addedUser = await result.save();
   const foundUser = await userServices.getUsers(addedUser.id);
   expect(foundUser).toBeDefined();
@@ -104,6 +104,7 @@ test("Fetching by valid id and finding", async () => {
   expect(foundUser.last_name).toBe(addedUser.last_name);
   expect(foundUser.email).toBe(addedUser.email);
   expect(foundUser.password).toBe(addedUser.password);
+  await userServices.deleteUserById(addedUser.id);
 });
 
 test("Deleting a user by Id -- successful path", async () => {
@@ -114,7 +115,7 @@ test("Deleting a user by Id -- successful path", async () => {
     email: "hpotter@hogwarts.edu",
     password: "iloveginny",
   };
-  const result = new userModel(dummyUser);
+  const result = await userServices.addUser(dummyUser);
   const addedUser = await result.save();
   const deleteResult = await userServices.deleteUserById(addedUser.id);
   expect(deleteResult).toBeTruthy();
@@ -142,6 +143,7 @@ test("Adding user -- successful path", async () => {
   expect(result.email).toBe(dummyUser.email);
   expect(result.password).toBe(dummyUser.password);
   expect(result).toHaveProperty("_id");
+  await userServices.deleteUserById(result.id);
 });
 
 test("Adding user -- failure path with invalid id", async () => {
@@ -177,6 +179,7 @@ test("Adding user -- failure path with already taken id", async () => {
   };
   const result = await userServices.addUser(anotherDummyUser);
   expect(result).toBeFalsy();
+  await userServices.deleteUserById(addedUser.id);
 });
 
 test("Adding user -- failure path with no username", async () => {
@@ -259,6 +262,7 @@ test("Updating user -- successful path with username, first and last name", asyn
   expect(result.first_name).toBe(updatedUser.first_name);
   expect(result.last_name).toBe(updatedUser.last_name);
   expect(result).toHaveProperty("_id");
+  await userServices.deleteUserById(addedUser.id);
 });
 
 test("Updating user -- successful path with username", async () => {
@@ -284,6 +288,7 @@ test("Updating user -- successful path with username", async () => {
   expect(result.first_name).toBe(dummyUser.first_name);
   expect(result.last_name).toBe(dummyUser.last_name);
   expect(result).toHaveProperty("_id");
+  await userServices.deleteUserById(addedUser.id);
 });
 
 test("Updating user -- successful path with first", async () => {
@@ -309,6 +314,7 @@ test("Updating user -- successful path with first", async () => {
   expect(result.first_name).toBe(updatedUser.first_name);
   expect(result.last_name).toBe(dummyUser.last_name);
   expect(result).toHaveProperty("_id");
+  await userServices.deleteUserById(addedUser.id);
 });
 
 test("Updating user -- successful path with last", async () => {
@@ -334,6 +340,7 @@ test("Updating user -- successful path with last", async () => {
   expect(result.first_name).toBe(dummyUser.first_name);
   expect(result.last_name).toBe(updatedUser.last_name);
   expect(result).toHaveProperty("_id");
+  await userServices.deleteUserById(addedUser.id);
 });
 
 test("Updating user -- failure with invalid id", async () => {
