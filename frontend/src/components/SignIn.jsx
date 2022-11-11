@@ -38,7 +38,6 @@ const StyledInput = styled.input`
   margin-right: 5px;
 `;
 
-// add effects to button
 const StyledButton = styled.button`
   type: submit;
   display: inline-block;
