@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import styled from "styled-components";
-import Input from "@mui/material/Input";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
@@ -22,11 +21,10 @@ const StyledForm = styled(Paper)`
 `;
 
 function ReviewForm() {
-  let Val = 0;
   const [rating, setRating] = useState({
     title: "",
     review: "",
-    ratingVal: 0,
+    ratingVal: 1,
   });
 
   function handleChange(event) {
@@ -62,10 +60,8 @@ function ReviewForm() {
 
       <StyledForm>
         <div>
-          <Typography variant="h5">
-              Rate it!
-          </Typography>
-          <Rating name="review-rating" max={7} onChange={handleChange} />
+          <Typography variant="h5">Rate it!</Typography>
+          <Rating name="review-rating" max={7} defaultValue={1} onChange={handleChange} />
         </div>
 
         <div>
@@ -80,15 +76,15 @@ function ReviewForm() {
         </div>
 
         <div>
-        <TextField
-          id="outlined-multiline-static"
-          name="review-text"
-          label="Review (Required)"
-          multiline
-          fullWidth
-          rows={4}
-          onChangeCapture={handleChange}
-        />
+          <TextField
+            id="outlined-multiline-static"
+            name="review-text"
+            label="Review (Required)"
+            multiline
+            fullWidth
+            rows={4}
+            onChangeCapture={handleChange}
+          />
           {/* <TextField
             id="outlined-basic"
             label="Review (Required)"

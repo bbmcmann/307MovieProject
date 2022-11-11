@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import ReviewList from "./components/ReviewList";
 import Movie from  "./components/Movie"
+// import { Navigate } from "reac"
 
 function App() {
   return (

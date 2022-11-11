@@ -10,16 +10,26 @@ const Searchdiv = styled.div`
   padding: 10px;
 `;
 
-function Header() {
-  function linkTo(event){
-    //TODO: Add navigation
-    const name = event.target;
-    if(name === 'movies-btn')
-      return(
-        <Link to='./Movies/3' />
-      );
+const StyledLink = styled(Link)`
+  a:active {
+    text-decoration: none;
   }
+  ,
+  a:hover {
+    text-color: #ffffff;
+  }
+  ,
+  a:visited {
+    text-decoration: none;
+  }
+  ,
+  a:link {
+    text-decoration: none;
+  }
+  color: #000000;
+`;
 
+function Header() {
   return (
     <>
       <header className="App-header">
@@ -27,28 +37,33 @@ function Header() {
           {" "}
           <Search />{" "}
         </Searchdiv>
-        <h1 className="App-h1">The Bananalyst</h1>
+        <h1 className="App-h1">
+          <StyledLink to="/">The Bananalyst</StyledLink>
+        </h1>
         <nav className="App-nav">
           <h2>
             <div className="dropdown">
               {/* //Changed here: */}
-              <button
-                name="movies-btn"
-                className="dropbtn"
-                onClick={linkTo}
-              >
-                Movies
+              <button name="movies-btn" className="dropbtn">
+                <StyledLink to="movie"> Movies </StyledLink>
               </button>
               <div className="dropcont">
+                {/* TODO: Finalize navigation on all buttons. Currently on temporary  */}
                 <p>Popular Movies</p>
-                <p>Suggested Movies</p>
+                <p>
+                  <StyledLink to="movie/3">Suggested Movies</StyledLink>
+                </p>
               </div>
             </div>
             <div className="dropdown">
-              <button className="dropbtn">Review</button>
+              <button className="dropbtn">
+                <StyledLink to="review/">Review</StyledLink>
+              </button>
             </div>
             <div className="dropdown">
-              <button className="dropbtn">Sign In</button>
+              <button className="dropbtn">
+                <StyledLink to="profile">Sign In</StyledLink>
+              </button>
             </div>
           </h2>
         </nav>
