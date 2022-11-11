@@ -80,6 +80,7 @@ test("Fetching all users", async () => {
   const users = await userServices.getUsers(id);
   expect(users).toBeDefined();
   expect(users.length).toBeGreaterThan(0);
+  await userServices.deleteUserById(result.id);
 });
 
 test("Fetching by invalid id format", async () => {
