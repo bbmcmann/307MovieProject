@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Container from "@mui/material/Container";
+import { useNavigate } from "react-router-dom";
 
 const StyledBlock = styled(Container)`
   padding: 100px;
@@ -38,6 +39,11 @@ const StyledInput = styled.input`
   margin-right: 5px;
 `;
 
+const StyledError = styled.p`
+  color: red;
+  font-size: 18px;
+`;
+
 const StyledButton = styled.button`
   type: submit;
   display: inline-block;
@@ -52,23 +58,39 @@ const StyledButton = styled.button`
 `;
 
 function SignIn() {
+  const navigate = useNavigate();
+  const [validError, setError] = useState("");
   const [person, setPerson] = useState({
     username: "",
     password: "",
   });
 
+  const handleSubmit = () => {
+    if (person.username.length <= 0 && person.password.length <= 0) {
+      setError("Please enter a username and password");
+    } else if (person.username.length <= 0) {
+      setError("Please enter a username");
+    } else if (person.password.length <= 0) {
+      setError("Please enter a password");
+    } else {
+      setError("");
+      navigate("/");
+    }
+  };
+
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "username")
+    if (name === "username") {
       setPerson({
         username: value,
         password: person["password"],
       });
-    else
+    } else {
       setPerson({
         username: person["username"],
         password: value,
       });
+    }
   }
 
   // need for when we link to backend / authorize
@@ -82,7 +104,12 @@ function SignIn() {
 
   return (
     <StyledBlock maxWidth="md">
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
         <StyledHead>The Bananalyst</StyledHead>
         <StyledText>Login </StyledText>
         <StyledInput
@@ -101,6 +128,7 @@ function SignIn() {
           onChange={handleChange}
         />
         <br></br>
+        <StyledError>{validError}</StyledError>
         <StyledButton>Login</StyledButton>
         <p>Don't have an account? Sign up here</p>
       </form>
