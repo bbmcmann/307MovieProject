@@ -28,10 +28,8 @@ function Search() {
   const fetchOptions = debounce((text, callback) => {
     try {
       axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API}&query=${text}&include_adult=false`
-        )
-        .then((res) => res.data.results)
+        .get(`http://localhost:5000/movie/search?query=${text}`)
+        .then((res) => res.data)
         .then(callback);
     } catch (error) {
       console.log(error);
