@@ -28,7 +28,7 @@ function Search() {
   const fetchOptions = debounce((text, callback) => {
     try {
       axios
-        .get(`http://localhost:5000/api/movie/search?query=${text}`)
+        .get(`http://localhost:5000/movie/search?query=${text}`)
         .then((res) => res.data)
         .then(callback);
     } catch (error) {

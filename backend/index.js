@@ -6,11 +6,13 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
+const userEndpoints = require("./routes/userRoutes.js");
 const movieEndpoints = require("./routes/movieRoutes.js");
 
 app.use(logger);
 
-app.use("/api/movie", movieEndpoints);
+app.use("/movies", movieEndpoints);
+app.use("/users", userEndpoints);
 
 function logger(req, res, next) {
   console.log(`${req.method} ${req.path}`);
