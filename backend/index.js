@@ -6,9 +6,11 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
+const userEndpoints = require("./routes/userRoutes.js");
 const movieEndpoints = require("./routes/movieRoutes.js");
 
 app.use("/movies", movieEndpoints);
+app.use("/users", userEndpoints);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
