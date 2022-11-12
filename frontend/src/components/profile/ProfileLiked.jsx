@@ -12,19 +12,23 @@ function ProfileLiked({ movies }) {
   return (
     <div className="liked-section">
       <h3>Movies I like:</h3>
-      <div className="movies">
-        {movies?.map((movie) => {
-          return (
-            <img
-              key={movie.id}
-              className="poster"
-              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-              alt=""
-              onClick={() => handleClick(movie.id)}
-            />
-          );
-        })}
-      </div>
+      {movies ? (
+        <div className="movies">
+          {movies?.map((movie) => {
+            return (
+              <img
+                key={movie.id}
+                className="poster"
+                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                alt=""
+                onClick={() => handleClick(movie.id)}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <h3>--None--</h3>
+      )}
     </div>
   );
 }
