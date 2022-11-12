@@ -24,19 +24,21 @@ function Search() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // delay api call for 500 ms
-  const fetchOptions = debounce((text, callback) => {
-    try {
-      axios
-        .get(`http://localhost:5000/movie/search?query=${text}`)
-        .then((res) => res.data)
-        .then(callback);
-    } catch (error) {
-      console.log(error);
-    }
-  }, 500);
-
-  const getOptionsDelayed = useCallback(() => fetchOptions, [fetchOptions]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getOptionsDelayed = useCallback(
+    // delay api call for 500 ms
+    debounce((text, callback) => {
+      try {
+        axios
+          .get(`http://localhost:5000/movies/search?query=${text}`)
+          .then((res) => res.data)
+          .then(callback);
+      } catch (error) {
+        console.log(error);
+      }
+    }, 500),
+    []
+  );
 
   useEffect(() => {
     if (input) {
