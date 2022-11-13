@@ -8,9 +8,11 @@ app.use(express.json());
 
 const userEndpoints = require("./routes/userRoutes.js");
 const movieEndpoints = require("./routes/movieRoutes.js");
+const revEndpoints = require("./routes/reviewRoutes.js");
 
 app.use("/movies", movieEndpoints);
 app.use("/users", userEndpoints);
+app.use("/reviews", revEndpoints);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
