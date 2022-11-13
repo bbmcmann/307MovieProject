@@ -130,7 +130,8 @@ function SignIn() {
         <br></br>
         <StyledError>{validError}</StyledError>
         <StyledButton>Login</StyledButton>
-        <p>Don't have an account? Sign up here</p>
+        <br></br>
+        <a href="./signup">Don't have an account? Sign up here</a>
       </form>
     </StyledBlock>
   );
