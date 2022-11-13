@@ -24,15 +24,14 @@ function Search() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getOptionsDelayed = useCallback(
     // delay api call for 500 ms
     debounce((text, callback) => {
       try {
         axios
-          .get(
-            `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_API}&query=${text}&include_adult=false`
-          )
-          .then((res) => res.data.results)
+          .get(`http://localhost:5000/movies/search?query=${text}`)
+          .then((res) => res.data)
           .then(callback);
       } catch (error) {
         console.log(error);
@@ -60,7 +59,12 @@ function Search() {
     <Autocomplete
       freeSolo
       id="movieSearch"
-      sx={{ width: 300, background: '#FFFFFF', borderRadius: 1, overflow: 'hidden'}}
+      sx={{
+        width: 300,
+        background: "#FFFFFF",
+        borderRadius: 1,
+        overflow: "hidden",
+      }}
       options={options}
       getOptionLabel={(option) => option.title}
       filterOptions={(x) => x}
