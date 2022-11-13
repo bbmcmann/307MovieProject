@@ -6,6 +6,7 @@ import Movie from "./components/Movie";
 import Profile from "./components/profile/Profile";
 import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
+import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 
 function App() {
@@ -43,9 +44,8 @@ function App() {
         </Route>
 
         {/* Auth paths */}
+        <Route path="signup" element={<SignUp />} />
         <Route path="login" element={<SignIn />} />
-        <Route path="signup" element={<p>signup page</p>} />
-
         <Route path="*" element={<h1>404 page not found</h1>} />
       </Routes>
     </div>
