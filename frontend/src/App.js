@@ -3,7 +3,11 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Movie from "./components/Movie";
+import Profile from "./components/profile/Profile";
+import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 
 function App() {
   return (
@@ -30,9 +34,9 @@ function App() {
 
           {/* Profile paths */}
           <Route path="profile">
-            <Route index element={<p>my profile page</p>} />
-            <Route path=":id" element={<p>profile w id page</p>} />
-            <Route path="edit" element={<p>edit profile page</p>} />
+            <Route index element={<Profile />} />
+            <Route path=":id" element={<Profile />} />
+            <Route path="edit" element={<ProfileEdit />} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
 
@@ -40,9 +44,8 @@ function App() {
         </Route>
 
         {/* Auth paths */}
-        <Route path="login" element={<p>login page</p>} />
-        <Route path="signup" element={<p>signup page</p>} />
-
+        <Route path="signup" element={<SignUp />} />
+        <Route path="login" element={<SignIn />} />
         <Route path="*" element={<h1>404 page not found</h1>} />
       </Routes>
     </div>
