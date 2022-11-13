@@ -7,10 +7,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SearchOption(props) {
-  // const [Id, setId] = useState({id: 0});
-
   return (
-    // <StyledLink to='/movie/3'>
     <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
       <img
         loading="lazy"
@@ -20,7 +17,6 @@ function SearchOption(props) {
       />
       {props.option.title}
     </Box>
-    // </StyledLink>
   );
 }
 
@@ -58,19 +54,8 @@ function Search() {
     }
   }, [input, getOptionsDelayed]);
 
-  //// useNavigate(() => {
-  //   const p = "movie/"+
-  //   return(
-  //     <Navigate to="movie/"></Navigate>
-  //   );
-  // })
-
   const handleSelect = (event, value) => {
     // function to handle when user selects an option
-    // const navigte=useNavigate()
-
-    console.log("TESTING VALUE");
-    console.log(value);
     navigate(`movie/${value.id}`);
   };
 

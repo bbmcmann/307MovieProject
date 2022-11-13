@@ -43,7 +43,6 @@ function Header() {
         <nav className="App-nav">
           <h2>
             <div className="dropdown">
-              {/* //Changed here: */}
               <button name="movies-btn" className="dropbtn">
                 <StyledLink to="movie"> Movies </StyledLink>
               </button>

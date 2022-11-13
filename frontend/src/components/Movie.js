@@ -1,12 +1,9 @@
-//import styles from './Movie.module.css'
+import { Typography } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import React from "react";
 import "./Movie.css";
-import Paper from "@mui/material/Paper";
-import { Typography } from "@mui/material";
-import ReviewList from "./ReviewList";
-import TextField from "@mui/material/TextField";
-import Input from "@mui/material/Input";
 import ReviewForm from "./ReviewForm";
+import ReviewList from "./ReviewList";
 
 function Movie() {
   return (
