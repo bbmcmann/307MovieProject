@@ -26,7 +26,7 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-        working-directory: /backend # set to the folder with your app if it is not the root directory
+        working-directory: backend # set to the folder with your app if it is not the root directory
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
