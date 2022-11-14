@@ -1,15 +1,7 @@
 import { Button, Paper, TextField } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  StyledSubmit,
-  StyledCon,
-  StyledForm,
-  StyledInput,
-  StyledError,
-  StyledHead,
-  StyledText,
-} from "../StyledComponents.jsx";
+import { StyledForm } from "../StyledComponents.jsx";
 
 function ProfileEdit() {
   const username = useRef();

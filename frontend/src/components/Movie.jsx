@@ -2,16 +2,7 @@
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import "../styles/Movie.css";
-import {
-  StyledSubmit,
-  StyledCon,
-  StyledForm,
-  StyledInput,
-  StyledError,
-  StyledHead,
-  StyledText,
-  StyledLabel,
-} from "./StyledComponents.jsx";
+import { StyledCon } from "./StyledComponents.jsx";
 
 function Movie() {
   return (
