@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import "../styles/Movie.css";
+import { StyledCon } from "./StyledComponents.jsx";
 import ReviewForm from "./ReviewForm";
 import ReviewList from "./ReviewList";
 
@@ -43,11 +44,13 @@ function Movie() {
           </Paper>
         </div>
 
+          <StyledCon>
         <div>
-          <Paper elevation={3} className="Movie-desc">
+          
             {/* <div> */}
             <Typography variant="h5">Description:</Typography>
             <Typography variant="p">
+
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -57,7 +60,7 @@ function Movie() {
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Typography>
             {/* </div> */}
-          </Paper>
+          </StyledCon>
         </div>
 
         <div>

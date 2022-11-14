@@ -1,73 +1,22 @@
-import Container from "@mui/material/Container";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-const StyledCon = styled(Container)`
-  background: #f6da73;
-  margin: 30px;
-  padding: 20px;
-  border-radius: 10px;
-  width: 500px;
-`;
-
-const StyledBanana = styled.p`
-  font-size: 48px;
-  margin-bottom: 5px;
-`;
-
-const StyledTitle = styled.p`
-  font-size: 30px;
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  padding: 50px;
-  padding-left: 70px;
-  padding-right: 70px;
-`;
-
-const StyledLabel = styled.label`
-  display: flex;
-  flex-direction: column;
-  font-size: 25px;
-  color: #3e5336;
-  width: 100%;
-`;
-
-const StyledInput = styled.input`
-  border: 1px solid 3e5336;
-  border-radius: 10px;
-  height: 33px;
-  padding-left: 10px;
-  font-size: 20px;
-  text-align: left;
-  margin-top: 5px;
-  margin-bottom: 20px;
-  margin-left: 5px;
-  margin-right: 5px;
-`;
+import {
+  StyledSubmit,
+  StyledCon,
+  StyledForm,
+  StyledInput,
+  StyledError,
+  StyledHead,
+  StyledText,
+  StyledLabel,
+} from "./StyledComponents.jsx";
 
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: row;
   flex: 1;
   justify-content: space-between;
-`;
-
-const StyledError = styled.p`
-  color: red;
-  font-size: 18px;
-`;
-
-const StyledSubmit = styled.input`
-  background-color: #3e5336;
-  color: white;
-  border: 2px solid #f6da73;
-  border-radius: 10px;
-  height: 40px;
-  font-size: 20px;
 `;
 
 function SignUp() {
@@ -109,8 +58,8 @@ function SignUp() {
           handleSubmit();
         }}
       >
-        <StyledBanana>The Bananalyst</StyledBanana>
-        <StyledTitle>Sign Up</StyledTitle>
+        <StyledHead>The Bananalyst</StyledHead>
+        <StyledText>Sign Up</StyledText>
         <StyledDiv>
           <StyledLabel>
             First Name:
