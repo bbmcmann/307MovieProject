@@ -2,6 +2,16 @@
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import "../styles/Movie.css";
+import {
+  StyledSubmit,
+  StyledCon,
+  StyledForm,
+  StyledInput,
+  StyledError,
+  StyledHead,
+  StyledText,
+  StyledLabel,
+} from "./StyledComponents.jsx";
 
 function Movie() {
   return (
@@ -45,7 +55,7 @@ function Movie() {
             </span>
           </Paper>
 
-          <Paper>
+          <StyledCon>
             <h3>Description:</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -56,7 +66,7 @@ function Movie() {
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
-          </Paper>
+          </StyledCon>
         </div>
         <div>
           <Paper>
