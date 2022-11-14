@@ -9,6 +9,7 @@ const StyledCard = styled(Card)`
   border: 1px solid #d9d9d9;
   width: 800px;
   margin-bottom: 10px;
+  padding-top: 50px
   box-shadow: 5px 5px 5px gray;
   text-align: left;
 `;

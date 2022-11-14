@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Search from "./Search";
 
@@ -10,6 +10,25 @@ const Searchdiv = styled.div`
   padding: 10px;
 `;
 
+const StyledLink = styled(Link)`
+  a:active {
+    text-decoration: none;
+  }
+  ,
+  a:hover {
+    text-color: #ffffff;
+  }
+  ,
+  a:visited {
+    text-decoration: none;
+  }
+  ,
+  a:link {
+    text-decoration: none;
+  }
+  color: #000000;
+`;
+
 function Header() {
   return (
     <>
@@ -18,21 +37,32 @@ function Header() {
           {" "}
           <Search />{" "}
         </Searchdiv>
-        <h1 className="App-h1">The Bananalyst</h1>
+        <h1 className="App-h1">
+          <StyledLink to="/">The Bananalyst</StyledLink>
+        </h1>
         <nav className="App-nav">
           <h2>
             <div className="dropdown">
-              <button className="dropbtn">Movies</button>
+              <button name="movies-btn" className="dropbtn">
+                <StyledLink to="movie"> Movies </StyledLink>
+              </button>
               <div className="dropcont">
-                <p>Popular Movies</p>
-                <p>Suggested Movies</p>
+                {/* TODO: Finalize navigation on all buttons. Currently on temporary  */}
+                <p><StyledLink to='movie/popular'>Popular Movies</StyledLink></p>
+                <p>
+                  <StyledLink to="movie/suggested">Suggested Movies</StyledLink>
+                </p>
               </div>
             </div>
             <div className="dropdown">
-              <button className="dropbtn">Review</button>
+              <button className="dropbtn">
+                <StyledLink to="review/">Review</StyledLink>
+              </button>
             </div>
             <div className="dropdown">
-              <button className="dropbtn">Sign In</button>
+              <button className="dropbtn">
+                <StyledLink to="login">Sign In</StyledLink>
+              </button>
             </div>
           </h2>
         </nav>
