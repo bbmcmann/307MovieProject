@@ -1,12 +1,14 @@
-//import styles from './Movie.module.css'
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import React from "react";
 import "../styles/Movie.css";
+import ReviewForm from "./ReviewForm";
+import ReviewList from "./ReviewList";
 
 function Movie() {
   return (
     <>
-      <body className="Movie-body">
+      <div className="Movie-body">
         <div>
           {/* Need there to be change in color of the page*/}
           <Paper elevation={3} className="Movie-review">
@@ -21,10 +23,8 @@ function Movie() {
                 />
               </Paper>
 
-              <span class="Movie-poster-review-panel">
-                {/* <Paper elevation={3} className='Movie-score'> */}
-                {/* <img class='dot' src={require('./static/cartoon-banana.png')} alt="Banana Poster" height={150} width={150}/> */}
-                <span class="dot">
+              <span className="Movie-poster-review-panel">
+                <span className="dot">
                   <Typography
                     paddingTop={10}
                     paddingLeft={8}
@@ -34,9 +34,6 @@ function Movie() {
                     3.25
                   </Typography>
                 </span>
-
-                {/* </Paper> */}
-                <p class="Movie-score-text">Score: 4.5/7</p>
               </span>
 
               <Paper elevation={3} className="Movie-score">
@@ -44,10 +41,13 @@ function Movie() {
               </Paper>
             </span>
           </Paper>
+        </div>
 
-          <Paper>
-            <h3>Description:</h3>
-            <p>
+        <div>
+          <Paper elevation={3} className="Movie-desc">
+            {/* <div> */}
+            <Typography variant="h5">Description:</Typography>
+            <Typography variant="p">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -55,15 +55,23 @@ function Movie() {
               reprehenderit in voluptate velit esse cillum dolore eu fugiat
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            </Typography>
+            {/* </div> */}
           </Paper>
         </div>
+
         <div>
-          <Paper>
-            <Typography>Reviews:</Typography>
-          </Paper>
+          <ReviewForm />
         </div>
-      </body>
+
+        <div>
+          <Typography variant="h4" className="Movie-desc">
+            Reviews
+          </Typography>
+          <ReviewList />
+        </div>
+      </div>
+      {/* <ReviewList/> */}
     </>
   );
 }

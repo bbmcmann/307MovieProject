@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SearchOption(props) {
   return (
@@ -24,6 +25,8 @@ function Search() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const navigate = useNavigate();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getOptionsDelayed = useCallback(
     // delay api call for 500 ms
@@ -52,7 +55,7 @@ function Search() {
 
   const handleSelect = (event, value) => {
     // function to handle when user selects an option
-    console.log(value);
+    navigate(`movie/${value.id}`);
   };
 
   return (
