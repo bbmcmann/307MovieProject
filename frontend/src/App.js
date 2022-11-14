@@ -8,7 +8,6 @@ import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
-import ReviewList from "./components/ReviewList";
 
 function App() {
   return (
