@@ -3,13 +3,6 @@
 
 name: Build and deploy Node.js app to Azure Web App - Banalyst
 
-- name: npm install, build, and test
-  run: |
-    npm install
-    npm run build --if-present
-    npm run test --if-present
-  working-directory:  backend # set to the folder with your app if it is not the root directory
-
 on:
   push:
     branches:
@@ -26,14 +19,15 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: '18.x'
+          node-version: "18.x"
 
       - name: npm install, build, and test
         run: |
           npm install
           npm run build --if-present
           npm run test --if-present
-      
+        working-directory: /backend # set to the folder with your app if it is not the root directory
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -44,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -53,11 +47,11 @@ jobs:
         with:
           name: node-app
 
-      - name: 'Deploy to Azure Web App'
+      - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'Banalyst'
-          slot-name: 'Production'
+          app-name: "Banalyst"
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3188A4C461E34AB69DB9BF0BAEC13915 }}
           package: .
