@@ -48,7 +48,9 @@ function Header() {
               </button>
               <div className="dropcont">
                 {/* TODO: Finalize navigation on all buttons. Currently on temporary  */}
-                <p><StyledLink to='movie/popular'>Popular Movies</StyledLink></p>
+                <p>
+                  <StyledLink to="movie/popular">Popular Movies</StyledLink>
+                </p>
                 <p>
                   <StyledLink to="movie/suggested">Suggested Movies</StyledLink>
                 </p>

@@ -104,7 +104,7 @@
 .dropcont a:hover {
   /* background-color: #3E5336; */
   text-decoration: underline;
-  color: #ffffff;  
+  color: #ffffff;
 }
 
 .dropdown:hover .dropcont {

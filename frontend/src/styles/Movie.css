@@ -22,10 +22,10 @@
   padding: 50px;
 }
 
-.Movie-desc{
+.Movie-desc {
   display: inline-flexbox;
   text-align: left;
-  padding: 20px
+  padding: 20px;
 }
 
 .Movie-poster {
