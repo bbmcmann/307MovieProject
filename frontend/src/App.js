@@ -16,7 +16,7 @@ function App() {
           <Route path="movie">
             <Route index element={<p>generic movie page</p>} />
             <Route path="popular" element={<p>popular movie page</p>} />
-            <Route path="recommend" element={<p>recommend movie page</p>} />
+            <Route path="suggested" element={<p>recommend movie page</p>} />
             <Route path=":movieId" element={<Movie />} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>

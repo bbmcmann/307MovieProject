@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import styled from "styled-components";
 import Paper from "@mui/material/Paper";
-import { Typography } from "@mui/material";
+import { Typography, Button, Box } from "@mui/material";
 import Rating from "@mui/material/Rating";
 // import "./Movie.css";
 
 // function setValue=
 const StyledForm = styled(Paper)`
-  backgroundColor: #0000FF
   text-align: left;
   padding-top: 25px;
   padding-left: 50px;
@@ -17,10 +16,9 @@ const StyledForm = styled(Paper)`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  
 `;
 
-function ReviewForm() {
+function ReviewForm(props) {
   const [rating, setRating] = useState({
     title: "",
     review: "",
@@ -49,19 +47,24 @@ function ReviewForm() {
       });
   }
 
+  function submitForm() {
+    props.handleSubmit(rating);
+    setRating({ title: "", review: "", ratingVal: 1 });
+  }
+
   console.log(rating);
 
-  // function submitForm() {
-  // }
-
   return (
-    <>
-      {/* <Paper className="Movie-desc"> */}
-
+    <div>
       <StyledForm>
         <div>
           <Typography variant="h5">Rate it!</Typography>
-          <Rating name="review-rating" max={7} defaultValue={1} onChange={handleChange} />
+          <Rating
+            name="review-rating"
+            max={7}
+            defaultValue={1}
+            onChange={handleChange}
+          />
         </div>
 
         <div>
@@ -85,17 +88,15 @@ function ReviewForm() {
             rows={4}
             onChangeCapture={handleChange}
           />
-          {/* <TextField
-            id="outlined-basic"
-            label="Review (Required)"
-            variant="outlined"
-            name="review-text"
-            fullWidth
-            onChangeCapture={handleChange}
-          /> */}
         </div>
+
+        <Box justifyContent="flex-end" display="flex">
+          <Button variant="contained" onClick={submitForm} fullWidth={false}>
+            Submit
+          </Button>
+        </Box>
       </StyledForm>
-    </>
+    </div>
   );
 }
 
