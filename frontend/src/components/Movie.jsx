@@ -2,12 +2,13 @@ import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import "../styles/Movie.css";
+import { StyledCon } from "./StyledComponents.jsx";
 import ReviewForm from "./ReviewForm";
 import ReviewList from "./ReviewList";
 
 function Movie() {
   return (
-    <>
+    <div>
       <div className="Movie-body">
         <div>
           {/* Need there to be change in color of the page*/}
@@ -42,10 +43,8 @@ function Movie() {
             </span>
           </Paper>
         </div>
-
         <div>
-          <Paper elevation={3} className="Movie-desc">
-            {/* <div> */}
+          <StyledCon>
             <Typography variant="h5">Description:</Typography>
             <Typography variant="p">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -56,8 +55,7 @@ function Movie() {
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Typography>
-            {/* </div> */}
-          </Paper>
+          </StyledCon>
         </div>
 
         <div>
@@ -72,7 +70,7 @@ function Movie() {
         </div>
       </div>
       {/* <ReviewList/> */}
-    </>
+    </div>
   );
 }
 
