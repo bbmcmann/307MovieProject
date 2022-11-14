@@ -27,7 +27,7 @@ function Search() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = useNavigate();
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getOptionsDelayed = useCallback(
     // delay api call for 500 ms
     debounce((text, callback) => {
