@@ -8,7 +8,7 @@ import ReviewList from "./ReviewList";
 
 function Movie() {
   return (
-    <>
+    <div>
       <div className="Movie-body">
         <div>
           {/* Need there to be change in color of the page*/}
@@ -43,14 +43,10 @@ function Movie() {
             </span>
           </Paper>
         </div>
-
-          <StyledCon>
         <div>
-          
-            {/* <div> */}
+          <StyledCon>
             <Typography variant="h5">Description:</Typography>
             <Typography variant="p">
-
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -59,7 +55,6 @@ function Movie() {
               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Typography>
-            {/* </div> */}
           </StyledCon>
         </div>
 
@@ -75,7 +70,7 @@ function Movie() {
         </div>
       </div>
       {/* <ReviewList/> */}
-    </>
+    </div>
   );
 }
 
