@@ -74,7 +74,7 @@ function SignIn() {
         />
         <br></br>
         <StyledInput
-          type="text"
+          type="password"
           name="password"
           id="password"
           placeholder="Password"
