@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // reviews
+    reviews: [{type: mongoose.Types.ObjectId, ref: "Reviews"}],
     // favorite_pun
   },
   { collection: "users_list" }
