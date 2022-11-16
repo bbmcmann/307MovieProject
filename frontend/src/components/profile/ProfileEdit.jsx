@@ -45,6 +45,18 @@ function ProfileEdit() {
     }
   }
 
+  function updateUser() {
+    if (username.current.value !== "") {
+      user.username = username.current.value;
+    }
+    if (fname.current.value !== "") {
+      user.first_name = fname.current.value;
+    }
+    if (lname.current.value !== "") {
+      user.last_name = lname.current.value;
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
@@ -56,10 +68,7 @@ function ProfileEdit() {
       return;
     }
     console.log("submit clicked");
-    user.username = username.current.value;
-    user.first_name = fname.current.value;
-    console.log(user.first_name);
-    user.last_name = lname.current.value;
+    updateUser();
     makeUpdateCall(id).then((result) => {
       if (result && result.status === 200) {
         setUser(result.data);
@@ -67,7 +76,7 @@ function ProfileEdit() {
         console.log(error);
       }
     });
-    navigate("/profile/" + id);
+    navigate("/profile/" + id); // doesn't automatically update it
   };
 
   return curUser ? (
