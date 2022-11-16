@@ -246,30 +246,40 @@ test("Adding user -- failure path with no password", async () => {
   expect(result).toBeFalsy();
 });
 
-test("Updating user -- successful path with username, first and last name", async () => {
+test("Updating user -- successful path with username, first and last name, and pun", async () => {
   const dummyUser = {
     username: "theboywholives",
     first_name: "Harry",
     last_name: "Potter",
     email: "hpotter@hogwarts.edu",
     password: "iloveginny",
+    fav_pun: {
+      question: "Pun question",
+      answer: "Pun answer",
+    },
   };
   const updatedUser = {
     username: "iputmynameinthegoblet",
     first_name: "Hurry",
     last_name: "potter",
+    fav_pun: {
+      question: "New pun question",
+      answer: "New pun answer",
+    },
   };
   const addedUser = await userServices.addUser(dummyUser);
   const result = await userServices.updateUserById(
     addedUser.id,
     updatedUser.username,
     updatedUser.first_name,
-    updatedUser.last_name
+    updatedUser.last_name,
+    updatedUser.fav_pun
   );
   expect(result).toBeTruthy();
   expect(result.username).toBe(updatedUser.username);
   expect(result.first_name).toBe(updatedUser.first_name);
   expect(result.last_name).toBe(updatedUser.last_name);
+  expect(result.fav_pun).toEqual(updatedUser.fav_pun);
   expect(result).toHaveProperty("_id");
   await userServices.deleteUserById(addedUser.id);
 });
@@ -352,6 +362,41 @@ test("Updating user -- successful path with last", async () => {
   await userServices.deleteUserById(addedUser.id);
 });
 
+test("Updating user -- successful path with pun", async () => {
+  const dummyUser = {
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+    fav_pun: {
+      question: "Pun question",
+      answer: "Pun answer",
+    },
+  };
+  const updatedUser = {
+    fav_pun: {
+      question: "New pun question",
+      answer: "New pun answer",
+    },
+  };
+  const addedUser = await userServices.addUser(dummyUser);
+  const result = await userServices.updateUserById(
+    addedUser.id,
+    dummyUser.username,
+    dummyUser.first_name,
+    dummyUser.last_name,
+    updatedUser.fav_pun
+  );
+  expect(result).toBeTruthy();
+  expect(result.username).toBe(dummyUser.username);
+  expect(result.first_name).toBe(dummyUser.first_name);
+  expect(result.last_name).toBe(dummyUser.last_name);
+  expect(result.fav_pun).toEqual(updatedUser.fav_pun);
+  expect(result).toHaveProperty("_id");
+  await userServices.deleteUserById(addedUser.id);
+});
+
 test("Updating user -- failure with invalid id", async () => {
   const dummyUser = {
     _id: "123",
@@ -360,11 +405,19 @@ test("Updating user -- failure with invalid id", async () => {
     last_name: "Potter",
     email: "hpotter@hogwarts.edu",
     password: "iloveginny",
+    fav_pun: {
+      question: "Pun question",
+      answer: "Pun answer",
+    },
   };
   const updatedUser = {
     username: "iputmynameinthegoblet",
     first_name: "Hurry",
     last_name: "potter",
+    fav_pun: {
+      question: "New pun question",
+      answer: "New pun answer",
+    },
   };
   const addedUser = await userServices.addUser(dummyUser);
   const result = await userServices.updateUserById(
