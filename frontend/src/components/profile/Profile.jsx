@@ -49,8 +49,10 @@ function Profile() {
             <span>
               <em>{`${user.first_name} ${user.last_name}`}</em>
             </span>
-            <p>&#127820;Favorite Pun-ana</p>
-            <p>{user.pun}</p>
+            <p className="pun">Favorite Pun-ana</p>
+            {user.fav_pun ? (
+              <p>&#127820;{`${user.fav_pun.question}`}<br></br>&#127820;{`${user.fav_pun.answer}`}</p>
+            ): null} 
             {/* Need to add logic to check if profile being viewed is their own profile */}
             {user ? (
               <Button variant="contained" onClick={navigateEdit}>
