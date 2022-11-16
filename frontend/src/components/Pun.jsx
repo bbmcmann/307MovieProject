@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import { Button } from "@mui/material";
-import axios from "axios";
 
 function Pun() {
   let pun_q = [
