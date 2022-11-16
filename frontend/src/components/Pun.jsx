@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 function Pun() {
   let pun_q = [
@@ -26,6 +29,10 @@ function Pun() {
       <br></br>
       <br></br>
       &#x1F34C;{pun_a[randomNum]}
+      <br></br>
+      <br></br>
+      {/* need to have the button only show up if user is logged in / verified */}
+      <Button variant="contained">Favorite</Button>
     </div>
   );
 }
