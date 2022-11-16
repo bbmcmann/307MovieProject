@@ -36,7 +36,7 @@ function App() {
           <Route path="profile">
             <Route index element={<Profile />} />
             <Route path=":id" element={<Profile />} />
-            <Route path="edit" element={<ProfileEdit />} />
+            <Route path="edit/:id" element={<ProfileEdit />} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
 

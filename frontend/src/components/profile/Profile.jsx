@@ -31,7 +31,7 @@ function Profile() {
   console.log(user);
 
   const navigateEdit = () => {
-    navigate("/profile/edit");
+    navigate("/profile/edit/" + id);
   };
 
   return (

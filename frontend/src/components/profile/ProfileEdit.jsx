@@ -1,17 +1,49 @@
+import axios from "axios";
 import { Button, Paper, TextField } from "@mui/material";
-import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useRef, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { StyledForm } from "../StyledComponents.jsx";
 
 function ProfileEdit() {
   const username = useRef();
   const fname = useRef();
   const lname = useRef();
+  const [user, setUser] = useState({});
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
   const curUser = {};
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    // fetch user info based on id
+    if (id) {
+      axios
+        .get(`http://localhost:5000/users/${id}`)
+        .then((res) => setUser(res.data.users_list))
+        .catch((err) => {
+          console.log(err);
+          setError(true);
+        });
+    } else {
+      setError(true);
+    }
+  }, [id]);
+
+  async function makeUpdateCall(id) {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/users/${id}`,
+        user
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,10 +56,18 @@ function ProfileEdit() {
       return;
     }
     console.log("submit clicked");
-    console.log(username.current.value);
-    console.log(fname.current.value);
-    console.log(lname.current.value);
-    navigate("/profile");
+    user.username = username.current.value;
+    user.first_name = fname.current.value;
+    console.log(user.first_name);
+    user.last_name = lname.current.value;
+    makeUpdateCall(id).then((result) => {
+      if (result && result.status === 200) {
+        setUser(result.data);
+      } else {
+        console.log(error);
+      }
+    });
+    navigate("/profile/" + id);
   };
 
   return curUser ? (
