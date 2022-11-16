@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 function Pun() {
+  const [user, setUser] = useState({});
+  const [error, setError] = useState(false);
   let pun_q = [
     "How is a banana peel on the floor similar to music?",
     "Why don't bananas snore?",
@@ -20,6 +23,41 @@ function Pun() {
   ];
   let randomNum = Math.floor(Math.random() * pun_q.length);
 
+  const id = "637534992a690fb48c978131";
+
+  useEffect(() => {
+    // fetch user info based on id
+    if (id) {
+      axios
+        .get(`http://localhost:5000/users/${id}`)
+        .then((res) => setUser(res.data.users_list))
+        .catch((err) => {
+          console.log(err);
+          setError(true);
+        });
+    } else {
+      setError(true);
+    }
+  }, [id]);
+
+  const handleSubmit = () => {
+    user.fav_pun = { question: pun_q[randomNum], answer: pun_a[randomNum] };
+    makeUpdateCall(id);
+  };
+
+  async function makeUpdateCall(id) {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/users/${id}`,
+        user
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   return (
     <div className="App-body">
       <h2 className="App-h2">&#127820; Pun-ana of the Day : &#127820;</h2>
@@ -30,7 +68,13 @@ function Pun() {
       <br></br>
       <br></br>
       {/* need to have the button only show up if user is logged in / verified */}
-      <Button variant="contained">Favorite</Button>
+      {error ? (
+        <h2>User not found</h2>
+      ) : user ? (
+        <Button variant="contained" onClick={handleSubmit}>
+          Favorite
+        </Button>
+      ) : null}
     </div>
   );
 }
