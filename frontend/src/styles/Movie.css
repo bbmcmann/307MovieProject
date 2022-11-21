@@ -57,6 +57,8 @@
   border-radius: 50%;
   display: inline-flex;
   offset-inline-start: 40px;
+  justify-content: center;
+  align-items: center;
 }
 
 .Movie-poster-review-panel {

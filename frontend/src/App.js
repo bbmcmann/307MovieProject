@@ -6,8 +6,8 @@ import Movie from "./components/Movie";
 import Profile from "./components/profile/Profile";
 import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
-import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -18,10 +18,13 @@ function App() {
 
           {/* Movie paths */}
           <Route path="movie">
-            <Route index element={<p>generic movie page</p>} />
+            <Route
+              index
+              element={<p>Use the search bar to search for a movie!</p>}
+            />
             <Route path="popular" element={<p>popular movie page</p>} />
             <Route path="suggested" element={<p>recommend movie page</p>} />
-            <Route path=":movieId" element={<Movie />} />
+            <Route path=":id" element={<Movie />} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
 
