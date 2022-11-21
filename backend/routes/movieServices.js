@@ -82,6 +82,7 @@ async function movieInDb(id) {
     const result = await Movie.findById(id).populate("reviews");
     return result;
   } catch (error) {
+    console.log(error);
     return null;
   }
 }

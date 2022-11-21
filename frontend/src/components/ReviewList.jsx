@@ -6,7 +6,6 @@ const StyledCon = styled(Container)`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid black;
 `;
 
 function ReviewList({ reviews }) {
