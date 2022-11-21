@@ -79,7 +79,7 @@ async function createMovie(id, reviewId, score) {
 
 async function movieInDb(id) {
   try {
-    const result = await Movie.findById(id);
+    const result = await Movie.findById(id).populate("reviews");
     return result;
   } catch (error) {
     return null;

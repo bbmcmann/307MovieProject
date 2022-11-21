@@ -53,6 +53,7 @@ function ReviewList({ reviews }) {
   //     score: 6,
   //   },
   // ];
+  console.log(reviews);
 
   return (
     <StyledCon>
