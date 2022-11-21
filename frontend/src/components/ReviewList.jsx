@@ -4,10 +4,9 @@ import Review from "./Review.jsx";
 
 const StyledCon = styled(Container)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  //padding: 10px;
-  //border: 1px solid black;
+  border: 1px solid black;
 `;
 
 function ReviewList({ reviews }) {
@@ -53,7 +52,6 @@ function ReviewList({ reviews }) {
   //     score: 6,
   //   },
   // ];
-  console.log(reviews);
 
   return (
     <StyledCon>
