@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserSchema = require("../models/users.js");
+const { addUser } = require("./user-services.js");
 require("dotenv").config();
 
 const User = UserSchema.Users;
@@ -45,18 +46,18 @@ async function signup(username, pwd, fname, lname, email) {
     const hashedPWd = await bcrypt.hash(pwd, salt);
     // Now, call a model function to store the username and hashedPwd (a new user)
     // For demo purposes, I'm skipping the model piece, and assigning the new user to this fake obj
-    const newUser = new User({
+    const newUser = {
       username: username,
       first_name: fname,
       last_name: lname,
       email: email,
       password: hashedPWd,
       reviews: [],
-    });
-    await newUser.save();
+    };
+    const result = await addUser(newUser);
 
     const token = generateAccessToken({
-      id: newUser._id,
+      id: result._id,
       username: username,
     });
     return token;
@@ -92,6 +93,7 @@ function authenticateUser(req, res, next) {
   }
 }
 
+exports.generateAccessToken = generateAccessToken;
 exports.login = login;
 exports.signup = signup;
 exports.authenticateUser = authenticateUser;
