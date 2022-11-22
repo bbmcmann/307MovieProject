@@ -1,4 +1,5 @@
 const express = require("express");
+const { authenticateUser } = require("./authServices.js");
 const router = express.Router();
 const reviewServices = require("./reviewServices.js");
 
@@ -20,7 +21,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //post a review
-router.post("/", async (req, res) => {
+router.post("/", authenticateUser, async (req, res) => {
   let rev_add = req.body;
   const result = await reviewServices.postReview(rev_add);
   if (result) {
@@ -31,7 +32,7 @@ router.post("/", async (req, res) => {
 });
 
 //update a review (upvotes/downvotes)
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authenticateUser, async (req, res) => {
   const id = req.params["id"];
   const upvotes = req.body.upvotes;
   const downvotes = req.body.downvotes;
