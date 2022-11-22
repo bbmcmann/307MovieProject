@@ -76,11 +76,11 @@ describe("signup", () => {
       newUser.email
     );
     expect(result).not.toBeNull();
-    jwt.verify(result, process.env.TOKEN_SECRET, (err, user) => {
+    jwt.verify(result, process.env.TOKEN_SECRET, async (err, user) => {
       expect(user.username).toBe("joemeimei123");
       expect(user.id).toBeTruthy();
+      await Users.findByIdAndDelete(user.id);
     });
-    await Users.deleteMany({ username: "joemeimei123" });
   });
 
   test("username already exists", async () => {
