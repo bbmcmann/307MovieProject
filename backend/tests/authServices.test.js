@@ -80,8 +80,8 @@ describe("signup", () => {
     jwt.verify(result, process.env.TOKEN_SECRET, async (err, user) => {
       expect(user.username).toBe("test");
       expect(user.id).toBeTruthy();
-      await Users.findByIdAndDelete(user.id);
     });
+    await Users.deleteMany({ username: "test" });
   });
 
   test("username already exists", async () => {
