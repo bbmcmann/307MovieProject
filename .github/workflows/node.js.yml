@@ -14,6 +14,7 @@ env:
   MOVIE_API: ${{ secrets.MOVIE_API }}
   REACT_APP_MOVIE_API: ${{ secrets.MOVIE_API }}
   TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+  REACT_APP_BACKEND_URL: ${{ secrets.BACKEND_URL }}
 
 jobs:
   backend:
