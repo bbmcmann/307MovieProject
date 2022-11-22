@@ -61,8 +61,9 @@ describe("login", () => {
 
 describe("signup", () => {
   test("success", async () => {
+    await Users.deleteMany({ username: "test" });
     const newUser = {
-      username: "joemeimei123",
+      username: "test",
       pwd: "ilovebananas",
       first_name: "joe",
       last_name: "meimei",
@@ -77,7 +78,7 @@ describe("signup", () => {
     );
     expect(result).not.toBeNull();
     jwt.verify(result, process.env.TOKEN_SECRET, async (err, user) => {
-      expect(user.username).toBe("joemeimei123");
+      expect(user.username).toBe("test");
       expect(user.id).toBeTruthy();
       await Users.findByIdAndDelete(user.id);
     });
