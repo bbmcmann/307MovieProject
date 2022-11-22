@@ -1,75 +1,71 @@
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import "../styles/Movie.css";
-import { StyledCon } from "./StyledComponents.jsx";
 import ReviewForm from "./ReviewForm";
 import ReviewList from "./ReviewList";
+import { StyledCon } from "./StyledComponents.jsx";
 
 function Movie() {
+  const [movie, setMovie] = useState({});
+  const [err, setErr] = useState(false);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`${process.env.REACT_APP_BACKEND_URL}movies/${id}`)
+        .then((res) => {
+          setMovie(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setErr(true);
+        });
+    }
+  }, [id]);
+
   return (
-    <div>
-      <div className="Movie-body">
-        <div>
-          {/* Need there to be change in color of the page*/}
+    <div className="Movie-body">
+      {err ? (
+        <h2>Movie not found</h2>
+      ) : (
+        <>
           <Paper elevation={3} className="Movie-review">
-            <h1>Movie Title</h1>
+            <h1>{movie?.title}</h1>
             <span className="Movie-poster-review-panel">
               <Paper elevation={3} className="Movie-poster">
                 <img
-                  src={require("../static/cartoon-banana.png")}
-                  alt="Banana Poster"
+                  src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
+                  alt="Movie Poster"
                   height={300}
                   width={200}
                 />
               </Paper>
-
               <span className="Movie-poster-review-panel">
-                <span className="dot">
-                  <Typography
-                    paddingTop={10}
-                    paddingLeft={8}
-                    color="white"
-                    fontSize={60}
-                  >
-                    3.25
+                <div className="dot">
+                  <Typography color="white" fontSize={60}>
+                    {movie?.score ? movie.score : "--"}
                   </Typography>
-                </span>
+                </div>
               </span>
-
-              <Paper elevation={3} className="Movie-score">
-                {/* <img src={require('./static/cartoon-banana.png')} alt="Banana Poster" height={300} width={200}/> */}
-              </Paper>
+              <Paper elevation={3} className="Movie-score" />
             </span>
           </Paper>
-        </div>
-        <div>
           <StyledCon>
             <Typography variant="h5">Description:</Typography>
-            <Typography variant="p">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Typography>
+            <Typography variant="p">{movie?.description}</Typography>
           </StyledCon>
-        </div>
-
-        <div>
           <ReviewForm />
-        </div>
-
-        <div>
           <Typography variant="h4" className="Movie-desc">
             Reviews
           </Typography>
-          <ReviewList />
-        </div>
-      </div>
-      {/* <ReviewList/> */}
+          <ReviewList reviews={movie.reviews} />
+        </>
+      )}
     </div>
   );
 }

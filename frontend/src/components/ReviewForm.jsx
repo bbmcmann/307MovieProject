@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import styled from "styled-components";
+import { Box, Button, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import { Typography, Button, Box } from "@mui/material";
 import Rating from "@mui/material/Rating";
+import TextField from "@mui/material/TextField";
+import React, { useState } from "react";
+import styled from "styled-components";
 // import "./Movie.css";
 
 // function setValue=
@@ -51,8 +51,6 @@ function ReviewForm(props) {
     props.handleSubmit(rating);
     setRating({ title: "", review: "", ratingVal: 1 });
   }
-
-  console.log(rating);
 
   return (
     <div>
