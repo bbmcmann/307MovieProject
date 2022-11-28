@@ -12,12 +12,12 @@ function generateAccessToken(user) {
   });
 }
 
-async function login(username, pwd) {
+async function login(username, password) {
   // Call a model function to retrieve an existing user based on id
   try {
     const retrievedUser = await User.findOne({ username: username });
     if (retrievedUser) {
-      const isValid = await bcrypt.compare(pwd, retrievedUser.password);
+      const isValid = await bcrypt.compare(password, retrievedUser.password);
       if (isValid) {
         // Generate token and respond
         const token = generateAccessToken({
@@ -33,7 +33,7 @@ async function login(username, pwd) {
   }
 }
 
-async function signup(username, pwd, fname, lname, email) {
+async function signup(username, password, fname, lname, email) {
   const maybeUser = await User.findOne({ username: username });
   if (maybeUser && username === maybeUser.username) {
     //Conflicting usernames. Assuming it's not allowed, then:
@@ -41,9 +41,9 @@ async function signup(username, pwd, fname, lname, email) {
   } else {
     // generate salt to hash password
     const salt = await bcrypt.genSalt(10);
-    // On the database you never store the user input pwd.
+    // On the database you never store the user input password.
     // So, let's hash it:
-    const hashedPWd = await bcrypt.hash(pwd, salt);
+    const hashedPwd = await bcrypt.hash(password, salt);
     // Now, call a model function to store the username and hashedPwd (a new user)
     // For demo purposes, I'm skipping the model piece, and assigning the new user to this fake obj
     const newUser = {
@@ -51,7 +51,7 @@ async function signup(username, pwd, fname, lname, email) {
       first_name: fname,
       last_name: lname,
       email: email,
-      password: hashedPWd,
+      password: hashedPwd,
       reviews: [],
     };
     const result = await addUser(newUser);

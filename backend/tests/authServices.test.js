@@ -64,14 +64,14 @@ describe("signup", () => {
     await Users.deleteMany({ username: "test" });
     const newUser = {
       username: "test",
-      pwd: "ilovebananas",
+      password: "ilovebananas",
       first_name: "joe",
       last_name: "meimei",
       email: "another@email.com",
     };
     const result = await signup(
       newUser.username,
-      newUser.pwd,
+      newUser.password,
       newUser.first_name,
       newUser.last_name,
       newUser.email
