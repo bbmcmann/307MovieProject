@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import {
   StyledSubmit,
@@ -19,16 +20,31 @@ const StyledDiv = styled.div`
   justify-content: space-between;
 `;
 
-function SignUp() {
+function SignUp(props) {
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
+  const person = useState({
+    username: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  });
   const [validError, setError] = useState("");
 
   const navigate = useNavigate();
+
+  function updateUser() {
+    person.username = userName;
+    person.first_name = fName;
+    person.last_name = lName;
+    person.email = email;
+    person.password = pass;
+  }
 
   const handleSubmit = () => {
     //very basic validation
@@ -45,10 +61,38 @@ function SignUp() {
     } else if (pass !== confirmPass) {
       setError("Passwords must match");
     } else {
-      setError("");
-      navigate("/");
+      updateUser();
+      submitForm();
     }
   };
+
+  function submitForm() {
+    makeSignUpCall(person).then((response) => {
+      if (response && response.status === 201) {
+        const token = response.data;
+        // setPerson({ username: '', password: '' })
+        props.setToken(token);
+        navigate("/");
+      } else {
+        setError("Username already taken");
+        navigate("");
+      }
+    });
+  }
+
+  async function makeSignUpCall(user) {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/auth/signup",
+        user
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      navigate("");
+      return false;
+    }
+  }
 
   return (
     <StyledCon maxWidth="md">

@@ -8,8 +8,20 @@ import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import { useCookies } from "react-cookie";
 
 function App() {
+  const [cookies, setCookie] = useCookies(["auth_token"]);
+
+  function setToken(token) {
+    setCookie("auth_token", token, {
+      maxAge: 1800,
+      path: "/",
+    });
+  }
+
+  console.log(cookies);
+
   return (
     <div className="App">
       <Routes>
@@ -39,7 +51,10 @@ function App() {
           <Route path="profile">
             <Route index element={<Profile />} />
             <Route path=":id" element={<Profile />} />
-            <Route path="edit/:id" element={<ProfileEdit />} />
+            <Route
+              path="edit/:id"
+              element={<ProfileEdit token={cookies.auth_token} />}
+            />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
 
@@ -47,8 +62,8 @@ function App() {
         </Route>
 
         {/* Auth paths */}
-        <Route path="signup" element={<SignUp />} />
-        <Route path="login" element={<SignIn />} />
+        <Route path="signup" element={<SignUp setToken={setToken} />} />
+        <Route path="login" element={<SignIn setToken={setToken} />} />
         <Route path="*" element={<h1>404 page not found</h1>} />
       </Routes>
     </div>

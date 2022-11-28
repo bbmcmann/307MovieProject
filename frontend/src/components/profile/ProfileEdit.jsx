@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { StyledForm } from "../StyledComponents.jsx";
 
-function ProfileEdit() {
+function ProfileEdit(props) {
   const username = useRef();
   const fname = useRef();
   const lname = useRef();
@@ -34,9 +34,13 @@ function ProfileEdit() {
 
   async function makeUpdateCall(id) {
     try {
+      const config = {
+        headers: { Authorization: `Bearer ${props.token}` },
+      };
       const response = await axios.patch(
         `http://localhost:5000/users/${id}`,
-        user
+        user,
+        config
       );
       return response;
     } catch (error) {

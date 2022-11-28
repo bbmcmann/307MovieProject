@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   StyledSubmit,
@@ -10,7 +11,7 @@ import {
   StyledText,
 } from "./StyledComponents.jsx";
 
-function SignIn() {
+function SignIn(props) {
   const navigate = useNavigate();
   const [validError, setError] = useState("");
   const [person, setPerson] = useState({
@@ -26,8 +27,7 @@ function SignIn() {
     } else if (person.password.length <= 0) {
       setError("Please enter a password");
     } else {
-      setError("");
-      navigate("/");
+      submitForm();
     }
   };
 
@@ -46,14 +46,32 @@ function SignIn() {
     }
   }
 
-  // need for when we link to backend / authorize
-  /* 
   function submitForm() {
-    // props.handleSubmit(person);
-    setPerson({ username: "", password: "" });
-    <input type="button" value="Submit" onClick={submitForm} />;
-  } 
-  */
+    makeLoginCall(person).then((response) => {
+      if (response && response.status === 200) {
+        const token = response.data;
+        setPerson({ username: "", password: "" });
+        props.setToken(token);
+        navigate("/");
+      } else {
+        setError("Invalid Login Credentials");
+        navigate("");
+      }
+    });
+  }
+
+  async function makeLoginCall(user) {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/auth/login",
+        user
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 
   return (
     <StyledCon maxWidth="md">
