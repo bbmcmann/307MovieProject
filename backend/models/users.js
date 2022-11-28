@@ -24,7 +24,10 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     reviews: [{ type: mongoose.Types.ObjectId, ref: "Reviews" }],
-    // favorite_pun
+    fav_pun: {
+      question: String,
+      answer: String,
+    },
   },
   { collection: "users_list" }
 );

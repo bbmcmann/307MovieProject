@@ -32,11 +32,18 @@ async function addUser(user) {
   }
 }
 
-async function updateUserById(id, username, first, last) {
+async function updateUserById(id, username, first, last, pun) {
   try {
     const result = await Users.updateOne(
       { _id: id },
-      { $set: { username: username, first_name: first, last_name: last } }
+      {
+        $set: {
+          username: username,
+          first_name: first,
+          last_name: last,
+          fav_pun: pun,
+        },
+      }
     );
     if (result.acknowledged) {
       return findUserById(id);
