@@ -9,12 +9,14 @@ app.use(express.json());
 const userEndpoints = require("./routes/userRoutes.js");
 const movieEndpoints = require("./routes/movieRoutes.js");
 const revEndpoints = require("./routes/reviewRoutes.js");
+const authEndpoints = require("./routes/authRoutes.js");
 
 app.use(logger);
 
 app.use("/movies", movieEndpoints);
 app.use("/users", userEndpoints);
 app.use("/reviews", revEndpoints);
+app.use("/auth", authEndpoints);
 
 function logger(req, res, next) {
   console.log(`${req.method} ${req.path}`);
