@@ -1,4 +1,5 @@
 const express = require("express");
+const { authenticateUser } = require("./authServices");
 const router = express.Router();
 const userServices = require("./user-services");
 
@@ -24,7 +25,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authenticateUser, async (req, res) => {
   const userToAdd = req.body;
   const result = await userServices.addUser(userToAdd);
   if (result) {
@@ -34,7 +35,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authenticateUser, async (req, res) => {
   const id = req.params["id"];
   const username = req.body.username;
   const first = req.body.first_name;
