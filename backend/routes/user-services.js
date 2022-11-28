@@ -16,7 +16,7 @@ async function findUserById(id) {
   try {
     return await Users.findById(id);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return undefined;
   }
 }
@@ -27,7 +27,7 @@ async function addUser(user) {
     const savedUser = await userToAdd.save();
     return savedUser;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return false;
   }
 }
@@ -43,7 +43,7 @@ async function updateUserById(id, username, first, last) {
     }
     return false;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return false;
   }
 }
@@ -53,7 +53,7 @@ async function deleteUserById(id) {
     const remUser = await Users.findByIdAndDelete(id);
     return remUser;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return false;
   }
 }

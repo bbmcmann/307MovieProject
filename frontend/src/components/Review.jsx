@@ -1,13 +1,14 @@
-import Card from "@mui/material/Card";
-import { Rating, IconButton } from "@mui/material";
-import styled from "styled-components";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import { IconButton, Rating } from "@mui/material";
+import Card from "@mui/material/Card";
 import { useState } from "react";
+import styled from "styled-components";
 
 const StyledCard = styled(Card)`
   border: 1px solid #d9d9d9;
   width: 800px;
+  margin: auto;
   margin-bottom: 10px;
   padding-top: 50px
   box-shadow: 5px 5px 5px gray;
@@ -68,7 +69,7 @@ const RevWrap = styled.div`
 function Review({
   userName,
   review_txt,
-  review_header,
+  review_title,
   upvotes,
   downvotes,
   date_posted,
@@ -101,39 +102,37 @@ function Review({
   const [vote, setVote] = useState("");
 
   return (
-    <div>
-      <StyledCard sx={{ minWidth: 50 }}>
-        <TopBlock>
-          <h1>{review_header}</h1>
-          <p>
-            Reviewed by: {userName} on {date_posted}
-          </p>
-          <ScoreBlock>
-            <p>Score: {score}</p>
-            <RevWrap>
-              <Rating readOnly value={score} max={7} />
-            </RevWrap>
-          </ScoreBlock>
-        </TopBlock>
-        <TextBlock>
-          <p>{review_txt}</p>
-        </TextBlock>
-        <VoteBar>
-          <VoteDiv>
-            <p>Upvotes: {curUpVote}</p>
-            <IconButton onClick={() => handleVote("up")}>
-              <UpVote />
-            </IconButton>
-          </VoteDiv>
-          <VoteDiv>
-            <p>Downvotes: {curDownVote}</p>
-            <IconButton onClick={() => handleVote("down")}>
-              <DownVote />
-            </IconButton>
-          </VoteDiv>
-        </VoteBar>
-      </StyledCard>
-    </div>
+    <StyledCard sx={{ minWidth: 50 }}>
+      <TopBlock>
+        <h1>{review_title}</h1>
+        <p>
+          Reviewed by: {userName} on {date_posted}
+        </p>
+        <ScoreBlock>
+          <p>Score: {score}</p>
+          <RevWrap>
+            <Rating readOnly value={score} max={7} />
+          </RevWrap>
+        </ScoreBlock>
+      </TopBlock>
+      <TextBlock>
+        <p>{review_txt}</p>
+      </TextBlock>
+      <VoteBar>
+        <VoteDiv>
+          <p>Upvotes: {curUpVote}</p>
+          <IconButton onClick={() => handleVote("up")}>
+            <UpVote />
+          </IconButton>
+        </VoteDiv>
+        <VoteDiv>
+          <p>Downvotes: {curDownVote}</p>
+          <IconButton onClick={() => handleVote("down")}>
+            <DownVote />
+          </IconButton>
+        </VoteDiv>
+      </VoteBar>
+    </StyledCard>
   );
 }
 

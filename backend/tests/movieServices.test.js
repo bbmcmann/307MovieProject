@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Movie = require("../models/movieSchema.js");
+const { Review } = require("../models/reviewSchema.js");
 const {
   getMovieById,
   updateMovieById,
@@ -27,16 +28,6 @@ beforeAll(async () => {
   conn = await mongoose.createConnection(uri, mongooseOpts);
 
   setConnection(conn);
-});
-
-afterAll(async () => {
-  await conn.dropDatabase();
-  await conn.close();
-  await mongoServer.stop();
-  await mongoose.disconnect();
-});
-
-beforeEach(async () => {
   //! Need to add reviews. waiting on review schema
 
   let dummyMovie = {
@@ -51,7 +42,7 @@ beforeEach(async () => {
   dummyMovie = {
     // Avengers: Infinity War
     _id: 299536,
-    score: 6,
+    score: 8,
     reviews: ["6362bb7d8b68ea4a3f5daf3a", "6362fc867ef39ff9aa96270c"],
   };
   result = new Movie(dummyMovie);
@@ -76,8 +67,13 @@ beforeEach(async () => {
   await result.save();
 });
 
-afterEach(async () => {
-  await Movie.deleteMany();
+afterAll(async () => {
+  const objects = [24428, 299536, 299534, 99861, 1003596];
+  await Movie.deleteMany({ _id: { $in: objects } });
+  await conn.dropDatabase();
+  await conn.close();
+  await mongoServer.stop();
+  await mongoose.disconnect();
 });
 
 /*--------- Test Cases ---------*/
@@ -96,9 +92,8 @@ describe("get Movie by Id Tests", () => {
     expect(result._id).toBe(expected._id);
     expect(result.title).toBe(expected.title);
     expect(result.description).toBe(expected.description);
-    expect(result.score).toBe(expected.score);
     expect(result.poster_path).toBe(expected.poster_path);
-    expect(result.reviews).toBeTruthy();
+    expect(result.score).toBe(expected.score);
   });
 
   test("id does not exist in db", async () => {
@@ -137,13 +132,13 @@ describe("update Movie by Id Tests", () => {
   });
 
   test("success add two", async () => {
-    await updateMovieById(24428, "6363ebf2fddfec1bee01715c", 10);
-    await updateMovieById(24428, "6363ebf2fddfec1bee01715c", 10);
+    await updateMovieById(299536, "6363ebf2fddfec1bee01715c", 10);
+    await updateMovieById(299536, "6363ebf2fddfec1bee01715c", 10);
     const expected = {
-      _id: 24428,
+      _id: 299536,
       score: 9.0,
     };
-    const result = await Movie.findById(24428);
+    const result = await Movie.findById(299536);
     expect(result._id).toBe(expected._id);
     expect(result.score).toBeCloseTo(expected.score);
     expect(result.reviews.length).toBe(4);
@@ -194,10 +189,10 @@ describe("create Movies Tests", () => {
 
 describe("Movie in DB Tests", () => {
   test("in db", async () => {
-    const result = await movieInDb(299534);
+    const result = await movieInDb(99861);
 
-    expect(result._id).toBe(299534);
-    expect(result.score).toBe(9);
+    expect(result._id).toBe(99861);
+    expect(result.score).toBe(5);
   });
 
   test("not in db", async () => {
