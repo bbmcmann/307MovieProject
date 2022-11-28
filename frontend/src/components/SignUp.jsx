@@ -1,15 +1,17 @@
+import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
-  StyledSubmit,
   StyledCon,
-  StyledForm,
-  StyledInput,
   StyledError,
+  StyledForm,
   StyledHead,
-  StyledText,
+  StyledInput,
   StyledLabel,
+  StyledSubmit,
+  StyledText,
 } from "./StyledComponents.jsx";
 
 const StyledDiv = styled.div`
@@ -27,10 +29,11 @@ function SignUp() {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [validError, setError] = useState("");
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     //very basic validation
     if (fName.length <= 0) {
       setError("Please enter a first name");
@@ -45,8 +48,27 @@ function SignUp() {
     } else if (pass !== confirmPass) {
       setError("Passwords must match");
     } else {
-      setError("");
-      navigate("/");
+      try {
+        // api call to authenticate user
+        const data = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}auth/signup`,
+          {
+            username: userName,
+            password: pass,
+            first_name: fName,
+            last_name: lName,
+            email: email,
+          }
+        );
+        setCookie("token", data.data, {
+          maxAge: 86400,
+          path: "/",
+        });
+        console.log(cookies.token);
+        navigate(-2);
+      } catch (error) {
+        setError("Something went wrong. Try again");
+      }
     }
   };
 

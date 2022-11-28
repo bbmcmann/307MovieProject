@@ -1,12 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import {
-  StyledSubmit,
   StyledCon,
-  StyledForm,
-  StyledInput,
   StyledError,
+  StyledForm,
   StyledHead,
+  StyledInput,
+  StyledSubmit,
   StyledText,
 } from "./StyledComponents.jsx";
 
@@ -17,8 +19,9 @@ function SignIn() {
     username: "",
     password: "",
   });
+  const [cookies, setCookie] = useCookies(["token"]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (person.username.length <= 0 && person.password.length <= 0) {
       setError("Please enter a username and password");
     } else if (person.username.length <= 0) {
@@ -26,8 +29,24 @@ function SignIn() {
     } else if (person.password.length <= 0) {
       setError("Please enter a password");
     } else {
-      setError("");
-      navigate("/");
+      try {
+        // api call to create user
+        const data = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}auth/login`,
+          {
+            username: person.username,
+            password: person.password,
+          }
+        );
+        setCookie("token", data.data, {
+          maxAge: 86400,
+          path: "/",
+        });
+        console.log(cookies.token);
+        navigate(-1);
+      } catch (error) {
+        setError("Invalid credentials");
+      }
     }
   };
 
@@ -45,15 +64,6 @@ function SignIn() {
       });
     }
   }
-
-  // need for when we link to backend / authorize
-  /* 
-  function submitForm() {
-    // props.handleSubmit(person);
-    setPerson({ username: "", password: "" });
-    <input type="button" value="Submit" onClick={submitForm} />;
-  } 
-  */
 
   return (
     <StyledCon maxWidth="md">
