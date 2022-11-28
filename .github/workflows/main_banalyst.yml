@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: backend #CHANGE
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,4 +54,4 @@ jobs:
           app-name: "Banalyst"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3188A4C461E34AB69DB9BF0BAEC13915 }}
-          package: .
+          package: 307MovieProject/backend #change here
