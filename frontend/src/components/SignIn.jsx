@@ -38,11 +38,16 @@ function SignIn() {
             password: person.password,
           }
         );
-        setCookie("token", data.data, {
+        setCookie("token", data.data.token, {
+          maxAge: 86400,
+          path: "/",
+        });
+        setCookie("userId", data.data.id, {
           maxAge: 86400,
           path: "/",
         });
         console.log(cookies.token);
+        console.log(cookies.userId);
         navigate(-1);
       } catch (error) {
         setError("Invalid credentials");

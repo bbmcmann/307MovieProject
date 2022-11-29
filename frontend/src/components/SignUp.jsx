@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -29,7 +28,6 @@ function SignUp() {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [validError, setError] = useState("");
-  const [cookies, setCookie] = useCookies(["token"]);
 
   const navigate = useNavigate();
 
@@ -50,22 +48,14 @@ function SignUp() {
     } else {
       try {
         // api call to authenticate user
-        const data = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}auth/signup`,
-          {
-            username: userName,
-            password: pass,
-            first_name: fName,
-            last_name: lName,
-            email: email,
-          }
-        );
-        setCookie("token", data.data, {
-          maxAge: 86400,
-          path: "/",
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}auth/signup`, {
+          username: userName,
+          password: pass,
+          first_name: fName,
+          last_name: lName,
+          email: email,
         });
-        console.log(cookies.token);
-        navigate(-2);
+        navigate(-1);
       } catch (error) {
         setError("Something went wrong. Try again");
       }
