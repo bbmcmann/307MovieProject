@@ -69,34 +69,6 @@ function SignUp(props) {
     }
   };
 
-  function submitForm() {
-    makeSignUpCall(person).then((response) => {
-      if (response && response.status === 201) {
-        const token = response.data;
-        // setPerson({ username: '', password: '' })
-        props.setToken(token);
-        navigate("/");
-      } else {
-        setError("Username already taken");
-        navigate("");
-      }
-    });
-  }
-
-  async function makeSignUpCall(user) {
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/auth/signup",
-        user
-      );
-      return response;
-    } catch (error) {
-      console.log(error);
-      navigate("");
-      return false;
-    }
-  }
-
   return (
     <StyledCon maxWidth="md">
       <StyledForm

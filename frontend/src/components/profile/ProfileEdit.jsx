@@ -12,7 +12,7 @@ function ProfileEdit(props) {
   const [user, setUser] = useState({});
   const [error, setError] = useState(false);
 
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
 
   const navigate = useNavigate();
 
