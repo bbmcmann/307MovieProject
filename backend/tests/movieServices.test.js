@@ -94,6 +94,7 @@ beforeAll(async () => {
 afterAll(async () => {
   const objects = [24428, 299536, 299534, 99861, 1003596];
   await Movie.deleteMany({ _id: { $in: objects } });
+  await Review.deleteMany({ movie_id: 24428 });
   await conn.dropDatabase();
   await conn.close();
   await mongoServer.stop();
