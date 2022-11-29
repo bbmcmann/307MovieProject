@@ -62,3 +62,4 @@ exports.getUsers = getUsers;
 exports.addUser = addUser;
 exports.updateUserById = updateUserById;
 exports.deleteUserById = deleteUserById;
+exports.findUserById = findUserById;

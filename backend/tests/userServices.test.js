@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const UserSchema = require("../models/users");
-const userServices = require("../routes/user-services");
+const userServices = require("../routes/userServices");
 const db = require("../db.js");
 const { MongoMemoryServer } = require("mongodb-memory-server");
+const { notify } = require("../routes/userRoutes");
 
 let mongoServer;
 let conn;
@@ -114,6 +115,33 @@ test("Fetching by valid id and finding", async () => {
   expect(foundUser.email).toBe(addedUser.email);
   expect(foundUser.password).toBe(addedUser.password);
   await userServices.deleteUserById(addedUser.id);
+});
+
+test("Find By Id success", async () => {
+  const dummyUser = {
+    username: "theboywholives",
+    first_name: "Harry",
+    last_name: "Potter",
+    email: "hpotter@hogwarts.edu",
+    password: "iloveginny",
+  };
+  const result = await userServices.addUser(dummyUser);
+  const addedUser = await result.save();
+  const foundUser = await userServices.findUserById(addedUser.id);
+  expect(foundUser).toBeDefined();
+  expect(foundUser.id).toBe(addedUser.id);
+  expect(foundUser.username).toBe(addedUser.username);
+  expect(foundUser.first_name).toBe(addedUser.first_name);
+  expect(foundUser.last_name).toBe(addedUser.last_name);
+  expect(foundUser.email).toBe(addedUser.email);
+  expect(foundUser.password).toBe(addedUser.password);
+  await userServices.deleteUserById(addedUser.id);
+});
+
+test("Find By Id fail", async () => {
+  const foundUser = await userServices.findUserById("notavalidid");
+
+  expect(foundUser).not.toBeDefined();
 });
 
 test("Deleting a user by Id -- successful path", async () => {

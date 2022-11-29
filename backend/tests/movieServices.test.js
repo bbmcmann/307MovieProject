@@ -28,13 +28,37 @@ beforeAll(async () => {
   conn = await mongoose.createConnection(uri, mongooseOpts);
 
   setConnection(conn);
-  //! Need to add reviews. waiting on review schema
+  let dummyReview = {
+    review_title: "Amazing movie123",
+    text: "Full of action, humor, and family fun",
+    score: 8,
+    author_id: "6362bb7d8b68ea4a3f5daf3a",
+    movie_id: 24428,
+    date_posted: new Date(),
+    upvotes: 100,
+    downvotes: 1,
+  };
+  let revOne = new Review(dummyReview);
+  await revOne.save();
+
+  dummyReview = {
+    review_title: "Loved it456",
+    text: "Full of action, humor, and family fun",
+    score: 8,
+    author_id: "6362bb7d8b68ea4a3f5daf3a",
+    movie_id: 24428,
+    date_posted: new Date(),
+    upvotes: 100,
+    downvotes: 1,
+  };
+  let revTwo = new Review(dummyReview);
+  await revTwo.save();
 
   let dummyMovie = {
     // The Avengers
     _id: 24428,
     score: 8,
-    reviews: ["6362bb7d8b68ea4a3f5daf3a", "6362fc867ef39ff9aa96270c"],
+    reviews: [revOne._id, revTwo._id],
   };
   let result = new Movie(dummyMovie);
   await result.save();
@@ -94,6 +118,7 @@ describe("get Movie by Id Tests", () => {
     expect(result.description).toBe(expected.description);
     expect(result.poster_path).toBe(expected.poster_path);
     expect(result.score).toBe(expected.score);
+    expect(result.reviews).not.toBeNull();
   });
 
   test("id does not exist in db", async () => {
