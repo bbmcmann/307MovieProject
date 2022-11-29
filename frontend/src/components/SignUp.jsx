@@ -1,16 +1,16 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import {
-  StyledSubmit,
   StyledCon,
-  StyledForm,
-  StyledInput,
   StyledError,
+  StyledForm,
   StyledHead,
-  StyledText,
+  StyledInput,
   StyledLabel,
+  StyledSubmit,
+  StyledText,
 } from "./StyledComponents.jsx";
 
 const StyledDiv = styled.div`
@@ -38,15 +38,7 @@ function SignUp(props) {
 
   const navigate = useNavigate();
 
-  function updateUser() {
-    person.username = userName;
-    person.first_name = fName;
-    person.last_name = lName;
-    person.email = email;
-    person.password = pass;
-  }
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     //very basic validation
     if (fName.length <= 0) {
       setError("Please enter a first name");
@@ -61,8 +53,19 @@ function SignUp(props) {
     } else if (pass !== confirmPass) {
       setError("Passwords must match");
     } else {
-      updateUser();
-      submitForm();
+      try {
+        // api call to authenticate user
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}auth/signup`, {
+          username: userName,
+          password: pass,
+          first_name: fName,
+          last_name: lName,
+          email: email,
+        });
+        navigate(-1);
+      } catch (error) {
+        setError("Something went wrong. Try again");
+      }
     }
   };
 

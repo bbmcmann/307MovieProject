@@ -1,13 +1,14 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import {
-  StyledSubmit,
   StyledCon,
-  StyledForm,
-  StyledInput,
   StyledError,
+  StyledForm,
   StyledHead,
+  StyledInput,
+  StyledSubmit,
   StyledText,
 } from "./StyledComponents.jsx";
 
@@ -18,8 +19,9 @@ function SignIn(props) {
     username: "",
     password: "",
   });
+  const [cookies, setCookie] = useCookies(["token"]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (person.username.length <= 0 && person.password.length <= 0) {
       setError("Please enter a username and password");
     } else if (person.username.length <= 0) {
@@ -27,7 +29,29 @@ function SignIn(props) {
     } else if (person.password.length <= 0) {
       setError("Please enter a password");
     } else {
-      submitForm();
+      try {
+        // api call to create user
+        const data = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}auth/login`,
+          {
+            username: person.username,
+            password: person.password,
+          }
+        );
+        setCookie("token", data.data.token, {
+          maxAge: 86400,
+          path: "/",
+        });
+        setCookie("userId", data.data.id, {
+          maxAge: 86400,
+          path: "/",
+        });
+        console.log(cookies.token);
+        console.log(cookies.userId);
+        navigate(-1);
+      } catch (error) {
+        setError("Invalid credentials");
+      }
     }
   };
 
@@ -43,33 +67,6 @@ function SignIn(props) {
         username: person["username"],
         password: value,
       });
-    }
-  }
-
-  function submitForm() {
-    makeLoginCall(person).then((response) => {
-      if (response && response.status === 200) {
-        const token = response.data;
-        setPerson({ username: "", password: "" });
-        props.setToken(token);
-        navigate("/");
-      } else {
-        setError("Invalid Login Credentials");
-        navigate("");
-      }
-    });
-  }
-
-  async function makeLoginCall(user) {
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/auth/login",
-        user
-      );
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
     }
   }
 

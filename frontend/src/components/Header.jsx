@@ -1,4 +1,5 @@
 import React from "react";
+import { Cookies } from "react-cookie";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Search from "./Search";
@@ -30,6 +31,8 @@ const StyledLink = styled(Link)`
 `;
 
 function Header() {
+  const cookies = new Cookies();
+
   return (
     <>
       <header className="App-header">
@@ -62,9 +65,17 @@ function Header() {
               </button>
             </div>
             <div className="dropdown">
-              <button className="dropbtn">
-                <StyledLink to="login">Sign In</StyledLink>
-              </button>
+              {cookies.get("token") ? (
+                <button className="dropbtn">
+                  <StyledLink to={`profile/${cookies.get("userId")}`}>
+                    Profile
+                  </StyledLink>
+                </button>
+              ) : (
+                <button className="dropbtn">
+                  <StyledLink to="login">Sign In</StyledLink>
+                </button>
+              )}
             </div>
           </h2>
         </nav>

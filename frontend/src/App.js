@@ -53,7 +53,7 @@ function App() {
             <Route path=":id" element={<Profile />} />
             <Route
               path="edit/:id"
-              element={<ProfileEdit token={cookies.auth_token} />}
+              element={<ProfileEdit token={cookies.token} />}
             />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>

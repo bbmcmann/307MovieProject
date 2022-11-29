@@ -17,7 +17,7 @@ function Profile() {
     // fetch user info based on id
     if (id) {
       axios
-        .get(`http://localhost:5000/users/${id}`)
+        .get(`${process.env.REACT_APP_BACKEND_URL}users/${id}`)
         .then((res) => setUser(res.data.users_list))
         .catch((err) => {
           console.log(err);
@@ -27,8 +27,6 @@ function Profile() {
       setError(true);
     }
   }, [id]);
-
-  console.log(user);
 
   const navigateEdit = () => {
     navigate("/profile/edit/" + id);
