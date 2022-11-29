@@ -1,4 +1,4 @@
-const UserSchema = require("../models/users");
+const UserSchema = require("../models/userSchema");
 
 const Users = UserSchema.Users;
 

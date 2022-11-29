@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const UserSchema = require("../models/users");
+const UserSchema = require("../models/userSchema");
 const {
   generateAccessToken,
   login,
