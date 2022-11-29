@@ -31,7 +31,7 @@ The Bananalyst team consists of 4 Cal Poly students. The team members are listed
 - [Ben McMann](https://www.linkedin.com/in/benjamin-mcmann-33b2421b8/)
 - [Rhys Pulling](https://www.linkedin.com/in/rhys-pulling-25470a22b/)
 
-_Why are bananas never lonely? Because they hand around in bunches._
+_🍌Why are bananas never lonely? Because they hang around in bunches.🍌_
 
 ## Getting Started
 
@@ -103,4 +103,4 @@ When interacting with Git/GitHub, feel free to use the command line, VSCode exte
 - [Class Diagram](https://drive.google.com/file/d/15jEi9DxDtci87fFSzrfHVOTYW8_m95v5/view?usp=sharing)
 - [Sequence Diagram](https://drive.google.com/file/d/1P3RCt0tJhiephHuyNuNjHkO5_wGm8W78/view?usp=sharing)
 
-_Why did the banana go out with a prune? Because he couldn’t find a date._
+_🍌Why did the banana go out with a prune? Because he couldn’t find a date.🍌_
