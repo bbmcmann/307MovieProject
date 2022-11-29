@@ -3,16 +3,16 @@ import { Button, Paper, TextField } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { StyledForm } from "../StyledComponents.jsx";
-// import { Cookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 
-function ProfileEdit(props) {
+function ProfileEdit() {
   const username = useRef();
   const fname = useRef();
   const lname = useRef();
   const [user, setUser] = useState({});
   const [error, setError] = useState(false);
 
-  // const cookies = new Cookies();
+  const cookies = new Cookies();
 
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ function ProfileEdit(props) {
   async function makeUpdateCall(id) {
     try {
       const config = {
-        headers: { Authorization: `Bearer ${props.token}` },
+        headers: { Authorization: `Bearer ${cookies.get("token")}` },
       };
       const response = await axios.patch(
         `http://localhost:5000/users/${id}`,

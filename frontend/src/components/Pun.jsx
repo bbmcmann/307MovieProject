@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@mui/material";
+import { Cookies } from "react-cookie";
 import axios from "axios";
 
 function Pun() {
   const [user, setUser] = useState({});
   const [error, setError] = useState(false);
+  const cookies = new Cookies();
   let pun_q = [
     "How is a banana peel on the floor similar to music?",
     "Why don't bananas snore?",
@@ -23,7 +25,7 @@ function Pun() {
   ];
   let randomNum = Math.floor(Math.random() * pun_q.length);
 
-  const id = "637534992a690fb48c978131";
+  const id = cookies.get("userId");
 
   useEffect(() => {
     // fetch user info based on id
@@ -47,9 +49,13 @@ function Pun() {
 
   async function makeUpdateCall(id) {
     try {
+      const config = {
+        headers: { Authorization: `Bearer ${cookies.get("token")}` },
+      };
       const response = await axios.patch(
         `http://localhost:5000/users/${id}`,
-        user
+        user,
+        config
       );
       return response;
     } catch (error) {
@@ -70,7 +76,7 @@ function Pun() {
       {/* need to have the button only show up if user is logged in / verified */}
       {error ? (
         <h2>User not found</h2>
-      ) : user ? (
+      ) : cookies.get("token") ? (
         <Button variant="contained" onClick={handleSubmit}>
           Favorite
         </Button>

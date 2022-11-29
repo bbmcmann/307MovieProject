@@ -1,6 +1,7 @@
 import { Button, Paper } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/Profile.css";
 import ProfileLiked from "./ProfileLiked";
@@ -8,6 +9,8 @@ import ProfileLiked from "./ProfileLiked";
 function Profile() {
   const [user, setUser] = useState({});
   const [error, setError] = useState(false);
+
+  const cookies = new Cookies();
 
   const navigate = useNavigate();
 
@@ -55,7 +58,7 @@ function Profile() {
               </p>
             ) : null}
             {/* Need to add logic to check if profile being viewed is their own profile */}
-            {user ? (
+            {cookies.get("token") ? (
               <Button variant="contained" onClick={navigateEdit}>
                 Edit
               </Button>
