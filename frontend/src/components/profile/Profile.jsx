@@ -5,6 +5,7 @@ import { Cookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/Profile.css";
 import ProfileLiked from "./ProfileLiked";
+import { StyledSubmit } from "../StyledComponents";
 
 function Profile() {
   const [user, setUser] = useState({});
@@ -35,6 +36,13 @@ function Profile() {
     navigate("/profile/edit/" + id);
   };
 
+  /* remove cookies by signing out */
+  function removeCookies() {
+    cookies.remove("token");
+    cookies.remove("userId");
+    navigate("/");
+  }
+
   return (
     <Paper className="profile" elevation={2}>
       <h1 className="profile-header">&#127820;User Profile&#127820;</h1>
@@ -58,11 +66,25 @@ function Profile() {
               </p>
             ) : null}
             {/* Need to add logic to check if profile being viewed is their own profile */}
-            {cookies.get("token") ? (
+            {cookies.get("token") && cookies.get("userId") === id ? (
               <Button variant="contained" onClick={navigateEdit}>
                 Edit
               </Button>
             ) : null}
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            {cookies.get("token") && cookies.get("userId") === id ? (
+              <StyledSubmit
+                type="submit"
+                value="Sign Out"
+                onClick={removeCookies}
+              />
+            ) : /* <Button className="signout" variant="contained" onClick={removeCookies}>
+                Sign Out
+            </Button> */
+            null}
           </div>
           <ProfileLiked movies={user.reviews} />
         </div>

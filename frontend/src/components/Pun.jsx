@@ -5,7 +5,6 @@ import axios from "axios";
 
 function Pun() {
   const [user, setUser] = useState({});
-  const [error, setError] = useState(false);
   const cookies = new Cookies();
   let pun_q = [
     "How is a banana peel on the floor similar to music?",
@@ -35,10 +34,7 @@ function Pun() {
         .then((res) => setUser(res.data.users_list))
         .catch((err) => {
           console.log(err);
-          setError(true);
         });
-    } else {
-      setError(true);
     }
   }, [id]);
 
@@ -74,9 +70,7 @@ function Pun() {
       <br></br>
       <br></br>
       {/* need to have the button only show up if user is logged in / verified */}
-      {error ? (
-        <h2>User not found</h2>
-      ) : cookies.get("token") ? (
+      {cookies.get("token") ? (
         <Button variant="contained" onClick={handleSubmit}>
           Favorite
         </Button>
