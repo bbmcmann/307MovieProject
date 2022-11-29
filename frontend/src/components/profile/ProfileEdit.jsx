@@ -3,7 +3,7 @@ import { Button, Paper, TextField } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { StyledForm } from "../StyledComponents.jsx";
-import { Cookies } from "react-cookie";
+// import { Cookies } from "react-cookie";
 
 function ProfileEdit(props) {
   const username = useRef();

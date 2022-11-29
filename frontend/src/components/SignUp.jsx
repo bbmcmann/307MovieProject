@@ -27,13 +27,6 @@ function SignUp(props) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-  const person = useState({
-    username: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-  });
   const [validError, setError] = useState("");
 
   const navigate = useNavigate();
