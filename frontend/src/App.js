@@ -11,17 +11,6 @@ import SignUp from "./components/SignUp";
 import { useCookies } from "react-cookie";
 
 function App() {
-  const [cookies, setCookie] = useCookies(["auth_token"]);
-
-  function setToken(token) {
-    setCookie("auth_token", token, {
-      maxAge: 1800,
-      path: "/",
-    });
-  }
-
-  console.log(cookies);
-
   return (
     <div className="App">
       <Routes>
@@ -59,8 +48,8 @@ function App() {
         </Route>
 
         {/* Auth paths */}
-        <Route path="signup" element={<SignUp setToken={setToken} />} />
-        <Route path="login" element={<SignIn setToken={setToken} />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="login" element={<SignIn />} />
         <Route path="*" element={<h1>404 page not found</h1>} />
       </Routes>
     </div>
