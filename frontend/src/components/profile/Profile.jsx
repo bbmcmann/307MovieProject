@@ -40,6 +40,9 @@ function Profile() {
   function removeCookies() {
     cookies.remove("token");
     cookies.remove("userId");
+  }
+
+  function navigateHome() {
     navigate("/");
   }
 
@@ -71,6 +74,7 @@ function Profile() {
                 Edit
               </Button>
             ) : null}
+            {/* probably better way to do this like with margins but I'm lazy right now*/}
             <br></br>
             <br></br>
             <br></br>
@@ -79,7 +83,11 @@ function Profile() {
               <StyledSubmit
                 type="submit"
                 value="Sign Out"
-                onClick={removeCookies}
+                /* it worked better when I split these up */
+                onClick={() => {
+                  removeCookies();
+                  navigateHome();
+                }}
               />
             ) : /* <Button className="signout" variant="contained" onClick={removeCookies}>
                 Sign Out
