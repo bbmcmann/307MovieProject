@@ -8,7 +8,6 @@ import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import { useCookies } from "react-cookie";
 
 function App() {
   return (
