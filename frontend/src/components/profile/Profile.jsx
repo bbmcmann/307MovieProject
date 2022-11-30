@@ -7,7 +7,7 @@ import "../../styles/Profile.css";
 import ProfileLiked from "./ProfileLiked";
 import { StyledSubmit } from "../StyledComponents";
 
-function Profile() {
+function Profile(props) {
   const [user, setUser] = useState({});
   const [error, setError] = useState(false);
 
@@ -40,10 +40,11 @@ function Profile() {
   function removeCookies() {
     cookies.remove("token");
     cookies.remove("userId");
+    props.setUserId("");
   }
 
   function navigateHome() {
-    navigate("/login");
+    navigate("/");
   }
 
   return (

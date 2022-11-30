@@ -30,7 +30,7 @@ const StyledLink = styled(Link)`
   color: #000000;
 `;
 
-function Header() {
+function Header(props) {
   const cookies = new Cookies();
 
   return (
@@ -65,7 +65,7 @@ function Header() {
               </button>
             </div>
             <div className="dropdown">
-              {cookies.get("token") ? (
+              {props.id ? (
                 <button className="dropbtn">
                   <StyledLink to={`profile/${cookies.get("userId")}`}>
                     Profile

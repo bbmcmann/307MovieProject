@@ -33,7 +33,7 @@ const StyledLink = styled(Link)`
   color: #000000;
 `;
 
-function SignIn() {
+function SignIn(props) {
   const navigate = useNavigate();
   const [validError, setError] = useState("");
   const [person, setPerson] = useState({
@@ -67,8 +67,7 @@ function SignIn() {
           maxAge: 86400,
           path: "/",
         });
-        console.log(cookies.token);
-        console.log(cookies.userId);
+        props.setUserId(data.data.id);
         navigate(-1);
       } catch (error) {
         setError("Invalid credentials");

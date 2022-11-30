@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -10,10 +11,12 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 
 function App() {
+  const [userId, setUserId] = useState("");
+
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Header />}>
+        <Route path="/" element={<Header id={userId} />}>
           <Route index element={<Home />} />
 
           {/* Movie paths */}
@@ -38,7 +41,7 @@ function App() {
           {/* Profile paths */}
           <Route path="profile">
             <Route index element={<Profile />} />
-            <Route path=":id" element={<Profile />} />
+            <Route path=":id" element={<Profile setUserId={setUserId} />} />
             <Route path="edit/:id" element={<ProfileEdit />} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
@@ -48,7 +51,7 @@ function App() {
 
         {/* Auth paths */}
         <Route path="signup" element={<SignUp />} />
-        <Route path="login" element={<SignIn />} />
+        <Route path="login" element={<SignIn setUserId={setUserId} />} />
         <Route path="*" element={<h1>404 page not found</h1>} />
       </Routes>
     </div>
