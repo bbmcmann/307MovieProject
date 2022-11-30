@@ -58,11 +58,6 @@ function Header() {
             </div>
             <div className="dropdown">
               <button className="dropbtn">
-                <StyledLink to="review/">Review</StyledLink>
-              </button>
-            </div>
-            <div className="dropdown">
-              <button className="dropbtn">
                 <StyledLink to="login">Sign In</StyledLink>
               </button>
             </div>

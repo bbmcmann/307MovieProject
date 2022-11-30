@@ -90,7 +90,7 @@ async function movieInDb(id) {
 async function getPopularMovies() {
   try {
     const result = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.MOVIE_API}&language=en-US&page=1&region=US`
+      `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.MOVIE_API}&language=en-US&page=1&region=US`
     );
     return result.data.results.slice(0, 10);
   } catch (error) {
