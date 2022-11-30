@@ -1,12 +1,8 @@
 import {
   Paper,
-  Typography,
-  Card,
   List,
   ListItem,
-  ListItemText,
 } from "@mui/material";
-import TextField from "@mui/material/TextField";
 import axios from "axios";
 import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useState } from "react";
@@ -27,7 +23,6 @@ const StyledPaper = styled(Paper)`
 function MovieList(props) {
   const [options, setOptions] = useState([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = useNavigate();
@@ -48,10 +43,8 @@ function MovieList(props) {
   );
 
   useEffect(() => {
-    setLoading(true);
     getOptionsDelayed(input, (newOptions) => {
       setOptions(newOptions);
-      setLoading(false);
     });
   }, [input, getOptionsDelayed]);
 
