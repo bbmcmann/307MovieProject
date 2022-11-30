@@ -18,7 +18,7 @@ const StyledPaper = styled(Paper)`
 
 function MovieList(props) {
   const [options, setOptions] = useState([]);
-  const [input, setInput] = useState("");
+  const [input] = useState("");
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = useNavigate();
