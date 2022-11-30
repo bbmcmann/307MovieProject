@@ -67,14 +67,45 @@ const RevWrap = styled.div`
 `;
 
 function Review({
+  user_id,
   userName,
   review_txt,
   review_title,
-  upvotes,
-  downvotes,
+  upvote_list,
+  downvote_list,
   date_posted,
   score,
 }) {
+  const check_voted = () => {
+    const up_index = upvote_list.indexOf(user_id);
+    const down_index = downvote_list.indexOf(user_id);
+    if (up_index > -1) {
+      setVote("up");
+      return true;
+    }
+    if (down_index > -1) {
+      setVote("down");
+      return true;
+    }
+    return false;
+  };
+
+  const updateVoteLists = (isUpVote) => {
+    let new_downvotes;
+    let new_upvotes;
+    if (isUpVote) {
+      new_downvotes = downvote_list.filter((id) => id !== user_id);
+      new_upvotes = upvote_list.push(user_id);
+    } else {
+      new_upvotes = upvote_list.filter((id) => id !== user_id);
+      new_downvotes = downvote_list.push(user_id);
+    }
+    console.log(user_id);
+    console.log(new_downvotes);
+    console.log(new_upvotes);
+    //patch request with new lists
+  };
+
   const handleVote = (thisVote) => {
     if (!voted) {
       setVoted(true);
@@ -94,12 +125,17 @@ function Review({
         setCurUpVote(curUpVote - 1);
       }
     }
+    if (thisVote === "up") {
+      updateVoteLists(true);
+    } else {
+      updateVoteLists(false);
+    }
   };
 
-  const [curUpVote, setCurUpVote] = useState(upvotes);
-  const [curDownVote, setCurDownVote] = useState(downvotes);
-  const [voted, setVoted] = useState(false); // might have to save this in db actually to log if they have voted on a review before
+  const [curUpVote, setCurUpVote] = useState(upvote_list.length);
+  const [curDownVote, setCurDownVote] = useState(downvote_list.length);
   const [vote, setVote] = useState("");
+  const [voted, setVoted] = useState(() => check_voted()); // might have to save this in db actually to log if they have voted on a review before
 
   return (
     <StyledCard sx={{ minWidth: 50 }}>

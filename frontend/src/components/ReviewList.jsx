@@ -9,62 +9,77 @@ const StyledCon = styled(Container)`
 `;
 
 function ReviewList({ reviews }) {
-  // const testData = [
-  //   {
-  //     userName: "BananaEnjoyer34",
-  //     review_txt: "This film was NOT b a n a n a s",
-  //     review_header: "Quit disappointed",
-  //     upvotes: 100,
-  //     downvotes: 10,
-  //     date_posted: "10/10/2022",
-  //     score: 7,
-  //   },
+  const testData = [
+    {
+      userName: "BananaEnjoyer34",
+      review_txt: "This film was NOT b a n a n a s",
+      review_header: "Quit disappointed",
+      // upvotes: 100,
+      // downvotes: 10,
+      date_posted: "10/10/2022",
+      score: 7,
+      upvote_list: ["2131313", "12123123"],
+      downvote_list: ["21123das"],
+    },
 
-  //   {
-  //     userName: "sussy",
-  //     review_txt: "Eggselent film",
-  //     review_header: "Bruh.",
-  //     upvotes: 1,
-  //     downvotes: 10,
-  //     date_posted: "10/10/2022",
-  //     score: 3,
-  //   },
+    {
+      userName: "sussy",
+      review_txt: "Eggselent film",
+      review_header: "Bruh.",
+      // upvotes: 1,
+      // downvotes: 10,
+      date_posted: "10/10/2022",
+      score: 3,
+      upvote_list: ["2131313", "12123123"],
+      downvote_list: ["32424"],
+    },
 
-  //   {
-  //     userName: "Steve",
-  //     review_txt: "Truly, quite indescribable. Perchance",
-  //     review_header: "I have a lot to say...",
-  //     upvotes: 9999,
-  //     downvotes: 2,
-  //     date_posted: "10/10/2022",
-  //     score: 6,
-  //   },
+    {
+      userName: "Steve",
+      review_txt: "Truly, quite indescribable. Perchance",
+      review_header: "I have a lot to say...",
+      // upvotes: 9999,
+      // downvotes: 2,
+      date_posted: "10/10/2022",
+      score: 6,
+      upvote_list: ["2131313", "12123123", "qweaqqeq"],
+      downvote_list: ["32424", "21123das", "wqrqwqr"],
+    },
 
-  //   {
-  //     userName: "TheBanalyst",
-  //     review_txt:
-  //       "Truly, quite indescribable. Perchance, perchance, if a chance was perchance given we could understand the chance of perchance. Truly, quite indescribable. Perchance, perchance, if a chance was perchance given we could understand the chance of perchance. Truly, quite indescribable. Perchance, perchance, if a chance was perchance given we could understand the chance of perchance. Truly, quite indescribable. Perchance, perchance, if a chance was perchance given we could understand the chance of perchance.",
-  //     review_header: "A quick analysis",
-  //     upvotes: 2,
-  //     downvotes: 2,
-  //     date_posted: "10/10/2022",
-  //     score: 6,
-  //   },
-  // ];
+    {
+      userName: "TheBanalyst",
+      review_txt:
+        "Truly, quite indescribable. Perchance, perchance, if a chance was perchance given we could understand the chance of perchance. Truly, quite indescribable. Perchance, perchance, if a chance was perchance given we could understand the chance of perchance. Truly, quite indescribable. Perchance, perchance, if a chance was perchance given we could understand the chance of perchance. Truly, quite indescribable. Perchance, perchance, if a chance was perchance given we could understand the chance of perchance.",
+      review_header: "A quick analysis",
+      // upvotes: 2,
+      // downvotes: 2,
+      date_posted: "10/10/2022",
+      score: 6,
+      upvote_list: ["2131313", "12123123"],
+      downvote_list: ["32424", "21123das"],
+    },
+  ];
 
   return (
     <StyledCon>
-      {reviews ? (
-        reviews.map((review) => {
-          return (
-            <div key={review.userName}>
-              <Review {...review} />
-            </div>
-          );
-        })
-      ) : (
-        <p>No Reviews Yet</p>
-      )}
+      {
+        reviews
+          ? reviews.map((review) => {
+              return (
+                <div key={review.userName}>
+                  <Review {...review} />
+                </div>
+              );
+            })
+          : testData.map((review) => {
+              return (
+                <div key={review.userName}>
+                  <Review user_id={"TESTID"} {...review} />
+                </div>
+              );
+            })
+        //<p>No Reviews Yet</p>
+      }
     </StyledCon>
   );
 }
