@@ -4,7 +4,7 @@ import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import env from 
+// import env from
 
 const StyledPaper = styled(Paper)`
   border: 1px solid #d9d9d9;
@@ -24,19 +24,16 @@ function MovieList(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = useNavigate();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getOptions = useCallback(
-    (text, callback) => {
-      try {
-        axios
-          .get(`${process.env.REACT_APP_BACKEND_URL}movies/suggested`)
-          .then((res) => res.data)
-          .then(callback);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    []
-  );
+  const getOptions = useCallback((text, callback) => {
+    try {
+      axios
+        .get(`${process.env.REACT_APP_BACKEND_URL}movies/suggested`)
+        .then((res) => res.data)
+        .then(callback);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     getOptions(input, (newOptions) => {
