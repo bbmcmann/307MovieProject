@@ -3,7 +3,6 @@ const UserSchema = require("../models/userSchema");
 const userServices = require("../routes/userServices");
 const db = require("../db.js");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const { notify } = require("../routes/userRoutes");
 
 let mongoServer;
 let conn;
