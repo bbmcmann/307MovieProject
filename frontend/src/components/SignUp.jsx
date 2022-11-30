@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 // import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   StyledCon,
@@ -13,6 +14,25 @@ import {
   StyledSubmit,
   StyledText,
 } from "./StyledComponents.jsx";
+
+const StyledLink = styled(Link)`
+  a:active {
+    text-decoration: none;
+  }
+  ,
+  a:hover {
+    text-color: #ffffff;
+  }
+  ,
+  a:visited {
+    text-decoration: none;
+  }
+  ,
+  a:link {
+    text-decoration: none;
+  }
+  color: #000000;
+`;
 
 const StyledDiv = styled.div`
   display: flex;
@@ -73,7 +93,9 @@ function SignUp() {
           handleSubmit();
         }}
       >
-        <StyledHead>The Bananalyst</StyledHead>
+        <StyledHead>
+          <StyledLink to="/">The Bananalyst</StyledLink>
+        </StyledHead>
         <StyledText>Sign Up</StyledText>
         <StyledDiv>
           <StyledLabel>
