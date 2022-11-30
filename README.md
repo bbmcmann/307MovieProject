@@ -1,5 +1,9 @@
 # The Bananalyst 🍌🎬
 
+[![Node.js CI](https://github.com/bbmcmann/307MovieProject/actions/workflows/node.js.yml/badge.svg)](https://github.com/bbmcmann/307MovieProject/actions/workflows/node.js.yml)
+[![Backend CD](https://github.com/bbmcmann/307MovieProject/actions/workflows/main_banalyst.yml/badge.svg)](https://github.com/bbmcmann/307MovieProject/actions/workflows/main_banalyst.yml)
+[![Frontend CD](https://github.com/bbmcmann/307MovieProject/actions/workflows/azure-static-web-apps-white-glacier-0bbe79d1e.yml/badge.svg)](https://github.com/bbmcmann/307MovieProject/actions/workflows/azure-static-web-apps-white-glacier-0bbe79d1e.yml)
+
 A banana themed movie review site. View popular movies, suggested movies, and reviews for any movie written by fellow Bananlysts. View the live site [here](https://white-glacier-0bbe79d1e-65.westus2.2.azurestaticapps.net/)
 
 ## Table of Contents
