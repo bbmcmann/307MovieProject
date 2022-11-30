@@ -3,7 +3,8 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { IconButton, Rating } from "@mui/material";
 import Card from "@mui/material/Card";
 import { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import axios from "axios";
 
 const StyledCard = styled(Card)`
   border: 1px solid #d9d9d9;
@@ -54,16 +55,12 @@ const VoteDiv = styled.div`
 
 const UpVote = styled(ArrowUpwardIcon)`
   padding-left: 10px;
-  //color: #f6da73;
-  //transform: scale(1.4);
   color: ${({ vote }) => (vote === "up" ? "#f6da73" : "#3e5336")};
   transform: ${({ vote }) => (vote === "up" ? "scale(2.0)" : "scale(1.4)")};
 `;
 
 const DownVote = styled(ArrowDownwardIcon)`
   padding-left: 10px;
-  color: #f6da73;
-  transform: scale(1.4);
   color: ${({ vote }) => (vote === "down" ? "#f6da73" : "#3e5336")};
   transform: ${({ vote }) => (vote === "down" ? "scale(2.0)" : "scale(1.4)")};
 `;
@@ -72,21 +69,24 @@ const RevWrap = styled.div`
 `;
 
 function Review({
+  logged_in_user,
   user_id,
-  userName,
-  review_txt,
-  review_title,
+  _id,
+  review,
+  title,
   upvote_list,
   downvote_list,
   date_posted,
-  score,
+  ratingVal,
 }) {
   const check_voted = () => {
     //console.log("check");
-    const up_index = upvote_list.indexOf(user_id);
-    const down_index = downvote_list.indexOf(user_id);
+    if (!logged_in_user) {
+      logged_in_user = "63713be424fbebf4c2789dca";
+    }
+    const up_index = upvote_list.indexOf(logged_in_user);
+    const down_index = downvote_list.indexOf(logged_in_user);
     if (up_index > -1) {
-      console.log("up");
       setVote("up");
       return true;
     }
@@ -101,17 +101,25 @@ function Review({
   const updateVoteLists = (isUpVote) => {
     let new_downvotes;
     let new_upvotes;
-    if (isUpVote) {
-      new_downvotes = downvote_list.filter((id) => id !== user_id);
-      new_upvotes = upvote_list.push(user_id);
-    } else {
-      new_upvotes = upvote_list.filter((id) => id !== user_id);
-      new_downvotes = downvote_list.push(user_id);
+    if (!logged_in_user) {
+      logged_in_user = "63713be424fbebf4c2789dca"; ////NOT A VALID USER ID
     }
-    // console.log(user_id);
-    // console.log(new_downvotes);
-    // console.log(new_upvotes);
-    //patch request with new lists
+    if (isUpVote) {
+      new_downvotes = downvote_list.filter((id) => id !== logged_in_user);
+      upvote_list.push(logged_in_user);
+      new_upvotes = upvote_list;
+    } else {
+      new_upvotes = upvote_list.filter((id) => id !== logged_in_user);
+      downvote_list.push(logged_in_user);
+      new_downvotes = downvote_list;
+    }
+    axios
+      .patch(`http://localhost:5000/reviews/${_id}`, {
+        upvote_list: new_upvotes,
+        downvote_list: new_downvotes,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   const handleVote = (thisVote) => {
@@ -124,6 +132,11 @@ function Review({
       } else {
         setCurDownVote(curDownVote + 1);
       }
+      if (thisVote === "up") {
+        updateVoteLists(true);
+      } else {
+        updateVoteLists(false);
+      }
     } else if (vote !== thisVote) {
       setVote(thisVote);
       if (thisVote === "up") {
@@ -133,11 +146,11 @@ function Review({
         setCurDownVote(curDownVote + 1);
         setCurUpVote(curUpVote - 1);
       }
-    }
-    if (thisVote === "up") {
-      updateVoteLists(true);
-    } else {
-      updateVoteLists(false);
+      if (thisVote === "up") {
+        updateVoteLists(true);
+      } else {
+        updateVoteLists(false);
+      }
     }
   };
 
@@ -149,19 +162,19 @@ function Review({
   return (
     <StyledCard sx={{ minWidth: 50 }}>
       <TopBlock>
-        <h1>{review_title}</h1>
+        <h1>{title}</h1>
         <p>
-          Reviewed by: {userName} on {date_posted}
+          Reviewed by: {user_id} on {date_posted}
         </p>
         <ScoreBlock>
-          <p>Score: {score}</p>
+          <p>Score: {ratingVal}</p>
           <RevWrap>
-            <Rating readOnly value={score} max={7} />
+            <Rating readOnly value={ratingVal} max={7} />
           </RevWrap>
         </ScoreBlock>
       </TopBlock>
       <TextBlock>
-        <p>{review_txt}</p>
+        <p>{review}</p>
       </TextBlock>
       <VoteBar>
         <VoteDiv>
