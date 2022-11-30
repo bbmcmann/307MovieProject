@@ -1,6 +1,5 @@
 import { Paper, List, ListItem } from "@mui/material";
 import axios from "axios";
-import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
