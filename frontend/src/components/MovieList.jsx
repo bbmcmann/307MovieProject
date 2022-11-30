@@ -4,6 +4,7 @@ import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+// import env from 
 
 const StyledPaper = styled(Paper)`
   border: 1px solid #d9d9d9;
@@ -23,26 +24,25 @@ function MovieList(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = useNavigate();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getOptionsDelayed = useCallback(
-    // delay api call for 500 ms
-    debounce((text, callback) => {
+  const getOptions = useCallback(
+    (text, callback) => {
       try {
         axios
-          .get(`http://localhost:5000/movies/suggested`)
+          .get(`${process.env.REACT_APP_BACKEND_URL}movies/suggested`)
           .then((res) => res.data)
           .then(callback);
       } catch (error) {
         console.log(error);
       }
-    }, 500),
+    },
     []
   );
 
   useEffect(() => {
-    getOptionsDelayed(input, (newOptions) => {
+    getOptions(input, (newOptions) => {
       setOptions(newOptions);
     });
-  }, [input, getOptionsDelayed]);
+  }, [input, getOptions]);
 
   const handleClick = (event) => {
     // function to handle when user selects an option
