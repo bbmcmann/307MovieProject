@@ -67,6 +67,7 @@ function SignIn(props) {
           maxAge: 86400,
           path: "/",
         });
+        console.log(cookies);
         props.setUserId(data.data.id);
         navigate(-1);
       } catch (error) {
