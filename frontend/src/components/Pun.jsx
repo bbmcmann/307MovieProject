@@ -13,6 +13,7 @@ function Pun() {
     "What do you call a banana who gets all the girls?",
     "I was walking down the street when I stood on a banana?",
     "What's the difference between time and bananas?",
+    "Take me to snurch",
   ];
   let pun_a = [
     "Because if you don't C Sharp you'll B Flat",
@@ -21,6 +22,7 @@ function Pun() {
     "A banana smoothie",
     "Luckily, I was wearing my SlipKnot t-shirt",
     "Time flies like an arrow, fruit flies like a banana",
+    "I'll worship like a snail in the shrine of your light. \nI'll tell you my snins so you can snarpen your snife.",
   ];
   let randomNum = Math.floor(Math.random() * pun_q.length);
 

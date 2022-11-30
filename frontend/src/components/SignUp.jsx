@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+// import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -20,7 +21,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
 `;
 
-function SignUp(props) {
+function SignUp() {
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [userName, setUserName] = useState("");
@@ -28,6 +29,8 @@ function SignUp(props) {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [validError, setError] = useState("");
+
+  // const [cookies, setCookie] = useCookies(["token"]);
 
   const navigate = useNavigate();
 
