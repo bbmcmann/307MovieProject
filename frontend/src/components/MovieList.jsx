@@ -1,4 +1,11 @@
-import { Paper, Typography, Card, List, ListItem, ListItemText } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Card,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import debounce from "lodash/debounce";
@@ -56,36 +63,33 @@ function MovieList(props) {
   };
 
   return (
-    <div> 
-        <h1>Suggested Movies</h1>
-        <List>
-          {options.map((value) => (
-            <ListItem key={`${value.id}`}>
-              <StyledPaper elevation={3} className="Movie-body">
-                <span className="Movie-poster-review-panel">
-                  <Paper elevation={3} className="Movie-poster">
-                    <img
-                      loading="lazy"
-                      width="250"
-                      src={`https://image.tmdb.org/t/p/original/${value.poster_path}`}
-                      className='Movie-poster'
-                      alt={value.id}
-                      onClick={handleClick}
-                    />
-                  </Paper>
-                  <span className="Movie-body">
-                      <h2>{value.title}</h2>
-                      <p>{value.overview}</p>
-                      {/* <p>{value.popularity}</p>
-                      <p>{Object.keys(value) + "\n"}</p> */}
-                  </span>
-                  {/* <Paper elevation={3} className="Movie-score" /> */}
+    <div>
+      <h1>Suggested Movies</h1>
+      <List>
+        {options.map((value) => (
+          <ListItem key={`${value.id}`}>
+            <StyledPaper elevation={3} className="Movie-body">
+              <span className="Movie-poster-review-panel">
+                <Paper elevation={3} className="Movie-poster">
+                  <img
+                    loading="lazy"
+                    width="250"
+                    src={`https://image.tmdb.org/t/p/original/${value.poster_path}`}
+                    className="Movie-poster"
+                    alt={value.id}
+                    onClick={handleClick}
+                  />
+                </Paper>
+                <span className="Movie-body">
+                  <h2>{value.title}</h2>
+                  <p>{value.overview}</p>
                 </span>
-              </StyledPaper>
-            </ListItem>
-          ))}
-        </List>
-  </div>
+              </span>
+            </StyledPaper>
+          </ListItem>
+        ))}
+      </List>
+    </div>
   );
 }
 

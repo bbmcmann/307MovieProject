@@ -3,7 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Movie from "./components/Movie";
-import MovieList from "./components/MovieList"
+import MovieList from "./components/MovieList";
 import Profile from "./components/profile/Profile";
 import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
@@ -23,8 +23,8 @@ function App() {
               index
               element={<p>Use the search bar to search for a movie!</p>}
             />
-            <Route path="popular" element={<MovieList/>} />
-            <Route path="suggested" element={<MovieList/>} />
+            <Route path="popular" element={<MovieList />} />
+            <Route path="suggested" element={<MovieList />} />
             <Route path=":id" element={<Movie />} />
             <Route path="*" element={<h1>404 page not not found</h1>} />
           </Route>
