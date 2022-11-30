@@ -1,7 +1,7 @@
 const express = require("express");
 const { authenticateUser } = require("./authServices");
 const router = express.Router();
-const userServices = require("./user-services");
+const userServices = require("./userServices");
 
 router.get("/", async (req, res) => {
   let id;

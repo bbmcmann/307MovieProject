@@ -1,4 +1,4 @@
-const UserSchema = require("../models/users");
+const UserSchema = require("../models/userSchema");
 
 const Users = UserSchema.Users;
 
@@ -69,3 +69,4 @@ exports.getUsers = getUsers;
 exports.addUser = addUser;
 exports.updateUserById = updateUserById;
 exports.deleteUserById = deleteUserById;
+exports.findUserById = findUserById;
