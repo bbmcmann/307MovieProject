@@ -43,7 +43,7 @@ function Profile() {
   }
 
   function navigateHome() {
-    navigate("/");
+    navigate("/login");
   }
 
   return (

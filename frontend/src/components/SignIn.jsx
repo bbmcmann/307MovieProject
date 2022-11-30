@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import {
   StyledCon,
   StyledError,
@@ -12,7 +14,26 @@ import {
   StyledText,
 } from "./StyledComponents.jsx";
 
-function SignIn(props) {
+const StyledLink = styled(Link)`
+  a:active {
+    text-decoration: none;
+  }
+  ,
+  a:hover {
+    text-color: #ffffff;
+  }
+  ,
+  a:visited {
+    text-decoration: none;
+  }
+  ,
+  a:link {
+    text-decoration: none;
+  }
+  color: #000000;
+`;
+
+function SignIn() {
   const navigate = useNavigate();
   const [validError, setError] = useState("");
   const [person, setPerson] = useState({
@@ -78,7 +99,9 @@ function SignIn(props) {
           handleSubmit();
         }}
       >
-        <StyledHead>The Bananalyst</StyledHead>
+        <StyledHead>
+          <StyledLink to="/">The Bananalyst</StyledLink>
+        </StyledHead>
         <StyledText>Login </StyledText>
         <StyledInput
           type="text"
