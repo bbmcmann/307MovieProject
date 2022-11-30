@@ -6,6 +6,7 @@ A banana themed movie review site. View popular movies, suggested movies, and re
 
 - [Overview](#overview)
   - [Summary](#summary)
+  - [Demo Video](#demo-video)
   - [Team](#team)
 - [Getting Started](#getting-started)
   - [Setup](#setup)
@@ -15,12 +16,26 @@ A banana themed movie review site. View popular movies, suggested movies, and re
   - [Committing Changes](#commiting-changes)
   - [Making Pull Requests](#making-pull-requests)
 - [Documents and Artifacts](#documents-and-artifacts)
+  - [Code Coverage](#code-coverage)
 
 ## Overview
 
 ### Summary
 
 This project was developed as part of CSC 307 Intro to Software Engineering instructed by Professor Bruno da Silva. Technologies used in this project are React on the frontend, Node.js and Express on the backend, and MongoDB for the database. Development took place over three sprints (two weeks each). We went through the entire software development lifecycle from planning and design to implementation and deployment. We also implemented CI/CD with Github Actions and Azure.
+
+Key Features:
+
+- Search and view movies
+- Create an account
+- Write reviews for movies
+- View other reviews
+- View popular and suggested movies
+- Banana puns
+
+### Demo Video
+
+(need video here)
 
 ### Team
 
@@ -102,5 +117,9 @@ When interacting with Git/GitHub, feel free to use the command line, VSCode exte
 - [UI Prototype on Figma](https://www.figma.com/file/L8jBZsx1cAFQSjShkGWd6i/Movie-Project?node-id=0%3A1)
 - [Class Diagram](https://drive.google.com/file/d/15jEi9DxDtci87fFSzrfHVOTYW8_m95v5/view?usp=sharing)
 - [Sequence Diagram](https://drive.google.com/file/d/1P3RCt0tJhiephHuyNuNjHkO5_wGm8W78/view?usp=sharing)
+
+### Code Coverage
+
+(image of coverage here)
 
 _🍌Why did the banana go out with a prune? Because he couldn’t find a date.🍌_
