@@ -3,7 +3,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { IconButton, Rating } from "@mui/material";
 import Card from "@mui/material/Card";
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledCard = styled(Card)`
   border: 1px solid #d9d9d9;
@@ -54,13 +54,18 @@ const VoteDiv = styled.div`
 
 const UpVote = styled(ArrowUpwardIcon)`
   padding-left: 10px;
-  color: #f6da73;
-  transform: scale(1.4);
+  //color: #f6da73;
+  //transform: scale(1.4);
+  color: ${({ vote }) => (vote === "up" ? "#f6da73" : "#3e5336")};
+  transform: ${({ vote }) => (vote === "up" ? "scale(2.0)" : "scale(1.4)")};
 `;
+
 const DownVote = styled(ArrowDownwardIcon)`
   padding-left: 10px;
   color: #f6da73;
   transform: scale(1.4);
+  color: ${({ vote }) => (vote === "down" ? "#f6da73" : "#3e5336")};
+  transform: ${({ vote }) => (vote === "down" ? "scale(2.0)" : "scale(1.4)")};
 `;
 const RevWrap = styled.div`
   padding-left: 16px;
@@ -77,13 +82,16 @@ function Review({
   score,
 }) {
   const check_voted = () => {
+    //console.log("check");
     const up_index = upvote_list.indexOf(user_id);
     const down_index = downvote_list.indexOf(user_id);
     if (up_index > -1) {
+      console.log("up");
       setVote("up");
       return true;
     }
     if (down_index > -1) {
+      console.log("down");
       setVote("down");
       return true;
     }
@@ -100,15 +108,16 @@ function Review({
       new_upvotes = upvote_list.filter((id) => id !== user_id);
       new_downvotes = downvote_list.push(user_id);
     }
-    console.log(user_id);
-    console.log(new_downvotes);
-    console.log(new_upvotes);
+    // console.log(user_id);
+    // console.log(new_downvotes);
+    // console.log(new_upvotes);
     //patch request with new lists
   };
 
   const handleVote = (thisVote) => {
     if (!voted) {
       setVoted(true);
+      console.log("voted");
       setVote(thisVote);
       if (thisVote === "up") {
         setCurUpVote(curUpVote + 1);
@@ -158,13 +167,13 @@ function Review({
         <VoteDiv>
           <p>Upvotes: {curUpVote}</p>
           <IconButton onClick={() => handleVote("up")}>
-            <UpVote />
+            <UpVote vote={vote} />
           </IconButton>
         </VoteDiv>
         <VoteDiv>
           <p>Downvotes: {curDownVote}</p>
           <IconButton onClick={() => handleVote("down")}>
-            <DownVote />
+            <DownVote vote={vote} />
           </IconButton>
         </VoteDiv>
       </VoteBar>
