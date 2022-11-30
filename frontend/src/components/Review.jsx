@@ -114,7 +114,7 @@ function Review({
       new_downvotes = downvote_list;
     }
     axios
-      .patch(`http://localhost:5000/reviews/${_id}`, {
+      .patch(`${process.env.REACT_APP_BACKEND_URL}${_id}`, {
         upvote_list: new_upvotes,
         downvote_list: new_downvotes,
       })
@@ -129,12 +129,9 @@ function Review({
       setVote(thisVote);
       if (thisVote === "up") {
         setCurUpVote(curUpVote + 1);
-      } else {
-        setCurDownVote(curDownVote + 1);
-      }
-      if (thisVote === "up") {
         updateVoteLists(true);
       } else {
+        setCurDownVote(curDownVote + 1);
         updateVoteLists(false);
       }
     } else if (vote !== thisVote) {
@@ -142,13 +139,10 @@ function Review({
       if (thisVote === "up") {
         setCurUpVote(curUpVote + 1);
         setCurDownVote(curDownVote - 1);
+        updateVoteLists(true);
       } else {
         setCurDownVote(curDownVote + 1);
         setCurUpVote(curUpVote - 1);
-      }
-      if (thisVote === "up") {
-        updateVoteLists(true);
-      } else {
         updateVoteLists(false);
       }
     }
