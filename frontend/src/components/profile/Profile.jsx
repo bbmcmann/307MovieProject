@@ -89,10 +89,7 @@ function Profile() {
                   navigateHome();
                 }}
               />
-            ) : /* <Button className="signout" variant="contained" onClick={removeCookies}>
-                Sign Out
-            </Button> */
-            null}
+            ) : null}
           </div>
           <ProfileLiked movies={user.reviews} />
         </div>

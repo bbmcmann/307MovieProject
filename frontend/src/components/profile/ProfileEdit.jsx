@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Button, Paper, TextField } from "@mui/material";
+import { Paper, TextField } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { StyledForm } from "../StyledComponents.jsx";
+import { StyledForm, StyledSubmit } from "../StyledComponents.jsx";
 import { Cookies } from "react-cookie";
 
 function ProfileEdit() {
@@ -87,18 +87,25 @@ function ProfileEdit() {
   };
 
   return curUser ? (
-    <Paper className="profile" elevation={2}>
-      <h1 className="profile-header">&#127820;Edit Profile&#127820;</h1>
-      <hr />
-      <StyledForm className="edit-form" onSubmit={handleSubmit}>
-        <TextField label="Username" inputRef={username} error={error} />
-        <TextField label="First Name" inputRef={fname} error={error} />
-        <TextField label="Last Name" inputRef={lname} error={error} />
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
-      </StyledForm>
-    </Paper>
+    /* if you are authorized and you are on your page */
+    cookies.get("token") && cookies.get("userId") === id ? (
+      <Paper className="profile" elevation={2}>
+        <h1 className="profile-header">&#127820;Edit Profile&#127820;</h1>
+        <hr />
+        <StyledForm className="edit-form" onSubmit={handleSubmit}>
+          <TextField label="Username" inputRef={username} error={error} />
+          <TextField label="First Name" inputRef={fname} error={error} />
+          <TextField label="Last Name" inputRef={lname} error={error} />
+          <br></br>
+          <StyledSubmit type="submit" value="Submit" />
+        </StyledForm>
+      </Paper>
+    ) : /* check to see if you're signed in or not */
+    cookies.get("token") ? (
+      navigate("/profile/" + id)
+    ) : (
+      navigate("/login")
+    )
   ) : null;
 }
 
