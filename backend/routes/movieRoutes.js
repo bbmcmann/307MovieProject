@@ -1,4 +1,5 @@
 const express = require("express");
+const { authenticateUser } = require("./authServices.js");
 const router = express.Router();
 const {
   getMovieById,
@@ -52,7 +53,7 @@ router.get("/:id", async (req, res) => {
 
 // Create a new movie to DB
 // Params: movie api id (integer), review object
-router.post("/", async (req, res) => {
+router.post("/", authenticateUser, async (req, res) => {
   const { id, review } = req.body;
   try {
     const result = await createMovie(id, review.id, review.score);

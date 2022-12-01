@@ -1,17 +1,68 @@
-import { Button, Paper, TextField } from "@mui/material";
-import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { StyledForm } from "../StyledComponents.jsx";
+import axios from "axios";
+import { Paper, TextField } from "@mui/material";
+import React, { useRef, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { StyledForm, StyledSubmit } from "../StyledComponents.jsx";
+import { Cookies } from "react-cookie";
 
 function ProfileEdit() {
   const username = useRef();
   const fname = useRef();
   const lname = useRef();
+  const [user, setUser] = useState({});
   const [error, setError] = useState(false);
+
+  const cookies = new Cookies();
 
   const navigate = useNavigate();
 
   const curUser = {};
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    // fetch user info based on id
+    if (id) {
+      axios
+        .get(`http://localhost:5000/users/${id}`)
+        .then((res) => setUser(res.data.users_list))
+        .catch((err) => {
+          console.log(err);
+          setError(true);
+        });
+    } else {
+      setError(true);
+    }
+  }, [id]);
+
+  async function makeUpdateCall(id) {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${cookies.get("token")}` },
+      };
+      const response = await axios.patch(
+        `http://localhost:5000/users/${id}`,
+        user,
+        config
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  function updateUser() {
+    if (username.current.value !== "") {
+      user.username = username.current.value;
+    }
+    if (fname.current.value !== "") {
+      user.first_name = fname.current.value;
+    }
+    if (lname.current.value !== "") {
+      user.last_name = lname.current.value;
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,25 +75,37 @@ function ProfileEdit() {
       return;
     }
     console.log("submit clicked");
-    console.log(username.current.value);
-    console.log(fname.current.value);
-    console.log(lname.current.value);
-    navigate("/profile");
+    updateUser();
+    makeUpdateCall(id).then((result) => {
+      if (result && result.status === 200) {
+        setUser(result.data);
+      } else {
+        console.log(error);
+      }
+    });
+    navigate("/profile/" + id); // doesn't automatically update it
   };
 
   return curUser ? (
-    <Paper className="profile" elevation={2}>
-      <h1 className="profile-header">&#127820;Edit Profile&#127820;</h1>
-      <hr />
-      <StyledForm className="edit-form" onSubmit={handleSubmit}>
-        <TextField label="Username" inputRef={username} error={error} />
-        <TextField label="First Name" inputRef={fname} error={error} />
-        <TextField label="Last Name" inputRef={lname} error={error} />
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
-      </StyledForm>
-    </Paper>
+    /* if you are authorized and you are on your page */
+    cookies.get("token") && cookies.get("userId") === id ? (
+      <Paper className="profile" elevation={2}>
+        <h1 className="profile-header">&#127820;Edit Profile&#127820;</h1>
+        <hr />
+        <StyledForm className="edit-form" onSubmit={handleSubmit}>
+          <TextField label="Username" inputRef={username} error={error} />
+          <TextField label="First Name" inputRef={fname} error={error} />
+          <TextField label="Last Name" inputRef={lname} error={error} />
+          <br></br>
+          <StyledSubmit type="submit" value="Submit" />
+        </StyledForm>
+      </Paper>
+    ) : /* check to see if you're signed in or not */
+    cookies.get("token") ? (
+      navigate("/profile/" + id)
+    ) : (
+      navigate("/login")
+    )
   ) : null;
 }
 
