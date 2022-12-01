@@ -64,3 +64,7 @@ span {
   flex-direction: column;
   gap: 1rem;
 }
+
+.pun {
+  font-weight: bold;
+}
