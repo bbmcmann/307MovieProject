@@ -125,5 +125,6 @@ When interacting with Git/GitHub, feel free to use the command line, VSCode exte
 ### Code Coverage
 
 <img src="./frontend/src/static/coverage.png" alt="code coverage for tests" width="500"/>
+_Last updated 12/1/22_
 
 _🍌Why did the banana go out with a prune? Because he couldn’t find a date.🍌_
