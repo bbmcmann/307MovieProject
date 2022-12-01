@@ -25,11 +25,11 @@ async function postReview(rev) {
 }
 
 //updates vote counts
-async function updateVotes(id, upvotes, downvotes) {
+async function updateVotes(id, upvote_list, downvote_list) {
   try {
     const result = await Review.updateOne(
       { _id: id },
-      { $set: { upvotes: upvotes, downvotes: downvotes } }
+      { $set: { upvote_list: upvote_list, downvote_list: downvote_list } }
     );
     if (result.acknowledged) {
       return await Review.findById(id);

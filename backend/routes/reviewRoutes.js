@@ -34,10 +34,14 @@ router.post("/", authenticateUser, async (req, res) => {
 //update a review (upvotes/downvotes)
 router.patch("/:id", authenticateUser, async (req, res) => {
   const id = req.params["id"];
-  const upvotes = req.body.upvotes;
-  const downvotes = req.body.downvotes;
+  const upvote_list = req.body.upvote_list;
+  const downvote_list = req.body.downvote_list;
   try {
-    const result = await reviewServices.updateVotes(id, upvotes, downvotes);
+    const result = await reviewServices.updateVotes(
+      id,
+      upvote_list,
+      downvote_list
+    );
     res.status(200).send(result);
   } catch (error) {
     console.log(error);
