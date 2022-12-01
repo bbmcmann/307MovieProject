@@ -50,7 +50,6 @@ function Header(props) {
                 <StyledLink to="movie"> Movies </StyledLink>
               </button>
               <div className="dropcont">
-                {/* TODO: Finalize navigation on all buttons. Currently on temporary  */}
                 <p>
                   <StyledLink to="movie/popular">Popular Movies</StyledLink>
                 </p>
