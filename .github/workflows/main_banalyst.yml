@@ -32,7 +32,7 @@ jobs:
           npm install
           npm run build --if-present
           npm run test-deploy --if-present
-        working-directory: ./backend #added
+        working-directory: backend #added
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -60,4 +60,4 @@ jobs:
           app-name: "Banalyst"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3188A4C461E34AB69DB9BF0BAEC13915 }}
-          package: ./backend #change here
+          package: backend #change here
