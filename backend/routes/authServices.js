@@ -24,7 +24,7 @@ async function login(username, password) {
           id: retrievedUser._id,
           username: username,
         });
-        return token;
+        return { id: retrievedUser._id, token: token };
       }
     }
     return null;
@@ -54,13 +54,9 @@ async function signup(username, password, fname, lname, email) {
       password: hashedPwd,
       reviews: [],
     };
-    const result = await addUser(newUser);
+    await addUser(newUser);
 
-    const token = generateAccessToken({
-      id: result._id,
-      username: username,
-    });
-    return token;
+    return true;
   }
 }
 

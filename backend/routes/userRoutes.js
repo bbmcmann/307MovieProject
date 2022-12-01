@@ -40,8 +40,15 @@ router.patch("/:id", authenticateUser, async (req, res) => {
   const username = req.body.username;
   const first = req.body.first_name;
   const last = req.body.last_name;
+  const pun = req.body.fav_pun;
   try {
-    const result = await userServices.updateUserById(id, username, first, last);
+    const result = await userServices.updateUserById(
+      id,
+      username,
+      first,
+      last,
+      pun
+    );
     res.status(200).send({ users_list: result });
   } catch (error) {
     console.log(error);
