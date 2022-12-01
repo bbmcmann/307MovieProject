@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { ObjectId } = require("mongodb");
 const ReviewSchema = require("../models/reviewSchema.js");
 const {
   getReviews,
@@ -83,14 +84,18 @@ describe("postReview", () => {
   describe("updateVotes", () => {
     test("success - upvote", async () => {
       const result = await updateVotes(id, ["6362bb7d8b68ea4a3f5daf3a"], []);
-      expect(result.upvote_list).toStrictEqual(["6362bb7d8b68ea4a3f5daf3a"]);
+      expect(result.upvote_list).toStrictEqual([
+        ObjectId("6362bb7d8b68ea4a3f5daf3a"),
+      ]);
       expect(result.downvote_list).toStrictEqual([]);
     });
 
     test("success - downvote", async () => {
       const result = await updateVotes(id, [], ["6362bb7d8b68ea4a3f5daf3a"]);
       expect(result.upvote_list).toStrictEqual([]);
-      expect(result.downvote_list).toStrictEqual(["6362bb7d8b68ea4a3f5daf3a"]);
+      expect(result.downvote_list).toStrictEqual([
+        ObjectId("6362bb7d8b68ea4a3f5daf3a"),
+      ]);
     });
 
     test("invalid id", async () => {
