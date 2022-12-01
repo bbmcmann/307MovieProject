@@ -4,6 +4,7 @@
   "main": "backend.js",
   "scripts": {
     "test": "prettier --check . && jest",
+    "test-deploy": "jest",
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
