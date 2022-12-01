@@ -17,8 +17,8 @@ beforeAll(async () => {
     author_id: "6362bb7d8b68ea4a3f5daf3a",
     movie_id: 24428,
     date_posted: new Date(),
-    upvotes: 100,
-    downvotes: 1,
+    upvote_list: ["6362bb7d8b68ea4a3f5daf3a"],
+    downvote_list: [],
   };
   let revOne = new Review(dummyReview);
   await revOne.save();
@@ -57,8 +57,8 @@ describe("postReview", () => {
       author_id: "6362bb7d8b68ea4a3f5daf3a",
       movie_id: 24428,
       date_posted: new Date(),
-      upvotes: 100,
-      downvotes: 1,
+      upvote_list: ["6362bb7d8b68ea4a3f5daf3a"],
+      downvote_list: [],
     };
     const result = await postReview(dummyReview);
     expect(result.review_title).toBe("Loved it456");
@@ -73,8 +73,8 @@ describe("postReview", () => {
       author_id: "6362bb7d8b68ea4a3f5daf3a",
       movie_id: 24428,
       date_posted: new Date(),
-      upvotes: 100,
-      downvotes: 1,
+      upvote_list: ["6362bb7d8b68ea4a3f5daf3a"],
+      downvote_list: [],
     };
     const result = await postReview(dummyReview);
     expect(result).not.toBeDefined();
@@ -82,15 +82,15 @@ describe("postReview", () => {
 
   describe("updateVotes", () => {
     test("success - upvote", async () => {
-      const result = await updateVotes(id, 101, 1);
-      expect(result.upvotes).toBe(101);
-      expect(result.downvotes).toBe(1);
+      const result = await updateVotes(id, ["6362bb7d8b68ea4a3f5daf3a"], []);
+      expect(result.upvote_list).toBe(["6362bb7d8b68ea4a3f5daf3a"]);
+      expect(result.downvote_list).toBe([]);
     });
 
     test("success - downvote", async () => {
-      const result = await updateVotes(id, 100, 2);
-      expect(result.upvotes).toBe(100);
-      expect(result.downvotes).toBe(2);
+      const result = await updateVotes(id, [], ["6362bb7d8b68ea4a3f5daf3a"]);
+      expect(result.upvote_list).toBe([]);
+      expect(result.downvote_list).toBe(["6362bb7d8b68ea4a3f5daf3a"]);
     });
 
     test("invalid id", async () => {
