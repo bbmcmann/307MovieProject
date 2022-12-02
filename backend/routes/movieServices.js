@@ -1,4 +1,5 @@
 const Movie = require("../models/movieSchema.js");
+const Review = require("../models/reviewSchema.js");
 const mongoose = require("mongoose");
 axios = require("axios");
 dotenv = require("dotenv");
@@ -119,9 +120,21 @@ async function getSuggestedMovies(userId) {
   //! Wait on user schema to implement
   try {
     if (userId) {
-      const movieId = 0;
+      //Create ObjectId of user's Id, so findOne can successfully return a matching review
+      let tempId = mongoose.Types.ObjectId(userId);
+
+      //Returns a review written by current user
+      let movies = await Review.Review.findOne({ author_id: tempId });
+
+      //using our written review, we select the movie's id, and make recommendation
+      //based on that particular movie.
+      let movieId = movies.movie_id;
+
       // get a top movie from the user's reviews and get recommendations for that
-      `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.MOVIE_API}&language=en-US&page=1`;
+      const result = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.MOVIE_API}&language=en-US&page=1`
+      );
+      return result.data.results.slice(0, 10);
     } else {
       // if no userId, just send popular movies instead
       return getPopularMovies();
