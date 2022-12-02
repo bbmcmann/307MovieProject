@@ -83,7 +83,9 @@ function authenticateUser(req, res, next) {
         next();
       });
     } catch (error) {
+      console.log("ERROR");
       console.log(error);
+
       return res.status(401).end();
     }
   }

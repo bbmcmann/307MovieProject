@@ -12,11 +12,12 @@ let id;
 
 beforeAll(async () => {
   let dummyReview = {
-    review_title: "Amazing movie123",
-    text: "Full of action, humor, and family fun",
-    score: 8,
-    author_id: "6362bb7d8b68ea4a3f5daf3a",
+    title: "Amazing movie123",
+    review: "Full of action, humor, and family fun",
+    ratingVal: 8,
+    user_id: "6362bb7d8b68ea4a3f5daf3a",
     movie_id: 24428,
+    user_name: "testuser123",
     date_posted: new Date(),
     upvote_list: ["6362bb7d8b68ea4a3f5daf3a"],
     downvote_list: [],
@@ -52,18 +53,19 @@ describe("getReviews", () => {
 describe("postReview", () => {
   test("success", async () => {
     dummyReview = {
-      review_title: "Loved it456",
-      text: "Full of action, humor, and family fun",
-      score: 8,
-      author_id: "6362bb7d8b68ea4a3f5daf3a",
+      title: "Loved it456",
+      review: "Full of action, humor, and family fun",
+      ratingVal: 8,
+      user_id: "6362bb7d8b68ea4a3f5daf3a",
+      user_name: "testuser123",
       movie_id: 24428,
       date_posted: new Date(),
       upvote_list: ["6362bb7d8b68ea4a3f5daf3a"],
       downvote_list: [],
     };
     const result = await postReview(dummyReview);
-    expect(result.review_title).toBe("Loved it456");
-    expect(result.score).toBe(8);
+    expect(result.title).toBe("Loved it456");
+    expect(result.ratingVal).toBe(8);
     expect(result.movie_id).toBe(24428);
     await Review.findByIdAndDelete(result._id);
   });
@@ -71,7 +73,7 @@ describe("postReview", () => {
   test("invalid", async () => {
     // invalid due to missing fields
     dummyReview = {
-      author_id: "6362bb7d8b68ea4a3f5daf3a",
+      user_id: "6362bb7d8b68ea4a3f5daf3a",
       movie_id: 24428,
       date_posted: new Date(),
       upvote_list: ["6362bb7d8b68ea4a3f5daf3a"],

@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   StyledCon,
@@ -13,6 +12,7 @@ import {
   StyledSubmit,
   StyledText,
 } from "./StyledComponents.jsx";
+import getBackendUrl from "./util.jsx";
 
 const StyledLink = styled(Link)`
   a:active {
@@ -52,18 +52,19 @@ function SignIn(props) {
     } else {
       try {
         // api call to create user
-        const data = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}auth/login`,
-          {
-            username: person.username,
-            password: person.password,
-          }
-        );
+        const data = await axios.post(`${getBackendUrl()}auth/login`, {
+          username: person.username,
+          password: person.password,
+        });
         setCookie("token", data.data.token, {
           maxAge: 86400,
           path: "/",
         });
         setCookie("userId", data.data.id, {
+          maxAge: 86400,
+          path: "/",
+        });
+        setCookie("username", person.username, {
           maxAge: 86400,
           path: "/",
         });
