@@ -29,10 +29,7 @@ async function findUserByUsername(id) {
 async function findUserById(id) {
   console.log(" User Id:", id);
   try {
-    const result = await Users.findById(id).populate({
-      path: "reviews",
-      populate: { path: "movie_id", model: MovieSchema },
-    });
+    const result = await Users.findById(id).populate("reviews");
     return result;
   } catch (error) {
     //console.log(error);

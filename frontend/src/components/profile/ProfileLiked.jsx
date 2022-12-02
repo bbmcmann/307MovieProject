@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Profile.css";
 
 function ProfileLiked({ reviews }) {
-  const [movie, setMovie] = useState({});
+  let movies = [];
   const navigate = useNavigate();
 
   async function getMovie(movie_id) {
@@ -12,7 +12,7 @@ function ProfileLiked({ reviews }) {
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}movies/${movie_id}`
       );
-      setMovie(res.data);
+      movies.push(res.data);
       return true;
     } catch (error) {
       console.log(error);
@@ -24,15 +24,20 @@ function ProfileLiked({ reviews }) {
     navigate(`/movie/${id}`);
   };
 
+  // logging this info twice, once with blank and then with the info we want
+  console.log(reviews);
+  console.log(movies);
+
   return (
     <div className="liked-section">
       <h3>Liked Movies :</h3>
       {reviews ? (
-        ((reviews = reviews.filter((rev) => rev.ratingVal === 7).slice(0, 1)),
+        ((reviews = reviews.filter((rev) => rev.ratingVal >= 5)),
+        (reviews.forEach((review) => getMovie(review.movie_id)),
         (
           <div className="movies">
-            {reviews?.map((review) => {
-              getMovie(review.movie_id._id);
+            {movies?.map((movie) => {
+              console.log(movies);
               return (
                 <img
                   key={movie._id}
@@ -44,7 +49,7 @@ function ProfileLiked({ reviews }) {
               );
             })}
           </div>
-        ))
+        )))
       ) : (
         <h3>--None--</h3>
       )}
