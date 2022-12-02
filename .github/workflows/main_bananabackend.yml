@@ -9,6 +9,11 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+  MOVIE_API: ${{ secrets.MOVIE_API }}
+  TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,8 +30,9 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
-
+          npm run test-deploy --if-present
+        working-directory: backend
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -53,4 +59,5 @@ jobs:
           app-name: 'BananaBackend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_05C71790E03240B68D647BE280A09E89 }}
-          package: .
+          package: backend
+          
