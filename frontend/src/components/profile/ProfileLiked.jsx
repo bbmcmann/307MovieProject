@@ -28,7 +28,7 @@ function ProfileLiked({ reviews }) {
     <div className="liked-section">
       <h3>Liked Movies :</h3>
       {reviews ? (
-        ((reviews = reviews.filter((rev) => rev.ratingVal == 7).slice(0, 1)),
+        ((reviews = reviews.filter((rev) => rev.ratingVal === 7).slice(0, 1)),
         (
           <div className="movies">
             {reviews?.map((review) => {
