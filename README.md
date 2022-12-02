@@ -4,7 +4,7 @@
 [![BananaBackend](https://github.com/bbmcmann/307MovieProject/actions/workflows/main_bananabackend.yml/badge.svg)](https://github.com/bbmcmann/307MovieProject/actions/workflows/main_bananabackend.yml)
 [![Frontend CD](https://github.com/bbmcmann/307MovieProject/actions/workflows/azure-static-web-apps-white-glacier-0bbe79d1e.yml/badge.svg)](https://github.com/bbmcmann/307MovieProject/actions/workflows/azure-static-web-apps-white-glacier-0bbe79d1e.yml)
 
-A banana themed movie review site. View popular movies, suggested movies, and reviews for any movie written by fellow Bananlysts. View the live site [here](https://white-glacier-0bbe79d1e-65.westus2.2.azurestaticapps.net/)
+A banana themed movie review site. View popular movies, suggested movies, and reviews for any movie written by fellow Bananalysts. View the live site [here](https://white-glacier-0bbe79d1e.2.azurestaticapps.net/)
 
 ## Table of Contents
 
@@ -127,6 +127,6 @@ When interacting with Git/GitHub, feel free to use the command line, VSCode exte
 
 <img src="./frontend/src/static/coverage.png" alt="code coverage for tests" width="500"/>
 
-_Last updated 12/1/22_
+_Last generated 12/1/22 8:00PM_
 
 _🍌Why did the banana go out with a prune? Because he couldn’t find a date.🍌_
