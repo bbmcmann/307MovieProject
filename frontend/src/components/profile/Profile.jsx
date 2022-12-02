@@ -92,7 +92,7 @@ function Profile(props) {
               />
             ) : null}
           </div>
-          <ProfileLiked movies={user.reviews} />
+          <ProfileLiked reviews={user.reviews} />
         </div>
       )}
     </Paper>
