@@ -29,27 +29,29 @@ beforeAll(async () => {
 
   setConnection(conn);
   let dummyReview = {
-    review_title: "Amazing movie123",
-    text: "Full of action, humor, and family fun",
-    score: 8,
-    author_id: "6362bb7d8b68ea4a3f5daf3a",
+    title: "Amazing movie123",
+    review: "Full of action, humor, and family fun",
+    ratingVal: 8,
+    user_id: "6362bb7d8b68ea4a3f5daf3a",
     movie_id: 24428,
+    user_name: "testuser123",
     date_posted: new Date(),
-    upvotes: 100,
-    downvotes: 1,
+    upvote_list: ["6362bb7d8b68ea4a3f5daf3a"],
+    downvote_list: [],
   };
   let revOne = new Review(dummyReview);
   await revOne.save();
 
   dummyReview = {
-    review_title: "Loved it456",
-    text: "Full of action, humor, and family fun",
-    score: 8,
-    author_id: "6362bb7d8b68ea4a3f5daf3a",
+    title: "Loved it456",
+    review: "Full of action, humor, and family fun",
+    ratingVal: 8,
+    user_id: "6362bb7d8b68ea4a3f5daf3a",
+    user_name: "testuser123",
     movie_id: 24428,
     date_posted: new Date(),
-    upvotes: 100,
-    downvotes: 1,
+    upvote_list: ["6362bb7d8b68ea4a3f5daf3a"],
+    downvote_list: [],
   };
   let revTwo = new Review(dummyReview);
   await revTwo.save();
@@ -173,7 +175,7 @@ describe("update Movie by Id Tests", () => {
   test("throw error", async () => {
     await expect(
       updateMovieById(0, "6363ebf2fddfec1bee01715c", 10)
-    ).rejects.toThrow("Could not update movie");
+    ).rejects.toThrow("Could not find movie");
   });
 });
 
