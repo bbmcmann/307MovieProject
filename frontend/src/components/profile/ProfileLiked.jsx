@@ -7,12 +7,6 @@ function ProfileLiked({ reviews }) {
   const [movie, setMovie] = useState({});
   const navigate = useNavigate();
 
-  /* function moviesList() {
-    let mov_list = []
-    reviews.forEach((review) => mov_list.push(getMovie(review.movie_id)))
-    return mov_list;
-  } */
-
   async function getMovie(movie_id) {
     try {
       const res = await axios.get(
@@ -32,13 +26,13 @@ function ProfileLiked({ reviews }) {
 
   return (
     <div className="liked-section">
-      <h3>Movies I like:</h3>
+      <h3>Liked Movies :</h3>
       {reviews ? (
-        ((reviews = reviews.filter((rev) => rev.ratingVal >= 5)),
+        ((reviews = reviews.filter((rev) => rev.ratingVal == 7).slice(0, 1)),
         (
           <div className="movies">
             {reviews?.map((review) => {
-              getMovie(review.movie_id);
+              getMovie(review.movie_id._id);
               return (
                 <img
                   key={movie._id}

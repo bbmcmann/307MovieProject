@@ -1,4 +1,5 @@
 const UserSchema = require("../models/userSchema");
+const MovieSchema = require("../models/movieSchema");
 
 const Users = UserSchema.Users;
 
@@ -7,14 +8,18 @@ async function getUsers(id) {
   if (id) {
     result = await findUserById(id);
   } else if (id === undefined) {
-    result = await Users.find().populate("reviews");
+    result = await Users.find();
   }
   return result;
 }
 
 async function findUserById(id) {
   try {
-    return await Users.findById(id).populate("reviews");
+    const result = await Users.findById(id).populate({
+      path: "reviews",
+      populate: { path: "movie_id", model: MovieSchema },
+    });
+    return result;
   } catch (error) {
     //console.log(error);
     return undefined;
