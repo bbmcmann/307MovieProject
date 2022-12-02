@@ -39,7 +39,7 @@ Key Features:
 
 ### Demo Video
 
-(need video here)
+[Video on Youtube](https://www.youtube.com/watch?v=oAwGMQqsFvQ)
 
 ### Team
 
@@ -121,6 +121,7 @@ When interacting with Git/GitHub, feel free to use the command line, VSCode exte
 - [UI Prototype on Figma](https://www.figma.com/file/L8jBZsx1cAFQSjShkGWd6i/Movie-Project?node-id=0%3A1) _Last updated 10/20/22_
 - [Class Diagram](https://drive.google.com/file/d/15jEi9DxDtci87fFSzrfHVOTYW8_m95v5/view?usp=sharing) _Last updated 10/31/22_
 - [Sequence Diagram](https://drive.google.com/file/d/1P3RCt0tJhiephHuyNuNjHkO5_wGm8W78/view?usp=sharing) _Last updated 11/28/22_
+- [Deployed Backend](https://bananabackend.azurewebsites.net)
 
 ### Code Coverage
 
