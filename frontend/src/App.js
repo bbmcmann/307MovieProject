@@ -33,7 +33,7 @@ function App() {
               element={<p>Use the search bar to search for a movie!</p>}
             />
             <Route path="popular" element={<MovieList id={-1} />} />
-            <Route path="suggested" element={<MovieList id={userId}/>} />
+            <Route path="suggested" element={<MovieList id={userId} />} />
             <Route path=":id" element={<Movie />} />
             <Route path="*" element={<h1>404 page not not found</h1>} />
           </Route>

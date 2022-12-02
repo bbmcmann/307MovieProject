@@ -1,12 +1,9 @@
 const Movie = require("../models/movieSchema.js");
 const Review = require("../models/reviewSchema.js");
-const User = require("../models/userSchema.js")
 const mongoose = require("mongoose");
 axios = require("axios");
 dotenv = require("dotenv");
 dotenv.config();
-
-var ObjectId = mongoose.Types.ObjectId;
 
 // Given a query string, return the options of movies with similar names
 async function searchMovie(query) {
@@ -105,35 +102,24 @@ async function getPopularMovies() {
 async function getSuggestedMovies(userId) {
   //! Wait on user schema to implement
   try {
-    console.log("received id: ", userId);
     if (userId) {
-      console.log("given username: ", userId);
-      // let user = await User.Users.findById(userId); //.populate("reviews");
-
-      // let reviewsList = user.reviews;
-
+      //Create ObjectId of user's Id, so findOne can successfully return a matching review
       let tempId = mongoose.Types.ObjectId(userId);
-      console.log(typeof tempId);
-      
-    
-      // let movies = await Review.Review.find({"author_id" : tempId}).sort({score : -1, date_posted : -1});
-      let movies = await Review.Review.findOne({"author_id" : tempId});
 
-      console.log("movies cursor?:", movies);
-      // console.log("reviews list ", reviewsList);
-      
+      //Returns a review written by current user
+      let movies = await Review.Review.findOne({ author_id: tempId });
 
+      //using our written review, we select the movie's id, and make recommendation
+      //based on that particular movie.
       let movieId = movies.movie_id;
-      console.log("movies ID:", movieId); 
 
       // get a top movie from the user's reviews and get recommendations for that
       const result = await axios.get(
         `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${process.env.MOVIE_API}&language=en-US&page=1`
       );
-      return result.data.results.slice(0,10);
+      return result.data.results.slice(0, 10);
     } else {
       // if no userId, just send popular movies instead
-      console.log("HAS NO USER NAME INPUT REROUTING TO POPULAR")
       return getPopularMovies();
     }
   } catch (error) {

@@ -32,7 +32,6 @@ router.get("/popular", async (req, res) => {
 
 router.get("/suggested", async (req, res) => {
   const userId = req.query.user;
-  console.log("input user id:",userId)
   try {
     const result = await getSuggestedMovies(userId);
     res.status(200).send(result);
