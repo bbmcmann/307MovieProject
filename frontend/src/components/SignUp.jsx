@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 // import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   StyledCon,
@@ -14,6 +13,7 @@ import {
   StyledSubmit,
   StyledText,
 } from "./StyledComponents.jsx";
+import getBackendUrl from "./util.jsx";
 
 const StyledLink = styled(Link)`
   a:active {
@@ -71,7 +71,7 @@ function SignUp() {
     } else {
       try {
         // api call to authenticate user
-        await axios.post(`${process.env.REACT_APP_BACKEND_URL}auth/signup`, {
+        await axios.post(`${getBackendUrl()}auth/signup`, {
           username: userName,
           password: pass,
           first_name: fName,

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
 import { Button } from "@mui/material";
-import { Cookies } from "react-cookie";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
+import getBackendUrl from "./util";
 
 function Pun() {
   const [user, setUser] = useState({});
@@ -32,7 +33,7 @@ function Pun() {
     // fetch user info based on id
     if (id) {
       axios
-        .get(`http://localhost:5000/users/${id}`)
+        .get(`${getBackendUrl()}users/${id}`)
         .then((res) => setUser(res.data.users_list))
         .catch((err) => {
           console.log(err);
@@ -51,7 +52,7 @@ function Pun() {
         headers: { Authorization: `Bearer ${cookies.get("token")}` },
       };
       const response = await axios.patch(
-        `http://localhost:5000/users/${id}`,
+        `${getBackendUrl()}users/${id}`,
         user,
         config
       );

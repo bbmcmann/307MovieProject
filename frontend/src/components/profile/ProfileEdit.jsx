@@ -1,9 +1,10 @@
-import axios from "axios";
 import { Paper, TextField } from "@mui/material";
-import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { Cookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import { StyledForm, StyledSubmit } from "../StyledComponents.jsx";
-import { Cookies } from "react-cookie";
+import getBackendUrl from "../util.jsx";
 
 function ProfileEdit() {
   const username = useRef();
@@ -24,7 +25,7 @@ function ProfileEdit() {
     // fetch user info based on id
     if (id) {
       axios
-        .get(`http://localhost:5000/users/${id}`)
+        .get(`${getBackendUrl()}users/${id}`)
         .then((res) => setUser(res.data.users_list))
         .catch((err) => {
           console.log(err);
