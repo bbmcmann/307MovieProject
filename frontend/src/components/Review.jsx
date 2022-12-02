@@ -122,7 +122,7 @@ function Review({
     };
     axios
       .patch(
-        `${getBackendUrl()}${_id}reviews/${_id}`,
+        `${getBackendUrl()}reviews/${_id}`,
         {
           upvote_list: new_upvotes,
           downvote_list: new_downvotes,
