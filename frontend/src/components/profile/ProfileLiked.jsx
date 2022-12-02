@@ -7,6 +7,12 @@ function ProfileLiked({ reviews }) {
   const [movie, setMovie] = useState({});
   const navigate = useNavigate();
 
+  /* function moviesList() {
+    let mov_list = []
+    reviews.forEach((review) => mov_list.push(getMovie(review.movie_id)))
+    return mov_list;
+  } */
+
   async function getMovie(movie_id) {
     try {
       const res = await axios.get(

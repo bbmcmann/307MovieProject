@@ -7,14 +7,14 @@ async function getUsers(id) {
   if (id) {
     result = await findUserById(id);
   } else if (id === undefined) {
-    result = await Users.find();
+    result = await Users.find().populate("reviews");
   }
   return result;
 }
 
 async function findUserById(id) {
   try {
-    return await Users.findById(id);
+    return await Users.findById(id).populate("reviews");
   } catch (error) {
     //console.log(error);
     return undefined;
