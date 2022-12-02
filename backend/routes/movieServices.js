@@ -46,14 +46,22 @@ async function getMovieById(id) {
 async function updateMovieById(id, reviewId, reviewScore) {
   try {
     const movie = await Movie.findById(id);
-    console.log(`MOVIEID: ${id}`);
-    console.log(movie);
-    console.log(movie.reviews.length);
-    console.log(reviewScore);
+    // console.log(`MOVIEID: ${id}`);
+    // console.log(movie);
+    // console.log(movie.reviews.length);
+    // console.log(reviewScore);
+    // console.log(typeof movie.score);
+    // console.log(typeof reviewScore);
+    // console.log(typeof movie.reviews.length);
+
+    // console.log("top");
+    // console.log(movie.score * movie.reviews.length + reviewScore);
+    // console.log("bottom");
+    // console.log(movie.reviews.length + 1);
     try {
       const newScore =
-        (movie.score * movie.reviews.length + reviewScore) /
-        (movie.reviews.length + 1);
+        (movie.score * Number(movie.reviews.length) + reviewScore) /
+        (Number(movie.reviews.length) + 1);
       console.log(newScore.toFixed(2));
       const result = await Movie.updateOne(
         { _id: id },
