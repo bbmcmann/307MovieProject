@@ -1,16 +1,38 @@
+import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useCookies } from "react-cookie";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
-  StyledSubmit,
   StyledCon,
-  StyledForm,
-  StyledInput,
   StyledError,
+  StyledForm,
   StyledHead,
-  StyledText,
+  StyledInput,
   StyledLabel,
+  StyledSubmit,
+  StyledText,
 } from "./StyledComponents.jsx";
+import getBackendUrl from "./util.jsx";
+
+const StyledLink = styled(Link)`
+  a:active {
+    text-decoration: none;
+  }
+  ,
+  a:hover {
+    text-color: #ffffff;
+  }
+  ,
+  a:visited {
+    text-decoration: none;
+  }
+  ,
+  a:link {
+    text-decoration: none;
+  }
+  color: #000000;
+`;
 
 const StyledDiv = styled.div`
   display: flex;
@@ -28,9 +50,11 @@ function SignUp() {
   const [confirmPass, setConfirmPass] = useState("");
   const [validError, setError] = useState("");
 
+  // const [cookies, setCookie] = useCookies(["token"]);
+
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     //very basic validation
     if (fName.length <= 0) {
       setError("Please enter a first name");
@@ -45,8 +69,19 @@ function SignUp() {
     } else if (pass !== confirmPass) {
       setError("Passwords must match");
     } else {
-      setError("");
-      navigate("/");
+      try {
+        // api call to authenticate user
+        await axios.post(`${getBackendUrl()}auth/signup`, {
+          username: userName,
+          password: pass,
+          first_name: fName,
+          last_name: lName,
+          email: email,
+        });
+        navigate(-1);
+      } catch (error) {
+        setError("Something went wrong. Try again");
+      }
     }
   };
 
@@ -58,7 +93,9 @@ function SignUp() {
           handleSubmit();
         }}
       >
-        <StyledHead>The Bananalyst</StyledHead>
+        <StyledHead>
+          <StyledLink to="/">The Bananalyst</StyledLink>
+        </StyledHead>
         <StyledText>Sign Up</StyledText>
         <StyledDiv>
           <StyledLabel>

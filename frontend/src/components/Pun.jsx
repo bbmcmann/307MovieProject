@@ -1,6 +1,12 @@
-import React from "react";
+import { Button } from "@mui/material";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
+import getBackendUrl from "./util";
 
 function Pun() {
+  const [user, setUser] = useState({});
+  const cookies = new Cookies();
   let pun_q = [
     "How is a banana peel on the floor similar to music?",
     "Why don't bananas snore?",
@@ -8,6 +14,7 @@ function Pun() {
     "What do you call a banana who gets all the girls?",
     "I was walking down the street when I stood on a banana?",
     "What's the difference between time and bananas?",
+    "Take me to snurch",
   ];
   let pun_a = [
     "Because if you don't C Sharp you'll B Flat",
@@ -16,8 +23,45 @@ function Pun() {
     "A banana smoothie",
     "Luckily, I was wearing my SlipKnot t-shirt",
     "Time flies like an arrow, fruit flies like a banana",
+    "I'll worship like a snail in the shrine of your light. \nI'll tell you my snins so you can snarpen your snife.",
   ];
   let randomNum = Math.floor(Math.random() * pun_q.length);
+
+  const id = cookies.get("userId");
+
+  useEffect(() => {
+    // fetch user info based on id
+    if (id) {
+      axios
+        .get(`${getBackendUrl()}users/${id}`)
+        .then((res) => setUser(res.data.users_list))
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [id]);
+
+  const handleSubmit = () => {
+    user.fav_pun = { question: pun_q[randomNum], answer: pun_a[randomNum] };
+    makeUpdateCall(id);
+  };
+
+  async function makeUpdateCall(id) {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${cookies.get("token")}` },
+      };
+      const response = await axios.patch(
+        `${getBackendUrl()}users/${id}`,
+        user,
+        config
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 
   return (
     <div className="App-body">
@@ -26,6 +70,14 @@ function Pun() {
       <br></br>
       <br></br>
       &#x1F34C;{pun_a[randomNum]}
+      <br></br>
+      <br></br>
+      {/* need to have the button only show up if user is logged in / verified */}
+      {cookies.get("token") ? (
+        <Button variant="contained" onClick={handleSubmit}>
+          Favorite
+        </Button>
+      ) : null}
     </div>
   );
 }

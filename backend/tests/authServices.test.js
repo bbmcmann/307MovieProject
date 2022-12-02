@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
-const UserSchema = require("../models/users");
+const UserSchema = require("../models/userSchema");
 const {
   generateAccessToken,
   login,
   signup,
+  authenticateUser,
 } = require("../routes/authServices.js");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -41,8 +42,8 @@ describe("generate token", () => {
 describe("login", () => {
   test("valid", async () => {
     const result = await login("joedidi", "ilovebananas");
-    expect(result).not.toBeNull();
-    jwt.verify(result, process.env.TOKEN_SECRET, (err, user) => {
+    expect(result.id).not.toBeNull();
+    jwt.verify(result.token, process.env.TOKEN_SECRET, (err, user) => {
       expect(user.username).toBe("joedidi");
       expect(JSON.stringify(user.id)).toEqual(JSON.stringify(id));
     });
@@ -76,11 +77,7 @@ describe("signup", () => {
       newUser.last_name,
       newUser.email
     );
-    expect(result).not.toBeNull();
-    jwt.verify(result, process.env.TOKEN_SECRET, async (err, user) => {
-      expect(user.username).toBe("test");
-      expect(user.id).toBeTruthy();
-    });
+    expect(result).toBeTruthy();
     await Users.deleteMany({ username: "test" });
   });
 
@@ -88,5 +85,54 @@ describe("signup", () => {
     await expect(signup("joebaba", "password")).rejects.toThrow(
       "Username already taken"
     );
+  });
+});
+
+describe("Authorization middleware", () => {
+  const mockRequest = (token) => {
+    return {
+      headers: { authorization: token },
+    };
+  };
+
+  const mockResponse = () => {
+    const res = {};
+    res.status = jest.fn().mockReturnValue(res);
+    res.end = jest.fn().mockReturnValue(res);
+    return res;
+  };
+
+  let token;
+  beforeEach(() => {
+    token = generateAccessToken({
+      id: "637bdb3ca068d7ffa9ae75e2",
+      username: "JoeMama",
+    });
+  });
+
+  test("without headers", async () => {
+    const req = mockRequest();
+    const res = mockResponse();
+    const nextFunc = jest.fn();
+    await authenticateUser(req, res, jest.fn());
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(nextFunc).toBeCalledTimes(0);
+  });
+
+  test('with "authorization" header - valid token', async () => {
+    const req = mockRequest(`Bearer ${token}`);
+    const res = mockResponse();
+    const nextFunc = jest.fn();
+    await authenticateUser(req, res, nextFunc);
+    expect(nextFunc).toBeCalledTimes(1);
+  });
+
+  test('with "authorization" header - invalid token', async () => {
+    const req = mockRequest(`Bearer someinvalidtoken`);
+    const res = mockResponse();
+    const nextFunc = jest.fn();
+    await authenticateUser(req, res, nextFunc);
+    expect(res.status).toHaveBeenCalledWith(403);
+    expect(nextFunc).toBeCalledTimes(0);
   });
 });

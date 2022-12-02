@@ -1,18 +1,32 @@
-const UserSchema = require("../models/users");
+const UserSchema = require("../models/userSchema");
 
 const Users = UserSchema.Users;
 
 async function getUsers(id) {
   let result;
   if (id) {
-    result = await findUserById(id);
+    if (id.length < 20) {
+      result = await findUserByUsername(id);
+    } else {
+      result = await findUserById(id);
+    }
   } else if (id === undefined) {
     result = await Users.find();
   }
   return result;
 }
 
+async function findUserByUsername(id) {
+  console.log(" User_name:", id);
+  try {
+    return await Users.findOne({ username: id });
+  } catch (error) {
+    return false;
+  }
+}
+
 async function findUserById(id) {
+  console.log(" User Id:", id);
   try {
     return await Users.findById(id);
   } catch (error) {
@@ -32,11 +46,18 @@ async function addUser(user) {
   }
 }
 
-async function updateUserById(id, username, first, last) {
+async function updateUserById(id, username, first, last, pun) {
   try {
     const result = await Users.updateOne(
       { _id: id },
-      { $set: { username: username, first_name: first, last_name: last } }
+      {
+        $set: {
+          username: username,
+          first_name: first,
+          last_name: last,
+          fav_pun: pun,
+        },
+      }
     );
     if (result.acknowledged) {
       return findUserById(id);
@@ -62,3 +83,4 @@ exports.getUsers = getUsers;
 exports.addUser = addUser;
 exports.updateUserById = updateUserById;
 exports.deleteUserById = deleteUserById;
+exports.findUserById = findUserById;

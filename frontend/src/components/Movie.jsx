@@ -7,6 +7,7 @@ import "../styles/Movie.css";
 import ReviewForm from "./ReviewForm";
 import ReviewList from "./ReviewList";
 import { StyledCon } from "./StyledComponents.jsx";
+import getBackendUrl from "./util";
 
 function Movie() {
   const [movie, setMovie] = useState({});
@@ -17,7 +18,7 @@ function Movie() {
   useEffect(() => {
     if (id) {
       axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}movies/${id}`)
+        .get(`${getBackendUrl()}movies/${id}`)
         .then((res) => {
           setMovie(res.data);
         })

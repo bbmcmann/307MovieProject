@@ -1,4 +1,5 @@
 import React from "react";
+import { Cookies } from "react-cookie";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Search from "./Search";
@@ -29,7 +30,9 @@ const StyledLink = styled(Link)`
   color: #000000;
 `;
 
-function Header() {
+function Header(props) {
+  const cookies = new Cookies();
+
   return (
     <>
       <header className="App-header">
@@ -47,7 +50,6 @@ function Header() {
                 <StyledLink to="movie"> Movies </StyledLink>
               </button>
               <div className="dropcont">
-                {/* TODO: Finalize navigation on all buttons. Currently on temporary  */}
                 <p>
                   <StyledLink to="movie/popular">Popular Movies</StyledLink>
                 </p>
@@ -57,14 +59,17 @@ function Header() {
               </div>
             </div>
             <div className="dropdown">
-              <button className="dropbtn">
-                <StyledLink to="review/">Review</StyledLink>
-              </button>
-            </div>
-            <div className="dropdown">
-              <button className="dropbtn">
-                <StyledLink to="login">Sign In</StyledLink>
-              </button>
+              {props.id ? (
+                <button className="dropbtn">
+                  <StyledLink to={`profile/${cookies.get("userId")}`}>
+                    Profile
+                  </StyledLink>
+                </button>
+              ) : (
+                <button className="dropbtn">
+                  <StyledLink to="login">Sign In</StyledLink>
+                </button>
+              )}
             </div>
           </h2>
         </nav>

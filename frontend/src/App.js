@@ -1,8 +1,10 @@
 import { Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Movie from "./components/Movie";
+import MovieList from "./components/MovieList";
 import Profile from "./components/profile/Profile";
 import ProfileEdit from "./components/profile/ProfileEdit";
 import ReviewList from "./components/ReviewList";
@@ -10,10 +12,18 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 
 function App() {
+  const storedId = localStorage.getItem("userId");
+  const [userId, setUserId] = useState(storedId);
+
+  /* locally store the ID in case the page refreshes */
+  useEffect(() => {
+    localStorage.setItem("userId", userId);
+  }, [userId]);
+
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Header />}>
+        <Route path="/" element={<Header id={userId} />}>
           <Route index element={<Home />} />
 
           {/* Movie paths */}
@@ -22,10 +32,10 @@ function App() {
               index
               element={<p>Use the search bar to search for a movie!</p>}
             />
-            <Route path="popular" element={<p>popular movie page</p>} />
-            <Route path="suggested" element={<p>recommend movie page</p>} />
+            <Route path="popular" element={<MovieList />} />
+            <Route path="suggested" element={<MovieList />} />
             <Route path=":id" element={<Movie />} />
-            <Route path="*" element={<h1>404 page not found</h1>} />
+            <Route path="*" element={<h1>404 page not not found</h1>} />
           </Route>
 
           {/* Review paths */}
@@ -38,8 +48,8 @@ function App() {
           {/* Profile paths */}
           <Route path="profile">
             <Route index element={<Profile />} />
-            <Route path=":id" element={<Profile />} />
-            <Route path="edit" element={<ProfileEdit />} />
+            <Route path=":id" element={<Profile setUserId={setUserId} />} />
+            <Route path="edit/:id" element={<ProfileEdit />} />
             <Route path="*" element={<h1>404 page not found</h1>} />
           </Route>
 
@@ -48,7 +58,7 @@ function App() {
 
         {/* Auth paths */}
         <Route path="signup" element={<SignUp />} />
-        <Route path="login" element={<SignIn />} />
+        <Route path="login" element={<SignIn setUserId={setUserId} />} />
         <Route path="*" element={<h1>404 page not found</h1>} />
       </Routes>
     </div>

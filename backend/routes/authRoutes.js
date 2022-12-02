@@ -24,14 +24,14 @@ router.post("/signup", async (req, res) => {
     res.status(400).send("Bad request: Invalid input data.");
   } else {
     try {
-      const token = await signup(
+      await signup(
         username,
         userPwd,
         req.body.first_name,
         req.body.last_name,
         req.body.email
       );
-      res.status(201).send(token);
+      res.status(201).end();
     } catch (error) {
       res.status(400).send(error);
     }

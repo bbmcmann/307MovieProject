@@ -18,10 +18,6 @@ function getDbConnection() {
     dbConnection.on("disconnected", function () {
       console.log(`MongoDB :: disconnected`);
     });
-
-    mongoose.connection.on("error", (err) => {
-      console.log(err);
-    });
   }
   return dbConnection;
 }
