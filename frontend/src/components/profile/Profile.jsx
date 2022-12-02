@@ -12,6 +12,8 @@ function Profile(props) {
   const [error, setError] = useState(false);
 
   const cookies = new Cookies();
+  console.log(cookies.get("token"));
+  console.log(cookies.get("userId"));
 
   const navigate = useNavigate();
 
@@ -32,8 +34,9 @@ function Profile(props) {
     }
   }, [id]);
 
+  /* edit can only be called if user is authorized so you only go to their id */
   const navigateEdit = () => {
-    navigate("/profile/edit/" + id);
+    navigate("/profile/edit/" + cookies.get("userId"));
   };
 
   /* remove cookies by signing out */

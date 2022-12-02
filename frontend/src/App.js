@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Cookies } from "react-cookie";
 import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -12,13 +13,8 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 
 function App() {
-  const storedId = localStorage.getItem("userId");
-  const [userId, setUserId] = useState(storedId);
-
-  /* locally store the ID in case the page refreshes */
-  useEffect(() => {
-    localStorage.setItem("userId", userId);
-  }, [userId]);
+  const cookies = new Cookies();
+  const [userId, setUserId] = useState(cookies.get("userId"));
 
   return (
     <div className="App">
