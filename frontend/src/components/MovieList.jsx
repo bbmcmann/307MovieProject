@@ -1,6 +1,6 @@
 import { List, ListItem, Paper } from "@mui/material";
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getBackendUrl from "./util";
@@ -18,7 +18,6 @@ const StyledPaper = styled(Paper)`
 
 function MovieList(props) {
   const [options, setOptions] = useState([]);
-  const [input] = useState("");
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = useNavigate();
@@ -26,7 +25,7 @@ function MovieList(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (props.id != -1) {
+    if (props.id !== -1) {
       //get suggested movies
       setOptions([]);
 
