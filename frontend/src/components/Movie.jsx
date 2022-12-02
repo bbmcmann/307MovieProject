@@ -59,7 +59,7 @@ function Movie() {
             <Typography variant="h5">Description:</Typography>
             <Typography variant="p">{movie?.description}</Typography>
           </StyledCon>
-          <ReviewForm />
+          <ReviewForm id={id} />
           <Typography variant="h4" className="Movie-desc">
             Reviews
           </Typography>

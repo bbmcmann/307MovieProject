@@ -70,13 +70,16 @@ function ReviewList({ reviews }) {
   return (
     <StyledCon>
       {reviews ? (
-        reviews.map((review) => {
-          return (
-            <div key={review.userName}>
-              <Review logged_in_user={cookies.get("userId")} {...review} />
-            </div>
-          );
-        })
+        reviews
+          .slice(0)
+          .reverse()
+          .map((review) => {
+            return (
+              <div key={review.userName}>
+                <Review logged_in_user={cookies.get("userId")} {...review} />
+              </div>
+            );
+          })
       ) : (
         // : testData.map((review) => {
         //     return (

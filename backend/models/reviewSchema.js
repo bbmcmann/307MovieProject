@@ -3,10 +3,11 @@ const db = require("../db.js");
 
 const ReviewSchema = new mongoose.Schema(
   {
-    review_title: { type: String, required: true },
-    text: { type: String, required: true },
-    score: { type: Number, required: true },
-    author_id: { type: mongoose.Types.ObjectId, required: true },
+    title: { type: String, required: true },
+    review: { type: String, required: true },
+    ratingVal: { type: Number, required: true },
+    user_id: { type: mongoose.Types.ObjectId, required: true },
+    user_name: { type: String, required: true },
     movie_id: { type: Number, required: true },
     date_posted: { type: Date, required: true },
     upvote_list: [

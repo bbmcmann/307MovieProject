@@ -40,6 +40,7 @@ function Profile(props) {
   function removeCookies() {
     cookies.remove("token");
     cookies.remove("userId");
+    cookies.remove("username");
     props.setUserId("");
   }
 

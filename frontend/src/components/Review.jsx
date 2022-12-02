@@ -72,6 +72,7 @@ const RevWrap = styled.div`
 function Review({
   logged_in_user,
   user_id,
+  user_name,
   _id,
   review,
   title,
@@ -175,7 +176,7 @@ function Review({
       <TopBlock>
         <h1>{title}</h1>
         <p>
-          Reviewed by: {user_id} on {date_posted}
+          Reviewed by: {user_name} on {date_posted}
         </p>
         <ScoreBlock>
           <p>Score: {ratingVal}</p>

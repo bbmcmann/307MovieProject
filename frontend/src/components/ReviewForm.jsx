@@ -1,9 +1,11 @@
+import axios from "axios";
 import { Box, Button, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Cookies } from "react-cookie";
 // import "./Movie.css";
 
 // function setValue=
@@ -19,6 +21,7 @@ const StyledForm = styled(Paper)`
 `;
 
 function ReviewForm(props) {
+  const cookies = new Cookies();
   const [rating, setRating] = useState({
     title: "",
     review: "",
@@ -47,9 +50,45 @@ function ReviewForm(props) {
       });
   }
 
-  function submitForm() {
-    props.handleSubmit(rating);
+  async function handleSubmit(rating) {
+    console.log(rating);
+    const auth_id = cookies.get("userId");
+    const poster_name = cookies.get("username");
+    console.log("poster_name");
+    console.log(poster_name);
+    console.log(auth_id);
+    const config = {
+      headers: { Authorization: `Bearer ${cookies.get("token")}` },
+    };
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}reviews`,
+        {
+          title: rating.title,
+          review: rating.review,
+          ratingVal: rating.ratingVal,
+          user_name: poster_name,
+          user_id: auth_id,
+          movie_id: props.id,
+          date_posted: new Date(),
+          upvote_list: [],
+          downvote_list: [],
+        },
+        config
+      )
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.header);
+      });
+    return true;
+  }
+
+  async function submitForm() {
+    await handleSubmit(rating); //.then((promise) =>
     setRating({ title: "", review: "", ratingVal: 1 });
+    //);
   }
 
   return (
