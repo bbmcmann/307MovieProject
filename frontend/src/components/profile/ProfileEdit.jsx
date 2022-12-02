@@ -42,7 +42,7 @@ function ProfileEdit() {
         headers: { Authorization: `Bearer ${cookies.get("token")}` },
       };
       const response = await axios.patch(
-        `http://localhost:5000/users/${id}`,
+        `${getBackendUrl()}users/${id}`,
         user,
         config
       );
