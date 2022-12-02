@@ -32,9 +32,7 @@ function MovieList(props) {
 
       try {
         axios
-          .get(
-            `${getBackendUrl()}movies/suggested?user=${props.id}`
-          )
+          .get(`${getBackendUrl()}movies/suggested?user=${props.id}`)
           .then((res) => {
             setOptions(res.data);
           });
@@ -45,11 +43,9 @@ function MovieList(props) {
     } else {
       //get popular if prop.id == -1
       try {
-        axios
-          .get(`${getBackendUrl()}movies/popular`)
-          .then((res) => {
-            setOptions(res.data);
-          });
+        axios.get(`${getBackendUrl()}movies/popular`).then((res) => {
+          setOptions(res.data);
+        });
       } catch (error) {
         console.log(error);
       }

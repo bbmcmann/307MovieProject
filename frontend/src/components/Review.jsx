@@ -5,10 +5,8 @@ import Card from "@mui/material/Card";
 import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { Cookies } from "react-cookie";
 import getBackendUrl from "./util";
-
 
 const StyledCard = styled(Card)`
   border: 1px solid #d9d9d9;
