@@ -2,9 +2,10 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { IconButton, Rating, Link } from "@mui/material";
 import Card from "@mui/material/Card";
+import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+import getBackendUrl from "./util";
 
 const StyledCard = styled(Card)`
   border: 1px solid #d9d9d9;
@@ -114,7 +115,7 @@ function Review({
       new_downvotes = downvote_list;
     }
     axios
-      .patch(`${process.env.REACT_APP_BACKEND_URL}${_id}`, {
+      .patch(`${getBackendUrl()}${_id}`, {
         upvote_list: new_upvotes,
         downvote_list: new_downvotes,
       })
