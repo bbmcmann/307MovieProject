@@ -5,7 +5,10 @@ import Card from "@mui/material/Card";
 import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { Cookies } from "react-cookie";
 import getBackendUrl from "./util";
+
 
 const StyledCard = styled(Card)`
   border: 1px solid #d9d9d9;
@@ -72,6 +75,7 @@ const RevWrap = styled.div`
 function Review({
   logged_in_user,
   user_id,
+  user_name,
   _id,
   review,
   title,
@@ -80,21 +84,22 @@ function Review({
   date_posted,
   ratingVal,
 }) {
+  const cookies = new Cookies();
   const check_voted = () => {
     //console.log("check");
-    if (!logged_in_user) {
-      logged_in_user = "63713be424fbebf4c2789dca";
-    }
-    const up_index = upvote_list.indexOf(logged_in_user);
-    const down_index = downvote_list.indexOf(logged_in_user);
-    if (up_index > -1) {
-      setVote("up");
-      return true;
-    }
-    if (down_index > -1) {
-      console.log("down");
-      setVote("down");
-      return true;
+    if (logged_in_user) {
+      const up_index = upvote_list.indexOf(logged_in_user);
+      const down_index = downvote_list.indexOf(logged_in_user);
+      if (up_index > -1) {
+        setVote("up");
+        return true;
+      }
+      if (down_index > -1) {
+        console.log("down");
+        setVote("down");
+        return true;
+      }
+      return false;
     }
     return false;
   };
@@ -102,9 +107,9 @@ function Review({
   const updateVoteLists = (isUpVote) => {
     let new_downvotes;
     let new_upvotes;
-    if (!logged_in_user) {
-      logged_in_user = "63713be424fbebf4c2789dca"; ////NOT A VALID USER ID
-    }
+    // if (!logged_in_user) {
+    //   logged_in_user = cookies.get("userId"); ////NOT A VALID USER ID
+    // }
     if (isUpVote) {
       new_downvotes = downvote_list.filter((id) => id !== logged_in_user);
       upvote_list.push(logged_in_user);
@@ -114,37 +119,52 @@ function Review({
       downvote_list.push(logged_in_user);
       new_downvotes = downvote_list;
     }
+    const config = {
+      headers: { Authorization: `Bearer ${cookies.get("token")}` },
+    };
     axios
-      .patch(`${getBackendUrl()}${_id}`, {
-        upvote_list: new_upvotes,
-        downvote_list: new_downvotes,
-      })
+      .patch(
+        `${getBackendUrl()}${_id}reviews/${_id}`,
+        {
+          upvote_list: new_upvotes,
+          downvote_list: new_downvotes,
+        },
+        config
+      )
       .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.header);
+      });
   };
 
   const handleVote = (thisVote) => {
-    if (!voted) {
-      setVoted(true);
-      console.log("voted");
-      setVote(thisVote);
-      if (thisVote === "up") {
-        setCurUpVote(curUpVote + 1);
-        updateVoteLists(true);
-      } else {
-        setCurDownVote(curDownVote + 1);
-        updateVoteLists(false);
-      }
-    } else if (vote !== thisVote) {
-      setVote(thisVote);
-      if (thisVote === "up") {
-        setCurUpVote(curUpVote + 1);
-        setCurDownVote(curDownVote - 1);
-        updateVoteLists(true);
-      } else {
-        setCurDownVote(curDownVote + 1);
-        setCurUpVote(curUpVote - 1);
-        updateVoteLists(false);
+    console.log(logged_in_user);
+    if (logged_in_user) {
+      console.log("loged in");
+      if (!voted) {
+        setVoted(true);
+        console.log("voted");
+        setVote(thisVote);
+        if (thisVote === "up") {
+          setCurUpVote(curUpVote + 1);
+          updateVoteLists(true);
+        } else {
+          setCurDownVote(curDownVote + 1);
+          updateVoteLists(false);
+        }
+      } else if (vote !== thisVote) {
+        setVote(thisVote);
+        if (thisVote === "up") {
+          setCurUpVote(curUpVote + 1);
+          setCurDownVote(curDownVote - 1);
+          updateVoteLists(true);
+        } else {
+          setCurDownVote(curDownVote + 1);
+          setCurUpVote(curUpVote - 1);
+          updateVoteLists(false);
+        }
       }
     }
   };
@@ -164,7 +184,7 @@ function Review({
         <p>
           Reviewed by:{" "}
           <Link href={link} color="#ffffff">
-            {user_id}
+            {user_name}
           </Link>{" "}
           on {date.toDateString()}
         </p>
