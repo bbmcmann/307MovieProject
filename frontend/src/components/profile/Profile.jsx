@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/Profile.css";
-import ProfileLiked from "./ProfileLiked";
 import { StyledSubmit } from "../StyledComponents";
+import getBackendUrl from "../util";
+import ProfileLiked from "./ProfileLiked";
 
 function Profile(props) {
   const [user, setUser] = useState({});
@@ -21,7 +22,7 @@ function Profile(props) {
     // fetch user info based on id
     if (id) {
       axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}users/${id}`)
+        .get(`${getBackendUrl()}users/${id}`)
         .then((res) => setUser(res.data.users_list))
         .catch((err) => {
           console.log(err);
@@ -40,6 +41,7 @@ function Profile(props) {
   function removeCookies() {
     cookies.remove("token");
     cookies.remove("userId");
+    cookies.remove("username");
     props.setUserId("");
   }
 

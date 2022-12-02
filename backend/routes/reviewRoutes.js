@@ -2,6 +2,7 @@ const express = require("express");
 const { authenticateUser } = require("./authServices.js");
 const router = express.Router();
 const reviewServices = require("./reviewServices.js");
+const movieServices = require("./movieServices.js");
 
 // //get all reviews
 // router.get("/", async (req, res) => {
@@ -23,9 +24,37 @@ router.get("/:id", async (req, res) => {
 //post a review
 router.post("/", authenticateUser, async (req, res) => {
   let rev_add = req.body;
+  console.log("adding");
+  console.log("rev_add");
+  console.log(rev_add);
   const result = await reviewServices.postReview(rev_add);
   if (result) {
-    res.status(201).send(result);
+    const movie_exists = await movieServices.movieInDb(rev_add.movie_id);
+    if (!movie_exists) {
+      console.log("MAKING MOVIE");
+      try {
+        const new_movie = await movieServices.createMovie(
+          rev_add.movie_id,
+          result._id,
+          result.ratingVal
+        );
+        console.log(new_movie);
+      } catch (error) {
+        res.status(500).end();
+      }
+    } else {
+      console.log(result);
+      const result2 = await movieServices.updateMovieById(
+        rev_add.movie_id,
+        result._id,
+        rev_add.ratingVal
+      );
+      if (result2) {
+        res.status(201).send(result2);
+      } else {
+        res.status(500).end();
+      }
+    }
   } else {
     res.status(500).end();
   }

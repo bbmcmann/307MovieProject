@@ -1,9 +1,9 @@
-import { Paper, List, ListItem } from "@mui/material";
+import { List, ListItem, Paper } from "@mui/material";
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import env from
+import styled from "styled-components";
+import getBackendUrl from "./util";
 
 const StyledPaper = styled(Paper)`
   border: 1px solid #d9d9d9;
@@ -33,7 +33,7 @@ function MovieList(props) {
       try {
         axios
           .get(
-            `${process.env.REACT_APP_BACKEND_URL}movies/suggested?user=${props.id}`
+            `${getBackendUrl()}movies/suggested?user=${props.id}`
           )
           .then((res) => {
             setOptions(res.data);
@@ -46,7 +46,7 @@ function MovieList(props) {
       //get popular if prop.id == -1
       try {
         axios
-          .get(`${process.env.REACT_APP_BACKEND_URL}movies/popular`)
+          .get(`${getBackendUrl()}movies/popular`)
           .then((res) => {
             setOptions(res.data);
           });

@@ -47,19 +47,36 @@ async function getMovieById(id) {
 async function updateMovieById(id, reviewId, reviewScore) {
   try {
     const movie = await Movie.findById(id);
-    const newScore =
-      (movie.score * movie.reviews.length + reviewScore) /
-      (movie.reviews.length + 1);
-    const result = await Movie.updateOne(
-      { _id: id },
-      {
-        $set: { score: newScore.toFixed(2) },
-        $push: { reviews: reviewId },
-      }
-    );
-    return result;
+    // console.log(`MOVIEID: ${id}`);
+    // console.log(movie);
+    // console.log(movie.reviews.length);
+    // console.log(reviewScore);
+    // console.log(typeof movie.score);
+    // console.log(typeof reviewScore);
+    // console.log(typeof movie.reviews.length);
+
+    // console.log("top");
+    // console.log(movie.score * movie.reviews.length + reviewScore);
+    // console.log("bottom");
+    // console.log(movie.reviews.length + 1);
+    try {
+      const newScore =
+        (movie.score * Number(movie.reviews.length) + reviewScore) /
+        (Number(movie.reviews.length) + 1);
+      console.log(newScore.toFixed(2));
+      const result = await Movie.updateOne(
+        { _id: id },
+        {
+          $set: { score: newScore.toFixed(2) },
+          $push: { reviews: reviewId },
+        }
+      );
+      return result;
+    } catch (error) {
+      throw new Error("could not update movie");
+    }
   } catch (error) {
-    throw new Error("Could not update movie");
+    throw new Error("Could not find movie");
   }
 }
 
