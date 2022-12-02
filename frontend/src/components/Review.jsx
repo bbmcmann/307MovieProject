@@ -1,11 +1,14 @@
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { IconButton, Rating } from "@mui/material";
+import { IconButton, Rating, Link } from "@mui/material";
 import Card from "@mui/material/Card";
+import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Cookies } from "react-cookie";
+import getBackendUrl from "./util";
+
 
 const StyledCard = styled(Card)`
   border: 1px solid #d9d9d9;
@@ -121,7 +124,7 @@ function Review({
     };
     axios
       .patch(
-        `${process.env.REACT_APP_BACKEND_URL}reviews/${_id}`,
+        `${getBackendUrl()}${_id}reviews/${_id}`,
         {
           upvote_list: new_upvotes,
           downvote_list: new_downvotes,
@@ -171,12 +174,19 @@ function Review({
   const [vote, setVote] = useState("");
   const [voted, setVoted] = useState(() => check_voted()); // might have to save this in db actually to log if they have voted on a review before
 
+  let link = "../profile/" + { user_id }.user_id;
+  let date = new Date(date_posted);
+  // console.log(link);
   return (
     <StyledCard sx={{ minWidth: 50 }}>
       <TopBlock>
         <h1>{title}</h1>
         <p>
-          Reviewed by: {user_name} on {date_posted}
+          Reviewed by:{" "}
+          <Link href={link} color="#ffffff">
+            {user_name}
+          </Link>{" "}
+          on {date.toDateString()}
         </p>
         <ScoreBlock>
           <p>Score: {ratingVal}</p>

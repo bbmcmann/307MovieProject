@@ -5,6 +5,7 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import getBackendUrl from "./util";
 
 function SearchOption(props) {
   return (
@@ -33,7 +34,7 @@ function Search() {
     debounce((text, callback) => {
       try {
         axios
-          .get(`http://localhost:5000/movies/search?query=${text}`)
+          .get(`${getBackendUrl()}movies/search?query=${text}`)
           .then((res) => res.data)
           .then(callback);
       } catch (error) {

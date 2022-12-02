@@ -5,14 +5,28 @@ const Users = UserSchema.Users;
 async function getUsers(id) {
   let result;
   if (id) {
-    result = await findUserById(id);
+    if (id.length < 20) {
+      result = await findUserByUsername(id);
+    } else {
+      result = await findUserById(id);
+    }
   } else if (id === undefined) {
     result = await Users.find();
   }
   return result;
 }
 
+async function findUserByUsername(id) {
+  console.log(" User_name:", id);
+  try {
+    return await Users.findOne({ username: id });
+  } catch (error) {
+    return false;
+  }
+}
+
 async function findUserById(id) {
+  console.log(" User Id:", id);
   try {
     return await Users.findById(id);
   } catch (error) {

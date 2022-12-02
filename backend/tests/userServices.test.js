@@ -87,7 +87,7 @@ describe("getUsers", () => {
   test("Fetching by invalid id format", async () => {
     const anyId = "123";
     const user = await userServices.getUsers(anyId);
-    expect(user).toBeUndefined();
+    expect(user).toBeNull();
   });
 
   test("Fetching by valid id and not finding", async () => {

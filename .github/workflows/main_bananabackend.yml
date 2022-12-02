@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - Banalyst
+name: Build and deploy Node.js app to Azure Web App - BananaBackend
 
 on:
   push:
@@ -9,9 +9,14 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+  MOVIE_API: ${{ secrets.MOVIE_API }}
+  TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -19,15 +24,15 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: "18.x"
+          node-version: '16.x'
 
       - name: npm install, build, and test
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
-        working-directory: backend #added
-
+          npm run test-deploy --if-present
+        working-directory: backend
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -38,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: "Production"
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -47,11 +52,12 @@ jobs:
         with:
           name: node-app
 
-      - name: "Deploy to Azure Web App"
-        uses: azure/webapps-deploy@v2
+      - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
         with:
-          app-name: "Banalyst"
-          slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3188A4C461E34AB69DB9BF0BAEC13915 }}
-          package: backend #change here
+          app-name: 'BananaBackend'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_05C71790E03240B68D647BE280A09E89 }}
+          package: backend
+          
