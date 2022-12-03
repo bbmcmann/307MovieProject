@@ -245,21 +245,23 @@ describe("Popular Movie Tests", () => {
 });
 
 describe("Suggested Movie Tests", () => {
-  test("without userId", async () => {
+  test("without userId (should return a list either way)", async () => {
     const result = await getSuggestedMovies();
 
     expect(result).toBeTruthy();
   });
 
-  // test("with userId with positives reviews", async () => {
-  //   const result = await getSuggestedMovies("");
+  test("with userId with positives reviews (still retrieves from getPopular)", async () => {
+    const val = `63884c0b9c9a9d8fc6327124`;
+    const result = await getSuggestedMovies(val);
 
-  //   expect(result).toBeTruthy();
-  // });
+    expect(result).toBeTruthy();
+  });
 
-  // test("with userId with no positive reviews", async () => {
-  //   const result = await getSuggestedMovies("");
+  test("with userId with no positive reviews", async () => {
+    const val = `638aa1538153e0cfa1bbd395`;
+    const result = await getSuggestedMovies(val);
 
-  //   expect(result).toBeTruthy();
-  // });
+    expect(result).toBeTruthy();
+  });
 });
