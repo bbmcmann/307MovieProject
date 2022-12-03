@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Profile.css";
+import getBackendUrl from "../util";
 
 function ProfileLiked({ reviews }) {
   const [movies, setMovies] = useState([]);
@@ -9,33 +10,16 @@ function ProfileLiked({ reviews }) {
 
   useEffect(() => {
     if (reviews) {
-      function handle(movie_list) {
-        return new Promise(async function (resolve, reject) {
-          try {
-            setTimeout(() => {
-              resolve(movie_list);
-            }, 3000);
-          } catch (error) {
-            reject(console.log(error));
-          }
-        });
-      }
-      async function handleMovieList() {
-        let movie_list = [];
+      function handleMovieList(movie_list) {
         let revs = reviews.filter((review) => review.ratingVal >= 5);
-        await revs.forEach((review) =>
-          movie_list.push(getMovie(review.movie_id))
-        );
-        return await handle(movie_list);
-      }
-      handleMovieList()
-        .then((result) => {
-          console.log(result);
-          setMovies(result);
-        })
-        .catch((err) => {
-          console.log(err);
+        revs.forEach(async function (review) {
+          const result = await getMovie(review.movie_id);
+          movie_list.push(result);
         });
+        return movie_list;
+      }
+      const result = handleMovieList([]);
+      setMovies(result);
     } else {
       console.log("No reviews");
     }
@@ -43,9 +27,7 @@ function ProfileLiked({ reviews }) {
 
   async function getMovie(movie_id) {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}movies/${movie_id}`
-      );
+      const res = await axios.get(`${getBackendUrl()}movies/${movie_id}`);
       const movie = res.data;
       return movie;
     } catch (error) {
@@ -71,20 +53,20 @@ function ProfileLiked({ reviews }) {
         // handleMovieList(),
         <div className="movies">
           {movies?.map((movie) => {
-            console.log(movies);
+            console.log(movie);
             return (
               <img
                 key={movie._id}
                 className="poster"
                 src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
                 alt="movie poster"
-                onClick={() => handleClick(movie.id)}
+                onClick={() => handleClick(movie._id)}
               />
             );
           })}
         </div>
       ) : (
-        <h3>--None--</h3>
+        <h3>--None--{console.log("Screw this")}</h3>
       )}
     </div>
   );
