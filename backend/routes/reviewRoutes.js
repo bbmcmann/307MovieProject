@@ -36,7 +36,7 @@ router.post("/", authenticateUser, async (req, res) => {
         const new_movie = await movieServices.createMovie(
           rev_add.movie_id,
           result._id,
-          result.ratingVal
+          Number(result.ratingVal)
         );
         console.log(new_movie);
       } catch (error) {
@@ -47,7 +47,7 @@ router.post("/", authenticateUser, async (req, res) => {
       const result2 = await movieServices.updateMovieById(
         rev_add.movie_id,
         result._id,
-        rev_add.ratingVal
+        Number(rev_add.ratingVal)
       );
       if (result2) {
         res.status(201).send(result2);
