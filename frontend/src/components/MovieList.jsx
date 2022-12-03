@@ -62,7 +62,11 @@ function MovieList(props) {
 
   return (
     <div>
-      {(props.id === -1) ? <h1>Recommended Movies</h1> : <h1>Suggested Movies</h1>}
+      {props.id === -1 ? (
+        <h1>Recommended Movies</h1>
+      ) : (
+        <h1>Suggested Movies</h1>
+      )}
       <div>
         <List>
           {options.length > 0 ? (
