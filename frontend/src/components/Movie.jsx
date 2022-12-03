@@ -12,6 +12,7 @@ import getBackendUrl from "./util";
 function Movie() {
   const [movie, setMovie] = useState({});
   const [err, setErr] = useState(false);
+  const [reviews, setReviews] = useState([]);
 
   const { id } = useParams();
 
@@ -21,6 +22,9 @@ function Movie() {
         .get(`${getBackendUrl()}movies/${id}`)
         .then((res) => {
           setMovie(res.data);
+          if (res.data.reviews) {
+            setReviews(res.data.reviews);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -28,6 +32,11 @@ function Movie() {
         });
     }
   }, [id]);
+
+  const updateReviews = (newReview) => {
+    console.log(reviews);
+    setReviews([...reviews, newReview]);
+  };
 
   return (
     <div className="Movie-body">
@@ -60,11 +69,11 @@ function Movie() {
             <Typography variant="h5">Description:</Typography>
             <Typography variant="p">{movie?.description}</Typography>
           </StyledCon>
-          <ReviewForm id={id} />
+          <ReviewForm id={id} update={updateReviews} />
           <Typography variant="h4" className="Movie-desc">
             Reviews
           </Typography>
-          <ReviewList reviews={movie.reviews} />
+          <ReviewList reviews={reviews} />
         </>
       )}
     </div>
