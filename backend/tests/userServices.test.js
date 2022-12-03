@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const UserSchema = require("../models/userSchema");
 const userServices = require("../routes/userServices");
+const { Review } = require("../models/reviewSchema");
 const db = require("../db.js");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 
@@ -95,6 +96,7 @@ describe("getUsers", () => {
     const user = await userServices.getUsers(anyId);
     expect(user).toBeNull();
   });
+
   test("Fetching by valid id and finding", async () => {
     const dummyUser = {
       username: "theboywholives",
@@ -102,6 +104,7 @@ describe("getUsers", () => {
       last_name: "Potter",
       email: "hpotter@hogwarts.edu",
       password: "iloveginny",
+      reviews: ["63713be424fbebf4c2789dca"],
     };
     const result = await userServices.addUser(dummyUser);
     const addedUser = await result.save();
@@ -294,6 +297,7 @@ describe("udpateUserById", () => {
       last_name: "potter",
     };
     const addedUser = await userServices.addUser(dummyUser);
+    console.log(addedUser);
     const result = await userServices.updateUserById(
       addedUser.id,
       updatedUser.username,

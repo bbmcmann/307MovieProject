@@ -59,7 +59,7 @@ function Header(props) {
               </div>
             </div>
             <div className="dropdown">
-              {props.id ? (
+              {props.id && cookies.get("userId") ? (
                 <button className="dropbtn">
                   <StyledLink to={`profile/${cookies.get("userId")}`}>
                     Profile

@@ -92,6 +92,10 @@ function SignIn(props) {
     }
   }
 
+  const navigateSignUp = () => {
+    navigate("/signup");
+  };
+
   return (
     <StyledCon maxWidth="md">
       <StyledForm
@@ -123,7 +127,11 @@ function SignIn(props) {
         <StyledError>{validError}</StyledError>
         <StyledSubmit type="submit" value="Login" />
         <br></br>
-        <a href="./signup">Don't have an account? Sign up here</a>
+        <StyledSubmit
+          type="button"
+          value="Create an Account"
+          onClick={navigateSignUp}
+        />
       </StyledForm>
     </StyledCon>
   );

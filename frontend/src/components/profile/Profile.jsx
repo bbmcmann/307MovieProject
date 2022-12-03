@@ -33,6 +33,7 @@ function Profile(props) {
     }
   }, [id]);
 
+  /* edit can only be called if user is authorized so you only go to their id */
   const navigateEdit = () => {
     navigate("/profile/edit/" + id);
   };
@@ -94,7 +95,7 @@ function Profile(props) {
               />
             ) : null}
           </div>
-          <ProfileLiked movies={user.reviews} />
+          <ProfileLiked reviews={user.reviews} />
         </div>
       )}
     </Paper>
