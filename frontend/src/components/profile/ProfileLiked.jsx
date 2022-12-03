@@ -9,20 +9,15 @@ function ProfileLiked({ reviews }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (reviews) {
-      function handleMovieList(movie_list) {
-        let revs = reviews.filter((review) => review.ratingVal >= 5);
-        revs.forEach(async function (review) {
-          const result = await getMovie(review.movie_id);
-          movie_list.push(result);
-        });
-        return movie_list;
-      }
-      const result = handleMovieList([]);
-      setMovies(result);
-    } else {
-      console.log("No reviews");
-    }
+    const handleMovieList = async (movie_list) => {
+      let revs = reviews.filter((review) => review.ratingVal >= 5);
+      revs.forEach(async function (review) {
+        const result = await getMovie(review.movie_id);
+        movie_list.push(result);
+      });
+      setMovies(movie_list);
+    };
+    handleMovieList([]);
   }, [reviews]);
 
   async function getMovie(movie_id) {
@@ -40,17 +35,14 @@ function ProfileLiked({ reviews }) {
     navigate(`/movie/${id}`);
   };
 
-  // logging this info twice, once with blank and then with the info we want
   console.log(reviews);
-  console.log(movies);
+  console.log(JSON.stringify(movies)); // array is still empty for some reason
+  console.log(movies); // but it asynchronously gets filled so shows up later
 
   return (
     <div className="liked-section">
       <h3>Liked Movies :</h3>
       {reviews ? (
-        //((reviews = reviews.filter((review) => review.ratingVal >= 5)),
-        //(reviews.forEach((review) => getMovie(review.movie_id)),
-        // handleMovieList(),
         <div className="movies">
           {movies?.map((movie) => {
             console.log(movie);
@@ -66,7 +58,7 @@ function ProfileLiked({ reviews }) {
           })}
         </div>
       ) : (
-        <h3>--None--{console.log("Screw this")}</h3>
+        <h3>--None--</h3>
       )}
     </div>
   );
