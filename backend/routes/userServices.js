@@ -1,4 +1,5 @@
 const UserSchema = require("../models/userSchema");
+const MovieSchema = require("../models/movieSchema");
 
 const Users = UserSchema.Users;
 
@@ -28,7 +29,8 @@ async function findUserByUsername(id) {
 async function findUserById(id) {
   console.log(" User Id:", id);
   try {
-    return await Users.findById(id);
+    const result = await Users.findById(id).populate("reviews");
+    return result;
   } catch (error) {
     //console.log(error);
     return undefined;

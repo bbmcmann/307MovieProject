@@ -105,9 +105,6 @@ function Review({
   const updateVoteLists = (isUpVote) => {
     let new_downvotes;
     let new_upvotes;
-    // if (!logged_in_user) {
-    //   logged_in_user = cookies.get("userId"); ////NOT A VALID USER ID
-    // }
     if (isUpVote) {
       new_downvotes = downvote_list.filter((id) => id !== logged_in_user);
       upvote_list.push(logged_in_user);

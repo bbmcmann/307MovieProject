@@ -7,9 +7,7 @@ import React, { useState } from "react";
 import { Cookies } from "react-cookie";
 import styled from "styled-components";
 import getBackendUrl from "./util";
-// import "./Movie.css";
 
-// function setValue=
 const StyledForm = styled(Paper)`
   text-align: left;
   padding-top: 25px;
@@ -54,13 +52,17 @@ function ReviewForm(props) {
   async function handleSubmit(rating) {
     const auth_id = cookies.get("userId");
     const poster_name = cookies.get("username");
+    const thisTitle = rating.title;
+    const thisReview = rating.review;
+    const thisScore = rating.ratingVal;
+    setRating({ title: "", review: "", ratingVal: 1 });
     const config = {
       headers: { Authorization: `Bearer ${cookies.get("token")}` },
     };
     const newRev = {
-      title: rating.title,
-      review: rating.review,
-      ratingVal: rating.ratingVal,
+      title: thisTitle,
+      review: thisReview,
+      ratingVal: thisScore,
       user_name: poster_name,
       user_id: auth_id,
       movie_id: props.id,
@@ -83,9 +85,8 @@ function ReviewForm(props) {
   }
 
   async function submitForm() {
-    await handleSubmit(rating); //.then((promise) =>
+    await handleSubmit(rating);
     setRating({ title: "", review: "", ratingVal: 1 });
-    //);
   }
 
   return (
