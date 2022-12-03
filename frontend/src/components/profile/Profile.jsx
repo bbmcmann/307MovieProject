@@ -33,8 +33,6 @@ function Profile(props) {
     }
   }, [id]);
 
-  console.log(user);
-
   /* edit can only be called if user is authorized so you only go to their id */
   const navigateEdit = () => {
     navigate("/profile/edit/" + id);
